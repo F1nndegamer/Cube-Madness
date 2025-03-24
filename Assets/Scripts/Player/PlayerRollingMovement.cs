@@ -10,7 +10,7 @@ public class PlayerRollingMovement : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask EndLayer;
     private bool isRolling = false; 
-
+    public GameObject text;
     private void Update()
     {
         if (isRolling) return;
@@ -98,7 +98,7 @@ public class PlayerRollingMovement : MonoBehaviour
             transform.position += Vector3.down * fallSpeed * Time.deltaTime;
             yield return null;
         }
-
+        text.SetActive(true);
         Debug.Log("Player Won level");
         isRolling = false;
     }
