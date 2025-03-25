@@ -4,41 +4,73 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 public class PlayerRollingMovement : MonoBehaviour
 {
-    public float rollSpeed = 5f;
+    public float rollSpeed = 1f;
     public float fallSpeed = 5f;
     public float tileSize = 1f;
     public LayerMask groundLayer;
     public LayerMask EndLayer;
+    public LayerMask PlayerLayer;
     private bool isRolling = false; 
-    public GameObject text;
-    private void Update()
+    private GameObject Wintext;
+    public bool isActive;
+    public bool isFound;
+    public Material activemat;
+    void Start()
     {
-        if (isRolling) return;
+        Wintext = GameManager.Instance.wintext;
+        if (groundLayer == 0)
+    {
+        groundLayer = LayerMask.GetMask("Ground");
+    }
+    if (EndLayer == 0)
+    {
+        EndLayer = LayerMask.GetMask("End");
+    }
+    if (PlayerLayer == 0)
+    {
+        PlayerLayer = LayerMask.GetMask("Player");
+    }
+    }
+    private void Update()
+{
+    if (isRolling) return;
 
-        Vector3 direction = Vector3.zero;
+    Vector3 direction = Vector3.zero;
+    Vector3 up2 = new Vector3(0, 2, 0);
+    if (Input.GetKeyDown(KeyCode.W)) direction = Vector3.forward;
+    if (Input.GetKeyDown(KeyCode.S)) direction = Vector3.back;
+    if (Input.GetKeyDown(KeyCode.A)) direction = Vector3.left;
+    if (Input.GetKeyDown(KeyCode.D)) direction = Vector3.right;
 
-        if (Input.GetKeyDown(KeyCode.W)) direction = Vector3.forward;
-        if (Input.GetKeyDown(KeyCode.S)) direction = Vector3.back;
-        if (Input.GetKeyDown(KeyCode.A)) direction = Vector3.left;
-        if (Input.GetKeyDown(KeyCode.D)) direction = Vector3.right;
+    if (direction != Vector3.zero)
+    {
+        Vector3 targetPos = transform.position + direction * tileSize;
 
-        if (direction != Vector3.zero)
+        Collider[] colliders = Physics.OverlapBox(targetPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, PlayerLayer);
+        foreach (Collider col in colliders)
         {
-            Vector3 targetPos = transform.position + direction * tileSize;
-
-            if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, groundLayer))
+            PlayerRollingMovement otherPlayer = col.GetComponent<PlayerRollingMovement>();
+            if (otherPlayer != null)
             {
-                StartCoroutine(Roll(direction));
-            }
-            else if(Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, EndLayer))
-            {
-                StartCoroutine(RollAndEnd(direction));
-            }
-            else{
-                StartCoroutine(RollAndFall(direction));
+                 otherPlayer.Activate();
             }
         }
+
+        if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, groundLayer))
+        {
+            StartCoroutine(Roll(direction));
+        }
+        else if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, EndLayer))
+        {
+            StartCoroutine(RollAndEnd(direction));
+        }
+        else
+        {
+            StartCoroutine(RollAndFall(direction));
+        }
     }
+}
+
 
     private IEnumerator RollAndFall(Vector3 direction)
     {
@@ -98,8 +130,16 @@ public class PlayerRollingMovement : MonoBehaviour
             transform.position += Vector3.down * fallSpeed * Time.deltaTime;
             yield return null;
         }
-        text.SetActive(true);
+        Wintext.SetActive(true);
         Debug.Log("Player Won level");
         isRolling = false;
+    }
+    public void Activate()
+    {
+        MeshRenderer meshrenderer = GetComponent<MeshRenderer>();
+        meshrenderer.material = activemat;
+        isActive = true;
+        Switcher.Instance.playerlist.Add(this);
+        isFound = true;
     }
 }

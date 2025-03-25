@@ -3,16 +3,19 @@ using System.Collections.Generic;
 
 public class Switcher : MonoBehaviour
 {
-    private PlayerRollingMovement[] players;
+    public List<PlayerRollingMovement> playerlist;
     private int currentIndex = 0;
-
+    public static Switcher Instance;
     void Start()
     {
-        players = Resources.FindObjectsOfTypeAll<PlayerRollingMovement>();
-
-        for (int i = 0; i < players.Length; i++)
+        Instance = this;
+        PlayerRollingMovement[] players = FindObjectsByType<PlayerRollingMovement>(FindObjectsSortMode.None);
+        foreach (PlayerRollingMovement player in players)
         {
-            players[i].enabled = (i == 0);
+            if(player.isFound)
+            {
+                playerlist.Add(player);
+            }
         }
     }
 
@@ -20,11 +23,11 @@ public class Switcher : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            players[currentIndex].enabled = false;
-            currentIndex = (currentIndex + 1) % players.Length;
-            players[currentIndex].enabled = true;
-            CameraFollow.Instance.target = players[currentIndex].transform;
-            Debug.Log("Switched to: " + players[currentIndex].gameObject.name);
+            playerlist[currentIndex].enabled = false;
+            currentIndex = (currentIndex + 1) % playerlist.Count;
+            playerlist[currentIndex].enabled = true;
+            CameraFollow.Instance.target = playerlist[currentIndex].transform;
+            Debug.Log("Switched to: " + playerlist[currentIndex].gameObject.name);
         }
     }
 }
