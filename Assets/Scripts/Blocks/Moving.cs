@@ -33,7 +33,7 @@ public class ExtraTileTrigger : MonoBehaviour
         {
             objectToMove.gameObject.SetActive(true);
         }
-        while (Vector3.Distance(objectToMove.position, targetPosition) > 0.01f)
+        while (Vector3.Distance(objectToMove.position, targetPosition) > 0f)
         {
             objectToMove.position = Vector3.MoveTowards(objectToMove.position, targetPosition, moveSpeed * Time.deltaTime);
             yield return null;
@@ -42,7 +42,7 @@ public class ExtraTileTrigger : MonoBehaviour
     private IEnumerator MoveObjectBack()
     {
         
-        while (Vector3.Distance(objectToMove.position, Location) > 0.01f)
+        while (Vector3.Distance(objectToMove.position, Location) > 0f)
         {
             objectToMove.position = Vector3.MoveTowards(objectToMove.position, Location, moveSpeed * Time.deltaTime);
             yield return null;

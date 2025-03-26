@@ -13,9 +13,9 @@ public class ExtraTileSelection
 public class GridGenerator : MonoBehaviour
 {
     public GameObject tilePrefab;
-    public int gridWidth = 5; 
+    public int gridWidth = 5;
     public int gridHeight = 5;
-    public float tileSize = 1f; 
+    public float tileSize = 1f;
     public List<ExtraTileSelection> extratiles = new List<ExtraTileSelection>();
     public void GenerateGrid()
     {
@@ -31,20 +31,26 @@ public class GridGenerator : MonoBehaviour
         {
             for (int z = 0; z < gridHeight; z++)
             {
-                Vector3 tilePosition = new Vector3(x * tileSize, 0, z * tileSize);
-                GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity, transform);
-                tile.name = $"Tile ({x}, {z})"; 
+                foreach (ExtraTileSelection extraTile in extratiles)
+                {
+                    if (extraTile.Pos.x != x || extraTile.Pos.z != z)// if the tile is in extratiles skip it
+                    {
+                        Vector3 tilePosition = new Vector3(x * tileSize, 0, z * tileSize);
+                        GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity, transform);
+                        tile.name = $"Tile ({x}, {z})";
+                    }
+                }
             }
         }
         foreach (ExtraTileSelection extraTile in extratiles)
         {
             if (extraTile.tilePrefab != null)
             {
-                  GameObject extra = Instantiate(extraTile.tilePrefab, extraTile.Pos, Quaternion.identity, transform);
-                  extra.name = $"Extra Tile ({extraTile.Pos.x}, {extraTile.Pos.z})";
+                GameObject extra = Instantiate(extraTile.tilePrefab, extraTile.Pos, Quaternion.identity, transform);
+                extra.name = $"Extra Tile ({extraTile.Pos.x}, {extraTile.Pos.z})";
             }
         }
-        
+
     }
 
     public void ClearGrid()

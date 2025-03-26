@@ -90,11 +90,20 @@ public class PlayerRollingMovement : MonoBehaviour
         Vector3 pivot = transform.position + (direction * tileSize / 2f) + Vector3.down * (cubeSize / 2f);
         Vector3 rotationAxis = Vector3.Cross(Vector3.up, direction);
 
-        for (float i = 0; i < 90; i += rollSpeed)
+        float rotatedAmount = 0f;
+        while (rotatedAmount < 90f)
         {
-            transform.RotateAround(pivot, rotationAxis, rollSpeed);
+            float step = rollSpeed * Time.deltaTime * 60f;
+            transform.RotateAround(pivot, rotationAxis, step);
+            rotatedAmount += step;
             yield return null;
         }
+        transform.rotation = Quaternion.Euler(
+    Mathf.Round(transform.rotation.eulerAngles.x / 90) * 90,
+    Mathf.Round(transform.rotation.eulerAngles.y / 90) * 90,
+    Mathf.Round(transform.rotation.eulerAngles.z / 90) * 90
+);
+
 
         transform.position = new Vector3(
             Mathf.Round(transform.position.x),
