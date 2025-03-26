@@ -10,66 +10,66 @@ public class PlayerRollingMovement : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask EndLayer;
     public LayerMask PlayerLayer;
-    private bool isRolling = false; 
-    private GameObject Wintext;
+    private bool isRolling = false;
     public bool isActive;
     public bool isFound;
     public Material activemat;
+    public bool GameEnd;
     void Start()
     {
-        Wintext = GameManager.Instance.wintext;
         if (groundLayer == 0)
-    {
-        groundLayer = LayerMask.GetMask("Ground");
-    }
-    if (EndLayer == 0)
-    {
-        EndLayer = LayerMask.GetMask("End");
-    }
-    if (PlayerLayer == 0)
-    {
-        PlayerLayer = LayerMask.GetMask("Player");
-    }
+        {
+            groundLayer = LayerMask.GetMask("Ground");
+        }
+        if (EndLayer == 0)
+        {
+            EndLayer = LayerMask.GetMask("End");
+        }
+        if (PlayerLayer == 0)
+        {
+            PlayerLayer = LayerMask.GetMask("Player");
+        }
     }
     private void Update()
-{
-    if (isRolling) return;
-
-    Vector3 direction = Vector3.zero;
-    Vector3 up2 = new Vector3(0, 2, 0);
-    if (Input.GetKeyDown(KeyCode.W)) direction = Vector3.forward;
-    if (Input.GetKeyDown(KeyCode.S)) direction = Vector3.back;
-    if (Input.GetKeyDown(KeyCode.A)) direction = Vector3.left;
-    if (Input.GetKeyDown(KeyCode.D)) direction = Vector3.right;
-
-    if (direction != Vector3.zero)
     {
-        Vector3 targetPos = transform.position + direction * tileSize;
+        if (isRolling) return;
 
-        Collider[] colliders = Physics.OverlapBox(targetPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, PlayerLayer);
-        foreach (Collider col in colliders)
+        Vector3 direction = Vector3.zero;
+        Vector3 up2 = new Vector3(0, 2, 0);
+        if (Input.GetKeyDown(KeyCode.W)) direction = Vector3.forward;
+        if (Input.GetKeyDown(KeyCode.S)) direction = Vector3.back;
+        if (Input.GetKeyDown(KeyCode.A)) direction = Vector3.left;
+        if (Input.GetKeyDown(KeyCode.D)) direction = Vector3.right;
+
+        if (direction != Vector3.zero)
         {
-            PlayerRollingMovement otherPlayer = col.GetComponent<PlayerRollingMovement>();
-            if (otherPlayer != null)
+            Vector3 targetPos = transform.position + direction * tileSize;
+
+            Collider[] colliders = Physics.OverlapBox(targetPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, PlayerLayer);
+            foreach (Collider col in colliders)
             {
-                 otherPlayer.Activate();
+                PlayerRollingMovement otherPlayer = col.GetComponent<PlayerRollingMovement>();
+                if (otherPlayer != null)
+                {
+                    otherPlayer.Activate();
+                    return;
+                }
+            }
+
+            if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, groundLayer))
+            {
+                StartCoroutine(Roll(direction));
+            }
+            else if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, EndLayer))
+            {
+                StartCoroutine(RollAndEnd(direction));
+            }
+            else
+            {
+                StartCoroutine(RollAndFall(direction));
             }
         }
-
-        if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, groundLayer))
-        {
-            StartCoroutine(Roll(direction));
-        }
-        else if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, EndLayer))
-        {
-            StartCoroutine(RollAndEnd(direction));
-        }
-        else
-        {
-            StartCoroutine(RollAndFall(direction));
-        }
     }
-}
 
 
     private IEnumerator RollAndFall(Vector3 direction)
@@ -130,16 +130,28 @@ public class PlayerRollingMovement : MonoBehaviour
             transform.position += Vector3.down * fallSpeed * Time.deltaTime;
             yield return null;
         }
-        Wintext.SetActive(true);
-        Debug.Log("Player Won level");
+        GameEnd = true;
         isRolling = false;
+        Switcher.Instance.playerlist.Remove(this);
+        if (Switcher.Instance.playerlist.Count > 0)
+        {
+            Switcher.Instance.currentIndex %= Switcher.Instance.playerlist.Count;
+            Switcher.Instance.playerlist[Switcher.Instance.currentIndex].enabled = true;
+            CameraFollow.Instance.target = Switcher.Instance.playerlist[Switcher.Instance.currentIndex].transform;
+        }
+
+        gameObject.SetActive(false);
     }
     public void Activate()
     {
         MeshRenderer meshrenderer = GetComponent<MeshRenderer>();
         meshrenderer.material = activemat;
         isActive = true;
-        Switcher.Instance.playerlist.Add(this);
+        if (!Switcher.Instance.playerlist.Contains(this))
+        {
+            Switcher.Instance.playerlist.Add(this);
+        }
         isFound = true;
     }
+
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 public class Switcher : MonoBehaviour
 {
-    public List<PlayerRollingMovement> playerlist;
-    private int currentIndex = 0;
+    public List<PlayerRollingMovement> playerlist = new List<PlayerRollingMovement>();
+    public int currentIndex = 0;
     public static Switcher Instance;
     void Start()
     {
@@ -12,7 +12,7 @@ public class Switcher : MonoBehaviour
         PlayerRollingMovement[] players = FindObjectsByType<PlayerRollingMovement>(FindObjectsSortMode.None);
         foreach (PlayerRollingMovement player in players)
         {
-            if(player.isFound)
+            if (player.isFound)
             {
                 playerlist.Add(player);
             }
@@ -20,14 +20,15 @@ public class Switcher : MonoBehaviour
     }
 
     void Update()
+
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            if (playerlist.Count == 0) return;
             playerlist[currentIndex].enabled = false;
             currentIndex = (currentIndex + 1) % playerlist.Count;
             playerlist[currentIndex].enabled = true;
             CameraFollow.Instance.target = playerlist[currentIndex].transform;
-            Debug.Log("Switched to: " + playerlist[currentIndex].gameObject.name);
         }
     }
 }
