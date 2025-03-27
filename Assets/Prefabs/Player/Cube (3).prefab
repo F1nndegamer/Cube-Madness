@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23c1ed18bde1a34b9450adbc6affe12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rollSpeed: 1
+  rollSpeed: 5
   fallSpeed: 5
   tileSize: 1
   groundLayer:
@@ -136,3 +136,4 @@ MonoBehaviour:
   isActive: 1
   isFound: 1
   activemat: {fileID: 2100000, guid: 8897071dea3933c4ba4849a841dca045, type: 2}
+  GameEnd: 0

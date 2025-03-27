@@ -4,19 +4,21 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 public class PlayerRollingMovement : MonoBehaviour
 {
-    public float rollSpeed = 1f;
+    public float rollSpeed = 5f;
     public float fallSpeed = 5f;
     public float tileSize = 1f;
     public LayerMask groundLayer;
     public LayerMask EndLayer;
     public LayerMask PlayerLayer;
-    private bool isRolling = false;
+    public bool isRolling = false;
     public bool isActive;
     public bool isFound;
     public Material activemat;
     public bool GameEnd;
     void Start()
     {
+        
+    FallManager.Instance.RegisterPlayer(this);
         if (groundLayer == 0)
         {
             groundLayer = LayerMask.GetMask("Ground");
@@ -30,46 +32,60 @@ public class PlayerRollingMovement : MonoBehaviour
             PlayerLayer = LayerMask.GetMask("Player");
         }
     }
-    private void Update()
+    void OnDestroy()
+{
+    FallManager.Instance.UnregisterPlayer(this);
+}
+   private void Update()
+{
+    if (isRolling) return;
+
+    bool onGround = Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, 1f, groundLayer);
+    bool onEnd = Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, 1f, EndLayer);
+
+    if (!onGround && !onEnd)
     {
-        if (isRolling) return;
+        StartCoroutine(Fall());
+        return;
+    }
 
-        Vector3 direction = Vector3.zero;
-        Vector3 up2 = new Vector3(0, 2, 0);
-        if (Input.GetKeyDown(KeyCode.W)) direction = Vector3.forward;
-        if (Input.GetKeyDown(KeyCode.S)) direction = Vector3.back;
-        if (Input.GetKeyDown(KeyCode.A)) direction = Vector3.left;
-        if (Input.GetKeyDown(KeyCode.D)) direction = Vector3.right;
+    Vector3 direction = Vector3.zero;
+    if (Input.GetKeyDown(KeyCode.W)) direction = Vector3.forward;
+    if (Input.GetKeyDown(KeyCode.S)) direction = Vector3.back;
+    if (Input.GetKeyDown(KeyCode.A)) direction = Vector3.left;
+    if (Input.GetKeyDown(KeyCode.D)) direction = Vector3.right;
 
-        if (direction != Vector3.zero)
+    if (direction == Vector3.zero) return;
+
+    Vector3 targetPos = transform.position + direction * tileSize;
+    Collider[] colliders = Physics.OverlapBox(targetPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, PlayerLayer);
+
+    foreach (Collider col in colliders)
+    {
+        PlayerRollingMovement otherPlayer = col.GetComponent<PlayerRollingMovement>();
+        if (otherPlayer != null)
         {
-            Vector3 targetPos = transform.position + direction * tileSize;
-
-            Collider[] colliders = Physics.OverlapBox(targetPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, PlayerLayer);
-            foreach (Collider col in colliders)
-            {
-                PlayerRollingMovement otherPlayer = col.GetComponent<PlayerRollingMovement>();
-                if (otherPlayer != null)
-                {
-                    otherPlayer.Activate();
-                    return;
-                }
-            }
-
-            if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, groundLayer))
-            {
-                StartCoroutine(Roll(direction));
-            }
-            else if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, EndLayer))
-            {
-                StartCoroutine(RollAndEnd(direction));
-            }
-            else
-            {
-                StartCoroutine(RollAndFall(direction));
-            }
+            otherPlayer.Activate();
+            return;
         }
     }
+
+    if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, groundLayer))
+    {
+        StartCoroutine(Roll(direction));
+    }
+    else if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, EndLayer))
+    {
+        StartCoroutine(RollAndEnd(direction));
+    }
+    else
+    {
+        StartCoroutine(RollAndFall(direction));
+    }
+}
+
+
+
 
 
     private IEnumerator RollAndFall(Vector3 direction)
@@ -114,7 +130,7 @@ public class PlayerRollingMovement : MonoBehaviour
         isRolling = false;
     }
 
-    private IEnumerator Fall()
+    public IEnumerator Fall()
     {
         isRolling = true;
 
