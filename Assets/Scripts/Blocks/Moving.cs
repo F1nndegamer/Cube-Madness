@@ -1,17 +1,28 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 public class ExtraTileTrigger : MonoBehaviour
 {
-    public Transform objectToMove;
-    public Vector3 targetPosition;
-    private Vector3 Location;
+    public List<Transform> objectToMove;
+    public List<Vector3> targetPosition = new List<Vector3>();
+    private List<Vector3> Location = new List<Vector3>();
     public float moveSpeed = 2f;
     public bool needs_active = true;
 
     private void Start()
     {
-        Location = objectToMove.position;
+        if (targetPosition.Count != objectToMove.Count)
+        {
+            Debug.LogWarning("targetPosition count does not match objectToMove count.");
+        }
+
+        for (int i = 0; i < objectToMove.Count; i++)
+        {
+            Location.Add(objectToMove[i].position);
+        }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -19,6 +30,7 @@ public class ExtraTileTrigger : MonoBehaviour
             StartCoroutine(MoveObject());
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -29,27 +41,61 @@ public class ExtraTileTrigger : MonoBehaviour
 
     private IEnumerator MoveObject()
     {
-        if(needs_active)
+        if (needs_active)
         {
-            objectToMove.gameObject.SetActive(true);
+            foreach (Transform obj in objectToMove)
+            {
+                obj.gameObject.SetActive(true);
+            }
         }
-        while (Vector3.Distance(objectToMove.position, targetPosition) > 0f)
+
+        bool moving = true;
+        while (moving)
         {
-            objectToMove.position = Vector3.MoveTowards(objectToMove.position, targetPosition, moveSpeed * Time.deltaTime);
+            moving = false;
+            for (int i = 0; i < objectToMove.Count; i++)
+            {
+                if (i >= targetPosition.Count) continue; // Prevent out-of-range errors
+
+                Transform obj = objectToMove[i];
+                Vector3 targetPos = targetPosition[i];
+
+                if (Vector3.Distance(obj.position, targetPos) > 0f)
+                {
+                    obj.position = Vector3.MoveTowards(obj.position, targetPos, moveSpeed * Time.deltaTime);
+                    moving = true;
+                }
+            }
             yield return null;
         }
     }
+
     private IEnumerator MoveObjectBack()
     {
-        
-        while (Vector3.Distance(objectToMove.position, Location) > 0f)
+        bool moving = true;
+        while (moving)
         {
-            objectToMove.position = Vector3.MoveTowards(objectToMove.position, Location, moveSpeed * Time.deltaTime);
+            moving = false;
+            for (int i = 0; i < objectToMove.Count; i++)
+            {
+                Transform obj = objectToMove[i];
+                Vector3 startPos = Location[i];
+
+                if (Vector3.Distance(obj.position, startPos) > 0f)
+                {
+                    obj.position = Vector3.MoveTowards(obj.position, startPos, moveSpeed * Time.deltaTime);
+                    moving = true;
+                }
+            }
             yield return null;
         }
-        if(needs_active)
+
+        if (needs_active)
         {
-            objectToMove.gameObject.SetActive(false);
+            foreach (Transform obj in objectToMove)
+            {
+                obj.gameObject.SetActive(false);
+            }
         }
     }
 }

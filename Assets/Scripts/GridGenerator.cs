@@ -7,7 +7,7 @@ using UnityEditor;
 public class ExtraTileSelection
 {
     public GameObject tilePrefab = null;
-    public Vector3 Pos = new Vector3(0, 0, 0);
+    public Vector3 Pos = Vector3.zero;
 }
 
 public class GridGenerator : MonoBehaviour
@@ -17,6 +17,7 @@ public class GridGenerator : MonoBehaviour
     public int gridHeight = 5;
     public float tileSize = 1f;
     public List<ExtraTileSelection> extratiles = new List<ExtraTileSelection>();
+
     public void GenerateGrid()
     {
         if (tilePrefab == null)
@@ -27,30 +28,36 @@ public class GridGenerator : MonoBehaviour
 
         ClearGrid();
 
+        // Maak een HashSet voor snellere opzoekingen van extra tiles
+        HashSet<Vector2> extraTilePositions = new HashSet<Vector2>();
+        foreach (var extra in extratiles)
+        {
+            extraTilePositions.Add(new Vector2(extra.Pos.x, extra.Pos.z));
+        }
+
         for (int x = 0; x < gridWidth; x++)
         {
             for (int z = 0; z < gridHeight; z++)
             {
-                foreach (ExtraTileSelection extraTile in extratiles)
-                {
-                    if (extraTile.Pos.x != x || extraTile.Pos.z != z)// if the tile is in extratiles skip it
-                    {
-                        Vector3 tilePosition = new Vector3(x * tileSize, 0, z * tileSize);
-                        GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity, transform);
-                        tile.name = $"Tile ({x}, {z})";
-                    }
-                }
+                // Skip als de positie in extraTilePositions zit
+                if (extraTilePositions.Contains(new Vector2(x, z))) continue;
+
+                Vector3 tilePosition = new Vector3(x * tileSize, 0, z * tileSize);
+                GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity, transform);
+                tile.name = $"Tile ({x}, {z})";
             }
         }
+
+        // Plaats de extra tiles op de correcte posities
         foreach (ExtraTileSelection extraTile in extratiles)
         {
             if (extraTile.tilePrefab != null)
             {
-                GameObject extra = Instantiate(extraTile.tilePrefab, extraTile.Pos, Quaternion.identity, transform);
+                Vector3 extraTilePosition = new Vector3(extraTile.Pos.x * tileSize, extraTile.Pos.y, extraTile.Pos.z * tileSize);
+                GameObject extra = Instantiate(extraTile.tilePrefab, extraTilePosition, Quaternion.identity, transform);
                 extra.name = $"Extra Tile ({extraTile.Pos.x}, {extraTile.Pos.z})";
             }
         }
-
     }
 
     public void ClearGrid()
