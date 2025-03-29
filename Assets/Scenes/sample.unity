@@ -4842,7 +4842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1992813454
 Transform:
   m_ObjectHideFlags: 0
@@ -4852,7 +4852,7 @@ Transform:
   m_GameObject: {fileID: 1992813453}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 1}
+  m_LocalPosition: {x: 3, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5167,7 +5167,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8, y: 0.8, z: 0.8}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &629457995911540502
 MeshFilter:
@@ -5494,8 +5494,8 @@ MonoBehaviour:
   targetPosition:
   - {x: 1, y: 0, z: -1}
   moveSpeed: 5
-  needs_active: 1
-  movementOrder: Z First
+  needs_active: 0
+  movementOrder: 1
 --- !u!1 &6202712944391143252
 GameObject:
   m_ObjectHideFlags: 0

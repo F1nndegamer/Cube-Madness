@@ -19,7 +19,6 @@ public class Win : MonoBehaviour
         {
             if(!player.GameEnd)
             {
-                Debug.Log("a player hasn't finished"); 
                 return;
             }
         }

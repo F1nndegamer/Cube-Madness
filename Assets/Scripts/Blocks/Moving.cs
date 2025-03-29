@@ -9,17 +9,9 @@ public class ExtraTileTrigger : MonoBehaviour
     private List<Vector3> Location = new List<Vector3>();
     public float moveSpeed = 2f;
     public bool needs_active = true;
-
-    [SerializeField] private MovementOrder movementOrder = MovementOrder.AtOnce; // SerializeField to expose enum in the inspector
-
-    public enum MovementOrder
-    {
-        AtOnce,
-        XFirst,
-        YFirst,
-        ZFirst
-    }
-
+    public enum MovementOrder { At_Once, X_First, Y_First, Z_First };
+    public MovementOrder Order;
+    public bool isMoving;
     private void Start()
     {
         if (targetPosition.Count != objectToMove.Count)
@@ -35,10 +27,10 @@ public class ExtraTileTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isMoving)
         {
+            StopAllCoroutines();
             StartCoroutine(MoveObject());
-            print("PlayerEnter");
         }
     }
 
@@ -46,6 +38,7 @@ public class ExtraTileTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            StopAllCoroutines();
             StartCoroutine(MoveObjectBack());
         }
     }
@@ -60,83 +53,214 @@ public class ExtraTileTrigger : MonoBehaviour
             }
         }
 
-        bool moving = true;
-        while (moving)
+        isMoving = true;
+        while (isMoving)
         {
-            moving = false;
-
-            switch (movementOrder)
+            isMoving = false;
+            for (int i = 0; i < objectToMove.Count; i++)
             {
-                case MovementOrder.AtOnce:
-                    for (int i = 0; i < objectToMove.Count; i++)
-                    {
-                        if (i >= targetPosition.Count) continue;
+                if (i >= targetPosition.Count) continue; // Prevent out-of-range errors
 
-                        Transform obj = objectToMove[i];
-                        Vector3 targetPos = targetPosition[i];
-
+                Transform obj = objectToMove[i];
+                Vector3 targetPos = targetPosition[i];
+                switch (Order)
+                {
+                    case MovementOrder.At_Once:
                         if (Vector3.Distance(obj.position, targetPos) > 0f)
                         {
                             obj.position = Vector3.MoveTowards(obj.position, targetPos, moveSpeed * Time.deltaTime);
-                            moving = true;
+                            isMoving = true;
                         }
-                    }
-                    break;
-
-                case MovementOrder.XFirst:
-                    moving = MoveInOrder(0);
-                    break;
-
-                case MovementOrder.YFirst:
-                    moving = MoveInOrder(1);
-                    break;
-
-                case MovementOrder.ZFirst:
-                    moving = MoveInOrder(2);
-                    break;
+                        break;
+                    case MovementOrder.X_First:
+                        // Move along X axis first
+                        if (Mathf.Abs(obj.position.x - targetPos.x) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
+                                obj.position.y,
+                                obj.position.z
+                            );
+                            isMoving = true;
+                        }
+                        // Once the X position is reached, move along Y and Z axes
+                        else if (Mathf.Abs(obj.position.y - targetPos.y) > 0f || Mathf.Abs(obj.position.z - targetPos.z) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                obj.position.x, // X is already correct
+                                Mathf.MoveTowards(obj.position.y, targetPos.y, moveSpeed * Time.deltaTime),
+                                Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime)
+                            );
+                            isMoving = true;
+                        }
+                        break;
+                    case MovementOrder.Y_First:
+                        // Move along Y axis first
+                        if (Mathf.Abs(obj.position.y - targetPos.y) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                obj.position.x,
+                                Mathf.MoveTowards(obj.position.y, targetPos.y, moveSpeed * Time.deltaTime),
+                                obj.position.z
+                            );
+                            isMoving = true;
+                        }
+                        // Once the Y position is reached, move along X and Z axes
+                        else if (Mathf.Abs(obj.position.x - targetPos.x) > 0f || Mathf.Abs(obj.position.z - targetPos.z) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
+                                obj.position.y, // Y is already correct
+                                Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime)
+                            );
+                            isMoving = true;
+                        }
+                        break;
+                    case MovementOrder.Z_First:
+                        // Move along Z axis first
+                        if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                obj.position.x,
+                                obj.position.y,
+                                Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime)
+                            );
+                            isMoving = true;
+                        }
+                        // Once the Z position is reached, move along X and Y axes
+                        else if (Mathf.Abs(obj.position.x - targetPos.x) > 0f || Mathf.Abs(obj.position.y - targetPos.y) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
+                                Mathf.MoveTowards(obj.position.y, targetPos.y, moveSpeed * Time.deltaTime),
+                                obj.position.z // Z is already correct
+                            );
+                            isMoving = true;
+                        }
+                        break;
+                }
             }
-
-            yield return null;
+            yield return new WaitForFixedUpdate();;
         }
     }
 
+
     private IEnumerator MoveObjectBack()
     {
-        bool moving = true;
-        while (moving)
+        isMoving = true;
+        while (isMoving)
         {
-            moving = false;
-
-            switch (movementOrder)
+            isMoving = false;
+            for (int i = 0; i < objectToMove.Count; i++)
             {
-                case MovementOrder.AtOnce:
-                    for (int i = 0; i < objectToMove.Count; i++)
-                    {
-                        Transform obj = objectToMove[i];
-                        Vector3 startPos = Location[i];
+                Transform obj = objectToMove[i];
+                Vector3 targetPos = Location[i];
 
-                        if (Vector3.Distance(obj.position, startPos) > 0f)
+                switch (Order)
+                {
+                    case MovementOrder.At_Once:
+                        if (Vector3.Distance(obj.position, targetPos) > 0f)
                         {
-                            obj.position = Vector3.MoveTowards(obj.position, startPos, moveSpeed * Time.deltaTime);
-                            moving = true;
+                            obj.position = Vector3.MoveTowards(obj.position, targetPos, moveSpeed * Time.deltaTime);
+                            isMoving = true;
                         }
-                    }
-                    break;
+                        break;
 
-                case MovementOrder.XFirst:
-                    moving = MoveBackInOrder(0);
-                    break;
+                    case MovementOrder.X_First:
+                        // Move back in the reversed order: Z → Y → X
+                        if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                obj.position.x,
+                                obj.position.y,
+                                Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime)
+                            );
+                            isMoving = true;
+                        }
+                        else if (Mathf.Abs(obj.position.y - targetPos.y) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                obj.position.x,
+                                Mathf.MoveTowards(obj.position.y, targetPos.y, moveSpeed * Time.deltaTime),
+                                obj.position.z
+                            );
+                            isMoving = true;
+                        }
+                        else if (Mathf.Abs(obj.position.x - targetPos.x) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
+                                obj.position.y,
+                                obj.position.z
+                            );
+                            isMoving = true;
+                        }
+                        break;
 
-                case MovementOrder.YFirst:
-                    moving = MoveBackInOrder(1);
-                    break;
+                    case MovementOrder.Y_First:
+                        // Move back in the reversed order: Z → X → Y
+                        if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                obj.position.x,
+                                obj.position.y,
+                                Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime)
+                            );
+                            isMoving = true;
+                        }
+                        else if (Mathf.Abs(obj.position.x - targetPos.x) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
+                                obj.position.y,
+                                obj.position.z
+                            );
+                            isMoving = true;
+                        }
+                        else if (Mathf.Abs(obj.position.y - targetPos.y) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                obj.position.x,
+                                Mathf.MoveTowards(obj.position.y, targetPos.y, moveSpeed * Time.deltaTime),
+                                obj.position.z
+                            );
+                            isMoving = true;
+                        }
+                        break;
 
-                case MovementOrder.ZFirst:
-                    moving = MoveBackInOrder(2);
-                    break;
+                    case MovementOrder.Z_First:
+                        // Move back in the reversed order: X → Y → Z
+                        if (Mathf.Abs(obj.position.x - targetPos.x) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
+                                obj.position.y,
+                                obj.position.z
+                            );
+                            isMoving = true;
+                        }
+                        else if (Mathf.Abs(obj.position.y - targetPos.y) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                obj.position.x,
+                                Mathf.MoveTowards(obj.position.y, targetPos.y, moveSpeed * Time.deltaTime),
+                                obj.position.z
+                            );
+                            isMoving = true;
+                        }
+                        else if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
+                        {
+                            obj.position = new Vector3(
+                                obj.position.x,
+                                obj.position.y,
+                                Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime)
+                            );
+                            isMoving = true;
+                        }
+                        break;
+                }
             }
-
-            yield return null;
+            yield return new WaitForFixedUpdate();;
         }
 
         if (needs_active)
@@ -148,87 +272,4 @@ public class ExtraTileTrigger : MonoBehaviour
         }
     }
 
-    private bool MoveInOrder(int axis)
-    {
-        bool moving = false;
-
-        for (int i = 0; i < objectToMove.Count; i++)
-        {
-            if (i >= targetPosition.Count) continue;
-
-            Transform obj = objectToMove[i];
-            Vector3 targetPos = targetPosition[i];
-            Vector3 currentPos = obj.position;
-
-            switch (axis)
-            {
-                case 0:
-                    if (currentPos.x != targetPos.x)
-                    {
-                        currentPos.x = Mathf.MoveTowards(currentPos.x, targetPos.x, moveSpeed * Time.deltaTime);
-                        moving = true;
-                    }
-                    break;
-                case 1:
-                    if (currentPos.y != targetPos.y)
-                    {
-                        currentPos.y = Mathf.MoveTowards(currentPos.y, targetPos.y, moveSpeed * Time.deltaTime);
-                        moving = true;
-                    }
-                    break;
-                case 2:
-                    if (currentPos.z != targetPos.z)
-                    {
-                        currentPos.z = Mathf.MoveTowards(currentPos.z, targetPos.z, moveSpeed * Time.deltaTime);
-                        moving = true;
-                    }
-                    break;
-            }
-
-            obj.position = currentPos;
-        }
-
-        return moving;
-    }
-
-    private bool MoveBackInOrder(int axis)
-    {
-        bool moving = false;
-
-        for (int i = 0; i < objectToMove.Count; i++)
-        {
-            Transform obj = objectToMove[i];
-            Vector3 startPos = Location[i];
-            Vector3 currentPos = obj.position;
-
-            switch (axis)
-            {
-                case 0:
-                    if (currentPos.x != startPos.x)
-                    {
-                        currentPos.x = Mathf.MoveTowards(currentPos.x, startPos.x, moveSpeed * Time.deltaTime);
-                        moving = true;
-                    }
-                    break;
-                case 1:
-                    if (currentPos.y != startPos.y)
-                    {
-                        currentPos.y = Mathf.MoveTowards(currentPos.y, startPos.y, moveSpeed * Time.deltaTime);
-                        moving = true;
-                    }
-                    break;
-                case 2:
-                    if (currentPos.z != startPos.z)
-                    {
-                        currentPos.z = Mathf.MoveTowards(currentPos.z, startPos.z, moveSpeed * Time.deltaTime);
-                        moving = true;
-                    }
-                    break;
-            }
-
-            obj.position = currentPos;
-        }
-
-        return moving;
-    }
 }
