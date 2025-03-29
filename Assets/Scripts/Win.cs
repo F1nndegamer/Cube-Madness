@@ -10,7 +10,6 @@ public class Win : MonoBehaviour
     void Start()
     {
         players = FindObjectsByType<PlayerRollingMovement>(FindObjectsSortMode.None);
-        Wintext = GameManager.Instance.wintext;
     }
 
     // Update is called once per frame

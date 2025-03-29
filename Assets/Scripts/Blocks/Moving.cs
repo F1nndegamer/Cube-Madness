@@ -9,7 +9,7 @@ public class ExtraTileTrigger : MonoBehaviour
     private List<Vector3> Location = new List<Vector3>();
     public float moveSpeed = 2f;
     public bool needs_active = true;
-
+    string[] MovementOrder = { "At Once", "X First", "Y First", "Z First" };
     private void Start()
     {
         if (targetPosition.Count != objectToMove.Count)
@@ -23,7 +23,7 @@ public class ExtraTileTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
