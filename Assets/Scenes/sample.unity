@@ -4842,7 +4842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1992813454
 Transform:
   m_ObjectHideFlags: 0
@@ -5236,7 +5236,7 @@ GameObject:
   - component: {fileID: 8378656582847642136}
   - component: {fileID: 3543743263455235843}
   m_Layer: 3
-  m_Name: PressurePlate
+  m_Name: Pres (1, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5490,13 +5490,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToMove:
-  - {fileID: 0}
+  - {fileID: 1992813454}
   targetPosition:
-  - {x: 8.632639e-11, y: 7.64e-43, z: -1.15389464e-35}
-  - {x: 7.61e-43, y: 8.632661e-11, z: 7.64e-43}
-  - {x: -1.15389464e-35, y: 7.61e-43, z: 8.6326835e-11}
+  - {x: 1, y: 0, z: -1}
   moveSpeed: 5
   needs_active: 1
+  movementOrder: Z First
 --- !u!1 &6202712944391143252
 GameObject:
   m_ObjectHideFlags: 0
