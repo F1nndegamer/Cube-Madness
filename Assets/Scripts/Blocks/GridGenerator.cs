@@ -79,7 +79,11 @@ public class GridGenerator : MonoBehaviour
 
         foreach (Transform child in transform)
         {
+#if UNITY_EDITOR
             GameObject sourcePrefab = PrefabUtility.GetCorrespondingObjectFromSource(child.gameObject);
+#else
+            GameObject sourcePrefab = null;
+#endif
             if (sourcePrefab == null) continue;
 
             Vector3 worldPos = child.position;

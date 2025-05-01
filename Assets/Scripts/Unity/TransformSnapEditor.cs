@@ -18,22 +18,86 @@ public class TransformSnapEditor : Editor
             {
                 if (Event.current.type == EventType.MouseUp)
                 {
-                    Vector3 snappedPosition = new Vector3(
-                        Mathf.Round(t.position.x),
-                        Mathf.Round(t.position.y),
-                        Mathf.Round(t.position.z)
-                    );
-
-                    t.position = snappedPosition;
-                    EditorUtility.SetDirty(t);
-                    string pattern = @"\(\s*-?\d+\s*,\s*-?\d+\s*\)";
-                    string replacement = $"({(int)snappedPosition.x}, {(int)snappedPosition.z})";
-
-                    if (Regex.IsMatch(t.name, pattern))
+                    if (t.name.StartsWith("WallZ"))
                     {
-                        t.name = Regex.Replace(t.name, pattern, replacement);
-                    }
+                        float snappedX = Mathf.Round(t.position.x * 2) / 2f;
 
+                        if (snappedX == Mathf.Floor(snappedX))
+                        {
+                            snappedX += 0.5f;
+                        }
+                        Vector3 snappedPosition = new Vector3(
+                            snappedX,
+                            Mathf.Round(t.position.y),
+                            Mathf.Round(t.position.z)
+                        );
+                        snappedPosition = new Vector3(
+                            snappedPosition.x,
+                          snappedPosition.y - 0.2f,
+                           snappedPosition.z
+
+                        );
+                        t.position = snappedPosition;
+                        EditorUtility.SetDirty(t);
+
+                        string pattern = @"\(\s*-?\d+\s*,\s*-?\d+\s*\)";
+                        string replacement = $"({(int)snappedPosition.x}, {(int)snappedPosition.z})";
+
+                        if (Regex.IsMatch(t.name, pattern))
+                        {
+                            t.name = Regex.Replace(t.name, pattern, replacement);
+                        }
+                    }
+                    else if (t.name.StartsWith("WallX"))
+                    {
+                        float snappedZ = Mathf.Round(t.position.z * 2) / 2f;
+
+                        if (snappedZ == Mathf.Floor(snappedZ))
+                        {
+                            snappedZ += 0.5f;
+                        }
+                        Vector3 snappedPosition = new Vector3(
+
+                            Mathf.Round(t.position.x),
+                            Mathf.Round(t.position.y),
+                            snappedZ
+                        );
+                        snappedPosition = new Vector3(
+                            snappedPosition.x,
+                          snappedPosition.y - 0.2f,
+                           snappedPosition.z
+
+                        );
+                        t.position = snappedPosition;
+                        EditorUtility.SetDirty(t);
+
+                        string pattern = @"\(\s*-?\d+\s*,\s*-?\d+\s*\)";
+                        string replacement = $"({(int)snappedPosition.x}, {(int)snappedPosition.z})";
+
+                        if (Regex.IsMatch(t.name, pattern))
+                        {
+                            t.name = Regex.Replace(t.name, pattern, replacement);
+                        }
+                    }
+                    else
+                    {
+                        Vector3 snappedPosition = new Vector3(
+                            Mathf.Round(t.position.x),
+                            Mathf.Round(t.position.y),
+                            Mathf.Round(t.position.z)
+                        );
+
+                        t.position = snappedPosition;
+                        EditorUtility.SetDirty(t);
+
+                        string pattern = @"\(\s*-?\d+\s*,\s*-?\d+\s*\)";
+                        string replacement = $"({(int)snappedPosition.x}, {(int)snappedPosition.z})";
+
+                        if (Regex.IsMatch(t.name, pattern))
+                        {
+                            t.name = Regex.Replace(t.name, pattern, replacement);
+                        }
+                    }
                 }
             }
         }
