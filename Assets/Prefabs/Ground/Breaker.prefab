@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 843718448922385355}
   - component: {fileID: 1968510580917604065}
   m_Layer: 3
-  m_Name: Tile (2, 3)
+  m_Name: Breaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

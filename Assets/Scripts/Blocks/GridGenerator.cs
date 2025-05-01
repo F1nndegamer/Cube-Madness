@@ -1,7 +1,9 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 [System.Serializable]
 public class ExtraTileSelection
@@ -28,7 +30,6 @@ public class GridGenerator : MonoBehaviour
 
         ClearGrid();
 
-        // Maak een HashSet voor snellere opzoekingen van extra tiles
         HashSet<Vector2> extraTilePositions = new HashSet<Vector2>();
         foreach (var extra in extratiles)
         {
@@ -39,25 +40,66 @@ public class GridGenerator : MonoBehaviour
         {
             for (int z = 0; z < gridHeight; z++)
             {
-                // Skip als de positie in extraTilePositions zit
                 if (extraTilePositions.Contains(new Vector2(x, z))) continue;
 
                 Vector3 tilePosition = new Vector3(x * tileSize, 0, z * tileSize);
+#if UNITY_EDITOR
+                GameObject tile = (GameObject)PrefabUtility.InstantiatePrefab(tilePrefab, transform);
+#else
                 GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity, transform);
+#endif
+                tile.transform.position = tilePosition;
+                tile.transform.rotation = Quaternion.identity;
                 tile.name = $"Tile ({x}, {z})";
             }
         }
 
-        // Plaats de extra tiles op de correcte posities
         foreach (ExtraTileSelection extraTile in extratiles)
         {
             if (extraTile.tilePrefab != null)
             {
                 Vector3 extraTilePosition = new Vector3(extraTile.Pos.x * tileSize, extraTile.Pos.y, extraTile.Pos.z * tileSize);
+#if UNITY_EDITOR
+                GameObject extra = (GameObject)PrefabUtility.InstantiatePrefab(extraTile.tilePrefab, transform);
+#else
                 GameObject extra = Instantiate(extraTile.tilePrefab, extraTilePosition, Quaternion.identity, transform);
-                extra.name = $"Extra Tile ({extraTile.Pos.x}, {extraTile.Pos.z})";
+#endif
+                extra.transform.position = extraTilePosition;
+                extra.transform.rotation = Quaternion.identity;
+                extra.name = $"{extraTile.tilePrefab.name} Extra Tile ({extraTile.Pos.x}, {extraTile.Pos.z})";
             }
         }
+    }
+
+    public void ExtractTilesFromScene()
+    {
+        extratiles.Clear();
+        int maxX = 0;
+        int maxZ = 0;
+
+        foreach (Transform child in transform)
+        {
+            GameObject sourcePrefab = PrefabUtility.GetCorrespondingObjectFromSource(child.gameObject);
+            if (sourcePrefab == null) continue;
+
+            Vector3 worldPos = child.position;
+            int tileX = Mathf.RoundToInt(worldPos.x / tileSize);
+            int tileZ = Mathf.RoundToInt(worldPos.z / tileSize);
+            float tileY = worldPos.y;
+
+            extratiles.Add(new ExtraTileSelection
+            {
+                tilePrefab = sourcePrefab,
+                Pos = new Vector3(tileX, tileY, tileZ)
+            });
+
+            maxX = Mathf.Max(maxX, tileX);
+            maxZ = Mathf.Max(maxZ, tileZ);
+        }
+
+        gridWidth = maxX + 1;
+        gridHeight = maxZ + 1;
+        Debug.Log($"Extracted {extratiles.Count} tiles. Grid size set to {gridWidth}x{gridHeight}.");
     }
 
     public void ClearGrid()
@@ -88,6 +130,12 @@ public class GridGeneratorEditor : Editor
         if (GUILayout.Button("Clear Grid"))
         {
             gridGenerator.ClearGrid();
+            EditorUtility.SetDirty(gridGenerator);
+        }
+
+        if (GUILayout.Button("Extract From Scene"))
+        {
+            gridGenerator.ExtractTilesFromScene();
             EditorUtility.SetDirty(gridGenerator);
         }
     }
