@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEditor;
 using System.Text.RegularExpressions;
-using UnityEditor.Build;
 
 [CustomEditor(typeof(Transform))]
 public class TransformSnapEditor : Editor
@@ -10,7 +9,6 @@ public class TransformSnapEditor : Editor
     private void OnSceneGUI()
     {
         Transform t = (Transform)target;
-
         if (t.parent != null)
         {
             PlayerRollingMovement playerscript = t.gameObject.GetComponent<PlayerRollingMovement>();
@@ -18,88 +16,59 @@ public class TransformSnapEditor : Editor
             {
                 if (Event.current.type == EventType.MouseUp)
                 {
+                    Vector3 position = t.position;
                     if (t.name.StartsWith("WallZ"))
                     {
-                        float snappedX = Mathf.Round(t.position.x * 2) / 2f;
-
-                        if (snappedX == Mathf.Floor(snappedX))
-                        {
-                            snappedX += 0.5f;
-                        }
-                        Vector3 snappedPosition = new Vector3(
-                            snappedX,
-                            Mathf.Round(t.position.y),
-                            Mathf.Round(t.position.z)
-                        );
-                        snappedPosition = new Vector3(
-                            snappedPosition.x,
-                          snappedPosition.y - 0.2f,
-                           snappedPosition.z
-
-                        );
-                        t.position = snappedPosition;
-                        EditorUtility.SetDirty(t);
-
-                        string pattern = @"\(\s*-?\d+\s*,\s*-?\d+\s*\)";
-                        string replacement = $"({(int)snappedPosition.x}, {(int)snappedPosition.z})";
-
-                        if (Regex.IsMatch(t.name, pattern))
-                        {
-                            t.name = Regex.Replace(t.name, pattern, replacement);
-                        }
+                        SnapToInterval(ref position, true);
                     }
                     else if (t.name.StartsWith("WallX"))
                     {
-                        float snappedZ = Mathf.Round(t.position.z * 2) / 2f;
-
-                        if (snappedZ == Mathf.Floor(snappedZ))
-                        {
-                            snappedZ += 0.5f;
-                        }
-                        Vector3 snappedPosition = new Vector3(
-
-                            Mathf.Round(t.position.x),
-                            Mathf.Round(t.position.y),
-                            snappedZ
-                        );
-                        snappedPosition = new Vector3(
-                            snappedPosition.x,
-                          snappedPosition.y - 0.2f,
-                           snappedPosition.z
-
-                        );
-                        t.position = snappedPosition;
-                        EditorUtility.SetDirty(t);
-
-                        string pattern = @"\(\s*-?\d+\s*,\s*-?\d+\s*\)";
-                        string replacement = $"({(int)snappedPosition.x}, {(int)snappedPosition.z})";
-
-                        if (Regex.IsMatch(t.name, pattern))
-                        {
-                            t.name = Regex.Replace(t.name, pattern, replacement);
-                        }
+                        SnapToInterval(ref position, false);
                     }
                     else
                     {
-                        Vector3 snappedPosition = new Vector3(
-                            Mathf.Round(t.position.x),
-                            Mathf.Round(t.position.y),
-                            Mathf.Round(t.position.z)
-                        );
-
-                        t.position = snappedPosition;
-                        EditorUtility.SetDirty(t);
-
-                        string pattern = @"\(\s*-?\d+\s*,\s*-?\d+\s*\)";
-                        string replacement = $"({(int)snappedPosition.x}, {(int)snappedPosition.z})";
-
-                        if (Regex.IsMatch(t.name, pattern))
-                        {
-                            t.name = Regex.Replace(t.name, pattern, replacement);
-                        }
+                        SnapToInteger(ref position);
                     }
+                    t.position = position;
+                    EditorUtility.SetDirty(t);
+                    UpdateNameWithPosition(position);
                 }
             }
+        }
+    }
+
+    private void SnapToInterval(ref Vector3 position, bool isWallZ)
+    {
+        if (isWallZ)
+        {
+            position.x = Mathf.Round(position.x * 2) / 2f;
+            if (position.x == Mathf.Floor(position.x)) position.x += 0.5f;
+            position.z = Mathf.Round(position.z);
+        }
+        else
+        {
+            position.z = Mathf.Round(position.z * 2) / 2f;
+            if (position.z == Mathf.Floor(position.z)) position.z += 0.5f;
+            position.x = Mathf.Round(position.x);
+        }
+        position.y = Mathf.Round(position.y);
+        position.y -= 0.2f;
+    }
+
+    private void SnapToInteger(ref Vector3 position)
+    {
+        position.x = Mathf.Round(position.x);
+        position.y = Mathf.Round(position.y);
+        position.z = Mathf.Round(position.z);
+    }
+
+    private void UpdateNameWithPosition(Vector3 position)
+    {
+        string pattern = @"\(\s*-?\d+\s*,\s*-?\d+\s*\)";
+        string replacement = $"({(int)position.x}, {(int)position.z})";
+        if (Regex.IsMatch(target.name, pattern))
+        {
+            target.name = Regex.Replace(target.name, pattern, replacement);
         }
     }
 }
