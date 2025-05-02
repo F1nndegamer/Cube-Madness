@@ -122,10 +122,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2485675bab3d04bb94df01a57a55e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToMove: {fileID: 0}
-  targetPosition: {x: 4, y: 0, z: 0}
+  objectToMove:
+  - {fileID: 0}
+  targetPosition:
+  - {x: -4.2531115e-26, y: 8.84e-43, z: 7.044087e+17}
+  - {x: 8.83e-43, y: -4.2531214e-26, z: 8.84e-43}
+  - {x: 7.044087e+17, y: 8.83e-43, z: -4.2531312e-26}
+  players: []
   moveSpeed: 5
   needs_active: 1
+  Order: 0
+  isMoving: 0
+  playermoves: 0
+  PlayerHeight: 0.95
 --- !u!54 &6438417582735743199
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -167,7 +176,7 @@ GameObject:
   - component: {fileID: 692842026823499640}
   - component: {fileID: 5545734730478471779}
   m_Layer: 3
-  m_Name: PressurePlate
+  m_Name: PressurePlate (0, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

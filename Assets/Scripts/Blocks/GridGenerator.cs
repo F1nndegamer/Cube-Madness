@@ -66,7 +66,9 @@ public class GridGenerator : MonoBehaviour
 #endif
                 extra.transform.position = extraTilePosition;
                 extra.transform.rotation = Quaternion.identity;
-                extra.name = $"{extraTile.tilePrefab.name} Extra Tile ({extraTile.Pos.x}, {extraTile.Pos.z})";
+                string firstWord = extraTile.tilePrefab.name.Split(' ')[0];
+                extra.name = $"{firstWord} Extra Tile ({extraTile.Pos.x}, {extraTile.Pos.z})";
+
             }
         }
     }

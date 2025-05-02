@@ -131,6 +131,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2349197842999943821, guid: a88c93c6dfe00b442baa97cb8fc9cd3d, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 255923525}
+    - target: {fileID: 3660048474155479702, guid: a88c93c6dfe00b442baa97cb8fc9cd3d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5500738498524380198, guid: a88c93c6dfe00b442baa97cb8fc9cd3d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -253,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2187865112333dc4db1c4cae56173def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 992925987}
   offset: {x: 0, y: 1.5, z: -5}
   smoothSpeed: 2
 --- !u!114 &255923523

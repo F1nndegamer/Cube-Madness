@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 1238968642372093295}
   - component: {fileID: 2274918145059654810}
   - component: {fileID: 306013640326517559}
+  - component: {fileID: 5977800714605539358}
   m_Layer: 3
-  m_Name: Tile (2, 3) (1)
+  m_Name: Interact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,6 +137,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5977800714605539358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4057627023333599878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953dbcd0b5be65748a55afae24720bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blocks: []
 --- !u!1 &6647524679638447447
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +163,7 @@ GameObject:
   - component: {fileID: 843718448922385355}
   - component: {fileID: 1968510580917604065}
   m_Layer: 3
-  m_Name: Breaker
+  m_Name: Breaker (0, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
