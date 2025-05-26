@@ -12,6 +12,7 @@ public class PlayerRollingMovement : MonoBehaviour
     public LayerMask EndLayer;
     public LayerMask PlayerLayer;
     public LayerMask WallLayer;
+    public LayerMask MoveLayer;
     public bool isRolling = false;
     public bool isActive;
     public bool isFound;
@@ -32,6 +33,10 @@ public class PlayerRollingMovement : MonoBehaviour
         if (PlayerLayer == 0)
         {
             PlayerLayer = LayerMask.GetMask("Player");
+        }
+        if (MoveLayer == 0)
+        {
+            PlayerLayer = LayerMask.GetMask("Movable");
         }
     }
     void OnDestroy()
@@ -64,9 +69,9 @@ public class PlayerRollingMovement : MonoBehaviour
         Collider[] colliders = Physics.OverlapBox(targetPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, PlayerLayer);
         Vector3 wallPos = targetPos - direction * (tileSize * 0.5f);
         Collider[] wallcolliders = Physics.OverlapBox(wallPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, WallLayer);
-        if(wallcolliders.Length > 0)
+        if (wallcolliders.Length > 0)
         {
-            
+
         }
         else if (colliders.Length > 0)
         {
