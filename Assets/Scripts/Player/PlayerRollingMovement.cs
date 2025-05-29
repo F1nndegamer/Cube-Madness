@@ -22,6 +22,14 @@ public class PlayerRollingMovement : MonoBehaviour
 
     public Material activemat;
 
+    // Touch detection
+    private Vector2 touchStartPos;
+    private Vector2 touchEndPos;
+    private float minSwipeDist = 50f; // minimum swipe distance to register
+    private float maxTapTime = 0.2f;
+    private float touchStartTime;
+
+
     void Start()
     {
         FallManager.Instance.RegisterPlayer(this);
@@ -47,20 +55,55 @@ public class PlayerRollingMovement : MonoBehaviour
     {
         if (isRolling) return;
 
-        bool onGround = Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, 1f, groundLayer);
-        bool onEnd = Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, 1f, EndLayer);
-
-        if (!onGround && !onEnd)
-        {
-            StartCoroutine(Fall());
-            return;
-        }
-
+        // Desktop keyboard controls
         Vector3 direction = Vector3.zero;
         if (Input.GetKeyDown(KeyCode.W)) direction = Vector3.forward;
         if (Input.GetKeyDown(KeyCode.S)) direction = Vector3.back;
         if (Input.GetKeyDown(KeyCode.A)) direction = Vector3.left;
         if (Input.GetKeyDown(KeyCode.D)) direction = Vector3.right;
+
+        // Mobile touch controls
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    touchStartPos = touch.position;
+                    touchStartTime = Time.time;
+                    break;
+
+                case TouchPhase.Ended:
+                    touchEndPos = touch.position;
+                    float swipeDist = (touchEndPos - touchStartPos).magnitude;
+                    float swipeTime = Time.time - touchStartTime;
+
+                    if (swipeDist >= minSwipeDist)
+                    {
+                        Vector2 swipeVector = touchEndPos - touchStartPos;
+                        swipeVector.Normalize();
+
+                        // Detect swipe direction (4-way)
+                        if (Vector2.Dot(swipeVector, Vector2.up) > 0.7f)
+                            direction = Vector3.forward;
+                        else if (Vector2.Dot(swipeVector, Vector2.down) > 0.7f)
+                            direction = Vector3.back;
+                        else if (Vector2.Dot(swipeVector, Vector2.left) > 0.7f)
+                            direction = Vector3.left;
+                        else if (Vector2.Dot(swipeVector, Vector2.right) > 0.7f)
+                            direction = Vector3.right;
+                    }
+                    else if (swipeTime <= maxTapTime)
+                    {
+                        // Tap detected -> Activate player if not active
+                        if (!isActive)
+                        {
+                            Activate();
+                        }
+                    }
+                    break;
+            }
+        }
 
         if (direction == Vector3.zero) return;
 

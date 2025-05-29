@@ -16,14 +16,17 @@ public class ExtraTileSelection
 public class GridGenerator : MonoBehaviour
 {
     public GameObject tilePrefab;
-    public GameObject airPrefab; // optional: assign a transparent cube or leave null
+    public GameObject airPrefab;
 
     public int gridWidth = 5;
     public int gridHeight = 5;
     public int gridLength = 1;
 
     public float tileSize = 1f;
+
     public List<ExtraTileSelection> extratiles = new List<ExtraTileSelection>();
+    public List<ExtraTileSelection> airTiles = new List<ExtraTileSelection>();
+
     public GameObject ExtraObjects;
     public GameObject Objects;
 
@@ -42,54 +45,73 @@ public class GridGenerator : MonoBehaviour
 
         ClearGrid();
 
-        HashSet<Vector3> extraTilePositions = new HashSet<Vector3>();
+        HashSet<Vector3> extraPositions = new HashSet<Vector3>();
         foreach (var extra in extratiles)
-        {
-            extraTilePositions.Add(new Vector3(extra.Pos.x, extra.Pos.y, extra.Pos.z));
-        }
+            extraPositions.Add(extra.Pos);
+        foreach (var air in airTiles)
+            extraPositions.Add(air.Pos);
 
+        // Generate main grid
         for (int x = 0; x < gridWidth; x++)
         {
             for (int z = 0; z < gridHeight; z++)
             {
                 for (int y = 0; y < gridLength; y++)
                 {
-                    if (extraTilePositions.Contains(new Vector3(x, y, z))) continue;
+                    Vector3 pos = new Vector3(x, y, z);
+                    if (extraPositions.Contains(pos)) continue;
 
-                    Vector3 tilePosition = new Vector3(x * tileSize, y, z * tileSize);
+                    Vector3 worldPos = new Vector3(x * tileSize, y, z * tileSize);
 #if UNITY_EDITOR
                     GameObject tile = (GameObject)PrefabUtility.InstantiatePrefab(tilePrefab, Objects.transform);
 #else
-                    GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity, Objects.transform);
+                    GameObject tile = Instantiate(tilePrefab, worldPos, Quaternion.identity, Objects.transform);
 #endif
-                    tile.transform.position = tilePosition;
+                    tile.transform.position = worldPos;
                     tile.transform.rotation = Quaternion.identity;
                     tile.name = $"Tile ({x}, {y}, {z})";
                 }
             }
         }
 
-        foreach (ExtraTileSelection extraTile in extratiles)
+        // Generate extra tiles
+        foreach (var extra in extratiles)
         {
-            if (extraTile.tilePrefab != null)
-            {
-                Vector3 extraTilePosition = new Vector3(extraTile.Pos.x * tileSize, extraTile.Pos.y, extraTile.Pos.z * tileSize);
+            if (extra.tilePrefab == null) continue;
+
+            Vector3 worldPos = new Vector3(extra.Pos.x * tileSize, extra.Pos.y, extra.Pos.z * tileSize);
 #if UNITY_EDITOR
-                GameObject extra = (GameObject)PrefabUtility.InstantiatePrefab(extraTile.tilePrefab, ExtraObjects.transform);
+            GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(extra.tilePrefab, ExtraObjects.transform);
 #else
-                GameObject extra = Instantiate(extraTile.tilePrefab, extraTilePosition, Quaternion.identity, ExtraObjects.transform);
+            GameObject go = Instantiate(extra.tilePrefab, worldPos, Quaternion.identity, ExtraObjects.transform);
 #endif
-                extra.transform.position = extraTilePosition;
-                extra.transform.rotation = Quaternion.identity;
-                string firstWord = extraTile.tilePrefab.name.Split(' ')[0];
-                extra.name = $"{firstWord} Extra Tile ({extraTile.Pos.x}, {extraTile.Pos.y}, {extraTile.Pos.z})";
-            }
+            go.transform.position = worldPos;
+            go.transform.rotation = Quaternion.identity;
+            string firstWord = extra.tilePrefab.name.Split(' ')[0];
+            go.name = $"{firstWord} Extra Tile ({extra.Pos.x}, {extra.Pos.y}, {extra.Pos.z})";
+        }
+
+        // Generate air tiles
+        foreach (var air in airTiles)
+        {
+            if (air.tilePrefab == null) continue;
+
+            Vector3 worldPos = new Vector3(air.Pos.x * tileSize, air.Pos.y, air.Pos.z * tileSize);
+#if UNITY_EDITOR
+            GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(air.tilePrefab, ExtraObjects.transform);
+#else
+            GameObject go = Instantiate(air.tilePrefab, worldPos, Quaternion.identity, ExtraObjects.transform);
+#endif
+            go.transform.position = worldPos;
+            go.transform.rotation = Quaternion.identity;
+            go.name = $"Air Tile ({air.Pos.x}, {air.Pos.y}, {air.Pos.z})";
         }
     }
 
     public void ExtractTilesFromScene()
     {
         extratiles.Clear();
+        airTiles.Clear();
 
         if (ExtraObjects == null || Objects == null)
         {
@@ -97,7 +119,7 @@ public class GridGenerator : MonoBehaviour
             return;
         }
 
-        HashSet<Vector3Int> gridAlignedPositions = new HashSet<Vector3Int>();
+        HashSet<Vector3Int> gridAligned = new HashSet<Vector3Int>();
         int maxX = 0, maxY = 0, maxZ = 0;
 
         List<Transform> allTiles = new List<Transform>();
@@ -109,35 +131,29 @@ public class GridGenerator : MonoBehaviour
 #if UNITY_EDITOR
             GameObject prefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(tile.gameObject);
 #else
-            GameObject prefab = tilePrefab; // fallback in builds
+            GameObject prefab = tilePrefab;
 #endif
-            Vector3 worldPos = tile.position;
+            Vector3 pos = tile.position;
 
-            int x = Mathf.RoundToInt(worldPos.x / tileSize);
-            int y = Mathf.RoundToInt(worldPos.y);
-            int z = Mathf.RoundToInt(worldPos.z / tileSize);
-            Vector3 gridWorldPos = new Vector3(x * tileSize, y, z * tileSize);
+            int x = Mathf.RoundToInt(pos.x / tileSize);
+            int y = Mathf.RoundToInt(pos.y);
+            int z = Mathf.RoundToInt(pos.z / tileSize);
 
-            bool isAligned = Vector3.Distance(worldPos, gridWorldPos) < 0.01f;
+            Vector3 aligned = new Vector3(x * tileSize, y, z * tileSize);
+            Vector3Int gridPos = new Vector3Int(x, y, z);
+            bool isAligned = Vector3.Distance(pos, aligned) < 0.01f;
             bool isMainTile = prefab == tilePrefab && isAligned && tile.rotation == Quaternion.identity;
-
-            Vector3Int gridCoord = new Vector3Int(x, y, z);
 
             if (isMainTile)
             {
-                gridAlignedPositions.Add(gridCoord);
+                gridAligned.Add(gridPos);
                 maxX = Mathf.Max(maxX, x + 1);
                 maxY = Mathf.Max(maxY, y + 1);
                 maxZ = Mathf.Max(maxZ, z + 1);
             }
             else
             {
-                extratiles.Add(new ExtraTileSelection
-                {
-                    tilePrefab = prefab,
-                    Pos = new Vector3(x, y, z)
-                });
-
+                extratiles.Add(new ExtraTileSelection { tilePrefab = prefab, Pos = gridPos });
                 maxX = Mathf.Max(maxX, x + 1);
                 maxY = Mathf.Max(maxY, y + 1);
                 maxZ = Mathf.Max(maxZ, z + 1);
@@ -148,7 +164,7 @@ public class GridGenerator : MonoBehaviour
         gridLength = maxY;
         gridHeight = maxZ;
 
-        // Add AIR blocks where missing
+        // Detect air blocks
         for (int x = 0; x < gridWidth; x++)
         {
             for (int y = 0; y < gridLength; y++)
@@ -156,11 +172,11 @@ public class GridGenerator : MonoBehaviour
                 for (int z = 0; z < gridHeight; z++)
                 {
                     Vector3Int pos = new Vector3Int(x, y, z);
-                    bool isFilled = gridAlignedPositions.Contains(pos) || extratiles.Exists(t => t.Pos == (Vector3)pos);
+                    bool exists = gridAligned.Contains(pos) || extratiles.Exists(t => t.Pos == (Vector3)pos);
 
-                    if (!isFilled)
+                    if (!exists)
                     {
-                        extratiles.Add(new ExtraTileSelection
+                        airTiles.Add(new ExtraTileSelection
                         {
                             tilePrefab = airPrefab,
                             Pos = new Vector3(x, y, z)
@@ -171,27 +187,25 @@ public class GridGenerator : MonoBehaviour
         }
 
         Debug.Log($"Extracted {extratiles.Count} extra tiles.");
-        Debug.Log($"New Grid Size: Width={gridWidth}, Length={gridLength}, Height={gridHeight}");
+        Debug.Log($"Extracted {airTiles.Count} air tiles.");
     }
 
     public void ClearGrid()
     {
-        for (int i = Objects.transform.childCount - 1; i >= 0; i--)
+        void ClearChildren(Transform t)
         {
+            for (int i = t.childCount - 1; i >= 0; i--)
+            {
 #if UNITY_EDITOR
-            DestroyImmediate(Objects.transform.GetChild(i).gameObject);
+                DestroyImmediate(t.GetChild(i).gameObject);
 #else
-            Destroy(Objects.transform.GetChild(i).gameObject);
+                Destroy(t.GetChild(i).gameObject);
 #endif
+            }
         }
-        for (int i = ExtraObjects.transform.childCount - 1; i >= 0; i--)
-        {
-#if UNITY_EDITOR
-            DestroyImmediate(ExtraObjects.transform.GetChild(i).gameObject);
-#else
-            Destroy(ExtraObjects.transform.GetChild(i).gameObject);
-#endif
-        }
+
+        if (Objects != null) ClearChildren(Objects.transform);
+        if (ExtraObjects != null) ClearChildren(ExtraObjects.transform);
     }
 }
 
@@ -203,24 +217,24 @@ public class GridGeneratorEditor : Editor
     {
         DrawDefaultInspector();
 
-        GridGenerator gridGenerator = (GridGenerator)target;
+        GridGenerator g = (GridGenerator)target;
 
         if (GUILayout.Button("Generate Grid"))
         {
-            gridGenerator.GenerateGrid();
-            EditorUtility.SetDirty(gridGenerator);
+            g.GenerateGrid();
+            EditorUtility.SetDirty(g);
         }
 
         if (GUILayout.Button("Clear Grid"))
         {
-            gridGenerator.ClearGrid();
-            EditorUtility.SetDirty(gridGenerator);
+            g.ClearGrid();
+            EditorUtility.SetDirty(g);
         }
 
         if (GUILayout.Button("Extract From Scene"))
         {
-            gridGenerator.ExtractTilesFromScene();
-            EditorUtility.SetDirty(gridGenerator);
+            g.ExtractTilesFromScene();
+            EditorUtility.SetDirty(g);
         }
     }
 }
