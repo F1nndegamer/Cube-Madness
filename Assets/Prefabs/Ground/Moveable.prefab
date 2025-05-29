@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 75d69c3e0e7a5474290a19cbbbc00540, type: 2}
+  - {fileID: 2100000, guid: abedfcafce2e4b746936c3467d76e99e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -121,3 +121,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54e755a889855b43a8e13284adc5319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveTime: 0.2
+  tileSize: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  canMoveUp: 0
+  canMoveDown: 0
+  canMoveLeft: 0
+  canMoveRight: 0

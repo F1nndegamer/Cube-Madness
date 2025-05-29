@@ -1,49 +1,49 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
+
 public class PlayerRollingMovement : MonoBehaviour
 {
     public float rollSpeed = 5f;
     public float fallSpeed = 5f;
     public float tileSize = 1f;
+
     public LayerMask groundLayer;
     public LayerMask EndLayer;
     public LayerMask PlayerLayer;
     public LayerMask WallLayer;
     public LayerMask MoveLayer;
+
     public bool isRolling = false;
     public bool isActive;
     public bool isFound;
-    public Material activemat;
     public bool GameEnd;
+
+    public Material activemat;
+
     void Start()
     {
-
         FallManager.Instance.RegisterPlayer(this);
+
         if (groundLayer == 0)
-        {
             groundLayer = LayerMask.GetMask("Ground");
-        }
         if (EndLayer == 0)
-        {
             EndLayer = LayerMask.GetMask("End");
-        }
         if (PlayerLayer == 0)
-        {
             PlayerLayer = LayerMask.GetMask("Player");
-        }
+        if (WallLayer == 0)
+            WallLayer = LayerMask.GetMask("Wall");
         if (MoveLayer == 0)
-        {
-            PlayerLayer = LayerMask.GetMask("Movable");
-        }
+            MoveLayer = LayerMask.GetMask("Movable");
     }
+
     void OnDestroy()
     {
         FallManager.Instance.UnregisterPlayer(this);
     }
-    private void Update()
+
+    void Update()
     {
         if (isRolling) return;
 
@@ -64,18 +64,20 @@ public class PlayerRollingMovement : MonoBehaviour
 
         if (direction == Vector3.zero) return;
 
-
         Vector3 targetPos = transform.position + direction * tileSize;
-        Collider[] colliders = Physics.OverlapBox(targetPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, PlayerLayer);
         Vector3 wallPos = targetPos - direction * (tileSize * 0.5f);
-        Collider[] wallcolliders = Physics.OverlapBox(wallPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, WallLayer);
-        if (wallcolliders.Length > 0)
-        {
 
-        }
-        else if (colliders.Length > 0)
+        Collider[] wallColliders = Physics.OverlapBox(wallPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, WallLayer);
+        if (wallColliders.Length > 0)
         {
-            foreach (Collider col in colliders)
+            return;
+        }
+
+        // Check for players
+        Collider[] playerColliders = Physics.OverlapBox(targetPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, PlayerLayer);
+        if (playerColliders.Length > 0)
+        {
+            foreach (Collider col in playerColliders)
             {
                 PlayerRollingMovement otherPlayer = col.GetComponent<PlayerRollingMovement>();
                 if (otherPlayer != null)
@@ -86,7 +88,24 @@ public class PlayerRollingMovement : MonoBehaviour
             }
         }
 
-        else if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, groundLayer))
+        // Check for movable objects
+        Collider[] moveColliders = Physics.OverlapBox(targetPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, MoveLayer);
+        if (moveColliders.Length > 0)
+        {
+            foreach (Collider col in moveColliders)
+            {
+                Movable movable = col.GetComponent<Movable>();
+                if (movable != null)
+                {
+                    if (!movable.Check(direction)) return;
+                    movable.Move(direction);
+                    StartCoroutine(Roll(direction));
+                    return;
+                }
+            }
+        }
+
+        if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, groundLayer))
         {
             StartCoroutine(Roll(direction));
         }
@@ -99,22 +118,12 @@ public class PlayerRollingMovement : MonoBehaviour
             StartCoroutine(RollAndFall(direction));
         }
     }
-    private IEnumerator RollAndFall(Vector3 direction)
-    {
-        yield return StartCoroutine(Roll(direction));
-        StartCoroutine(Fall());
-    }
-    private IEnumerator RollAndEnd(Vector3 direction)
-    {
-        yield return StartCoroutine(Roll(direction));
-        StartCoroutine(End());
-    }
 
     private IEnumerator Roll(Vector3 direction)
     {
         isRolling = true;
         float cubeSize = GetComponent<Collider>().bounds.size.y;
-        Vector3 pivot = transform.position + (direction * tileSize / 2f) + Vector3.down * ((float)0.9 / 2f);
+        Vector3 pivot = transform.position + (direction * tileSize / 2f) + Vector3.down * (0.9f / 2f);
         Vector3 rotationAxis = Vector3.Cross(Vector3.up, direction);
 
         float rotatedAmount = 0f;
@@ -125,20 +134,32 @@ public class PlayerRollingMovement : MonoBehaviour
             rotatedAmount += step;
             yield return null;
         }
-        transform.rotation = Quaternion.Euler(
-    Mathf.Round(transform.rotation.eulerAngles.x / 90) * 90,
-    Mathf.Round(transform.rotation.eulerAngles.y / 90) * 90,
-    Mathf.Round(transform.rotation.eulerAngles.z / 90) * 90
-);
 
+        transform.rotation = Quaternion.Euler(
+            Mathf.Round(transform.rotation.eulerAngles.x / 90) * 90,
+            Mathf.Round(transform.rotation.eulerAngles.y / 90) * 90,
+            Mathf.Round(transform.rotation.eulerAngles.z / 90) * 90
+        );
 
         transform.position = new Vector3(
             Mathf.Round(transform.position.x),
-            (float)0.95,
+            0.95f,
             Mathf.Round(transform.position.z)
         );
 
         isRolling = false;
+    }
+
+    private IEnumerator RollAndFall(Vector3 direction)
+    {
+        yield return StartCoroutine(Roll(direction));
+        StartCoroutine(Fall());
+    }
+
+    private IEnumerator RollAndEnd(Vector3 direction)
+    {
+        yield return StartCoroutine(Roll(direction));
+        StartCoroutine(End());
     }
 
     public IEnumerator Fall()
@@ -152,23 +173,26 @@ public class PlayerRollingMovement : MonoBehaviour
         }
 
         Debug.Log("Player fell");
-
         isRolling = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
     }
+
     private IEnumerator End()
     {
         isRolling = true;
-        float targetposition = transform.position.y - tileSize;
-        while (transform.position.y > targetposition)
+        float targetY = transform.position.y - tileSize;
+
+        while (transform.position.y > targetY)
         {
             transform.position += Vector3.down * fallSpeed * Time.deltaTime;
             yield return null;
         }
+
         GameEnd = true;
         isRolling = false;
+
         Switcher.Instance.playerlist.Remove(this);
+
         if (Switcher.Instance.playerlist.Count > 0)
         {
             Switcher.Instance.currentIndex %= Switcher.Instance.playerlist.Count;
@@ -178,16 +202,18 @@ public class PlayerRollingMovement : MonoBehaviour
 
         gameObject.SetActive(false);
     }
+
     public void Activate()
     {
-        MeshRenderer meshrenderer = GetComponent<MeshRenderer>();
-        meshrenderer.material = activemat;
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer.material = activemat;
         isActive = true;
+
         if (!Switcher.Instance.playerlist.Contains(this))
         {
             Switcher.Instance.playerlist.Add(this);
         }
+
         isFound = true;
     }
-
 }

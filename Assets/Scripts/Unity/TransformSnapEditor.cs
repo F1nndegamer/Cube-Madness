@@ -12,7 +12,10 @@ public class TransformSnapEditor : Editor
         if (t.parent != null)
         {
             PlayerRollingMovement playerscript = t.gameObject.GetComponent<PlayerRollingMovement>();
-            if (t.parent.name == "Environment" || playerscript != null)
+            if ((t.parent != null && t.parent.name == "Environment") ||
+            (t.parent != null && t.parent.parent != null && t.parent.parent.name == "Environment") ||
+          playerscript != null)
+
             {
                 if (Event.current.type == EventType.MouseUp)
                 {
@@ -64,8 +67,8 @@ public class TransformSnapEditor : Editor
 
     private void UpdateNameWithPosition(Vector3 position)
     {
-        string pattern = @"\(\s*-?\d+\s*,\s*-?\d+\s*\)";
-        string replacement = $"({(int)position.x}, {(int)position.z})";
+        string pattern = @"\(\s*-?\d+\s*,\s*-?\d+\s*,\s*-?\d+\s*\)";
+        string replacement = $"({(int)position.x}, {(int)position.y}, {(int)position.z})";
         if (Regex.IsMatch(target.name, pattern))
         {
             target.name = Regex.Replace(target.name, pattern, replacement);
