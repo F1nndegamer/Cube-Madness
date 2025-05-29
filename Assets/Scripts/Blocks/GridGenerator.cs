@@ -1,9 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using System.Linq;
-
-
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -19,6 +16,8 @@ public class ExtraTileSelection
 public class GridGenerator : MonoBehaviour
 {
     public GameObject tilePrefab;
+    public GameObject airPrefab; // optional: assign a transparent cube or leave null
+
     public int gridWidth = 5;
     public int gridHeight = 5;
     public int gridLength = 1;
@@ -27,12 +26,14 @@ public class GridGenerator : MonoBehaviour
     public List<ExtraTileSelection> extratiles = new List<ExtraTileSelection>();
     public GameObject ExtraObjects;
     public GameObject Objects;
+
     public void GenerateGrid()
     {
         if (ExtraObjects == null) ExtraObjects = new GameObject("ExtraObjects");
         if (Objects == null) Objects = new GameObject("Objects");
         ExtraObjects.transform.SetParent(transform);
         Objects.transform.SetParent(transform);
+
         if (tilePrefab == null)
         {
             Debug.LogWarning("Assign a Tile Prefab");
@@ -55,11 +56,11 @@ public class GridGenerator : MonoBehaviour
                 {
                     if (extraTilePositions.Contains(new Vector3(x, y, z))) continue;
 
-                    Vector3 tilePosition = new Vector3(x * tileSize, 0, z * tileSize);
+                    Vector3 tilePosition = new Vector3(x * tileSize, y, z * tileSize);
 #if UNITY_EDITOR
                     GameObject tile = (GameObject)PrefabUtility.InstantiatePrefab(tilePrefab, Objects.transform);
 #else
-                GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity, Objects.transform);
+                    GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity, Objects.transform);
 #endif
                     tile.transform.position = tilePosition;
                     tile.transform.rotation = Quaternion.identity;
@@ -82,7 +83,6 @@ public class GridGenerator : MonoBehaviour
                 extra.transform.rotation = Quaternion.identity;
                 string firstWord = extraTile.tilePrefab.name.Split(' ')[0];
                 extra.name = $"{firstWord} Extra Tile ({extraTile.Pos.x}, {extraTile.Pos.y}, {extraTile.Pos.z})";
-
             }
         }
     }
@@ -106,7 +106,11 @@ public class GridGenerator : MonoBehaviour
 
         foreach (Transform tile in allTiles)
         {
+#if UNITY_EDITOR
             GameObject prefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(tile.gameObject);
+#else
+            GameObject prefab = tilePrefab; // fallback in builds
+#endif
             Vector3 worldPos = tile.position;
 
             int x = Mathf.RoundToInt(worldPos.x / tileSize);
@@ -144,27 +148,51 @@ public class GridGenerator : MonoBehaviour
         gridLength = maxY;
         gridHeight = maxZ;
 
+        // Add AIR blocks where missing
+        for (int x = 0; x < gridWidth; x++)
+        {
+            for (int y = 0; y < gridLength; y++)
+            {
+                for (int z = 0; z < gridHeight; z++)
+                {
+                    Vector3Int pos = new Vector3Int(x, y, z);
+                    bool isFilled = gridAlignedPositions.Contains(pos) || extratiles.Exists(t => t.Pos == (Vector3)pos);
+
+                    if (!isFilled)
+                    {
+                        extratiles.Add(new ExtraTileSelection
+                        {
+                            tilePrefab = airPrefab,
+                            Pos = new Vector3(x, y, z)
+                        });
+                    }
+                }
+            }
+        }
+
         Debug.Log($"Extracted {extratiles.Count} extra tiles.");
         Debug.Log($"New Grid Size: Width={gridWidth}, Length={gridLength}, Height={gridHeight}");
     }
-
-
-
-
-
 
     public void ClearGrid()
     {
         for (int i = Objects.transform.childCount - 1; i >= 0; i--)
         {
+#if UNITY_EDITOR
             DestroyImmediate(Objects.transform.GetChild(i).gameObject);
+#else
+            Destroy(Objects.transform.GetChild(i).gameObject);
+#endif
         }
         for (int i = ExtraObjects.transform.childCount - 1; i >= 0; i--)
         {
+#if UNITY_EDITOR
             DestroyImmediate(ExtraObjects.transform.GetChild(i).gameObject);
+#else
+            Destroy(ExtraObjects.transform.GetChild(i).gameObject);
+#endif
         }
     }
-
 }
 
 #if UNITY_EDITOR
