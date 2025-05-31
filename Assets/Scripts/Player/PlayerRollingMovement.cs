@@ -22,10 +22,9 @@ public class PlayerRollingMovement : MonoBehaviour
 
     public Material activemat;
 
-    // Touch detection
     private Vector2 touchStartPos;
     private Vector2 touchEndPos;
-    private float minSwipeDist = 50f; // minimum swipe distance to register
+    private float minSwipeDist = 50f;
     private float maxTapTime = 0.2f;
     private float touchStartTime;
 
@@ -55,14 +54,12 @@ public class PlayerRollingMovement : MonoBehaviour
     {
         if (isRolling) return;
 
-        // Desktop keyboard controls
         Vector3 direction = Vector3.zero;
         if (Input.GetKeyDown(KeyCode.W)) direction = Vector3.forward;
         if (Input.GetKeyDown(KeyCode.S)) direction = Vector3.back;
         if (Input.GetKeyDown(KeyCode.A)) direction = Vector3.left;
         if (Input.GetKeyDown(KeyCode.D)) direction = Vector3.right;
 
-        // Mobile touch controls
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -83,7 +80,6 @@ public class PlayerRollingMovement : MonoBehaviour
                         Vector2 swipeVector = touchEndPos - touchStartPos;
                         swipeVector.Normalize();
 
-                        // Detect swipe direction (4-way)
                         if (Vector2.Dot(swipeVector, Vector2.up) > 0.7f)
                             direction = Vector3.forward;
                         else if (Vector2.Dot(swipeVector, Vector2.down) > 0.7f)
@@ -95,7 +91,6 @@ public class PlayerRollingMovement : MonoBehaviour
                     }
                     else if (swipeTime <= maxTapTime)
                     {
-                        // Tap detected -> Activate player if not active
                         if (!isActive)
                         {
                             Activate();
@@ -115,8 +110,6 @@ public class PlayerRollingMovement : MonoBehaviour
         {
             return;
         }
-
-        // Check for players
         Collider[] playerColliders = Physics.OverlapBox(targetPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, PlayerLayer);
         if (playerColliders.Length > 0)
         {
@@ -131,7 +124,6 @@ public class PlayerRollingMovement : MonoBehaviour
             }
         }
 
-        // Check for movable objects
         Collider[] moveColliders = Physics.OverlapBox(targetPos, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.identity, MoveLayer);
         if (moveColliders.Length > 0)
         {
@@ -158,7 +150,7 @@ public class PlayerRollingMovement : MonoBehaviour
         }
         else
         {
-            StartCoroutine(RollAndFall(direction));
+            return;
         }
     }
 
