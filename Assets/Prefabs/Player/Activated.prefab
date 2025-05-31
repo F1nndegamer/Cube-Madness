@@ -51,7 +51,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710717632397923981}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -136,8 +136,11 @@ MonoBehaviour:
   WallLayer:
     serializedVersion: 2
     m_Bits: 256
+  MoveLayer:
+    serializedVersion: 2
+    m_Bits: 0
   isRolling: 0
   isActive: 1
   isFound: 1
-  activemat: {fileID: 2100000, guid: 8897071dea3933c4ba4849a841dca045, type: 2}
   GameEnd: 0
+  activemat: {fileID: 2100000, guid: 8897071dea3933c4ba4849a841dca045, type: 2}
