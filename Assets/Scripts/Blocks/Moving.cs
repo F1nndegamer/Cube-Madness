@@ -8,6 +8,7 @@ public class ExtraTileTrigger : MonoBehaviour
     public List<Vector3> targetPosition = new List<Vector3>();
     private List<Vector3> Location = new List<Vector3>();
     public PlayerRollingMovement[] players;
+    public List<int> playeronobject;
     public float moveSpeed = 2f;
     public bool needs_active = true;
     public enum MovementOrder { At_Once, X_First, Y_First, Z_First };
@@ -15,6 +16,7 @@ public class ExtraTileTrigger : MonoBehaviour
     public bool isMoving;
     public bool playermoves;
     public float PlayerHeight = 0.95f;
+
     private void Start()
     {
         players = FindObjectsByType<PlayerRollingMovement>(FindObjectsSortMode.None);
@@ -26,6 +28,11 @@ public class ExtraTileTrigger : MonoBehaviour
         for (int i = 0; i < objectToMove.Count; i++)
         {
             Location.Add(objectToMove[i].position);
+        }
+        playeronobject = new List<int>(new int[players.Length]);
+        for (int i = 0; i < playeronobject.Count; i++)
+        {
+            playeronobject[i] = -1;
         }
     }
 
@@ -58,20 +65,25 @@ public class ExtraTileTrigger : MonoBehaviour
         }
 
         isMoving = true;
+
         while (isMoving)
         {
-            Vector3 ExpectedPos = Vector3.zero;
-            foreach (Transform block in objectToMove)
+            for (int p = 0; p < players.Length; p++)
             {
-                Vector3 ExpectedPosTemp = new Vector3(block.position.x, block.position.y + PlayerHeight, block.position.z);
-                foreach (PlayerRollingMovement player in players)
+                PlayerRollingMovement player = players[p];
+                playeronobject[p] = -1;
+                for (int i = 0; i < objectToMove.Count; i++)
                 {
-                    if (ExpectedPosTemp == player.transform.position)
+                    Transform block = objectToMove[i];
+                    Vector3 expectedPos = block.position + new Vector3(0, PlayerHeight, 0);
+                    if (player.transform.position == expectedPos)
                     {
-                        ExpectedPos = ExpectedPosTemp;
+                        playeronobject[p] = i;
+                        break;
                     }
                 }
             }
+
             isMoving = false;
             for (int i = 0; i < objectToMove.Count; i++)
             {
@@ -122,6 +134,7 @@ public class ExtraTileTrigger : MonoBehaviour
                         {
                             obj.position = new Vector3(
                                 Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
+                                obj.position.y,
                                 Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime)
                             );
                             isMoving = true;
@@ -149,39 +162,42 @@ public class ExtraTileTrigger : MonoBehaviour
                         break;
                 }
             }
-            foreach (PlayerRollingMovement player in players)
+
+            for (int p = 0; p < players.Length; p++)
             {
-                foreach (Transform block in objectToMove)
+                int objIndex = playeronobject[p];
+                if (objIndex >= 0 && objIndex < objectToMove.Count)
                 {
-                    if (player.gameObject.transform.position == ExpectedPos)
-                    {
-                        player.transform.position = block.position + new Vector3(0, PlayerHeight, 0);
-                    }
+                    players[p].transform.position = objectToMove[objIndex].position + new Vector3(0, PlayerHeight, 0);
                 }
             }
+
             yield return new WaitForFixedUpdate();
         }
-
-
     }
 
     private IEnumerator MoveObjectBack()
     {
         isMoving = true;
+
         while (isMoving)
         {
-            Vector3 ExpectedPos = Vector3.zero;
-            foreach (Transform block in objectToMove)
+            for (int p = 0; p < players.Length; p++)
             {
-                Vector3 ExpectedPosTemp = new Vector3(block.position.x, block.position.y + PlayerHeight, block.position.z);
-                foreach (PlayerRollingMovement player in players)
+                PlayerRollingMovement player = players[p];
+                playeronobject[p] = -1;
+                for (int i = 0; i < objectToMove.Count; i++)
                 {
-                    if (ExpectedPosTemp == player.transform.position)
+                    Transform block = objectToMove[i];
+                    Vector3 expectedPos = block.position + new Vector3(0, PlayerHeight, 0);
+                    if (player.transform.position == expectedPos)
                     {
-                        ExpectedPos = ExpectedPosTemp;
+                        playeronobject[p] = i;
+                        break;
                     }
                 }
             }
+
             isMoving = false;
             for (int i = 0; i < objectToMove.Count; i++)
             {
@@ -197,7 +213,6 @@ public class ExtraTileTrigger : MonoBehaviour
                             isMoving = true;
                         }
                         break;
-
                     case MovementOrder.X_First:
                         if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
                         {
@@ -227,7 +242,6 @@ public class ExtraTileTrigger : MonoBehaviour
                             isMoving = true;
                         }
                         break;
-
                     case MovementOrder.Y_First:
                         if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
                         {
@@ -257,7 +271,6 @@ public class ExtraTileTrigger : MonoBehaviour
                             isMoving = true;
                         }
                         break;
-
                     case MovementOrder.Z_First:
                         if (Mathf.Abs(obj.position.x - targetPos.x) > 0f)
                         {
@@ -289,17 +302,17 @@ public class ExtraTileTrigger : MonoBehaviour
                         break;
                 }
             }
-            foreach (PlayerRollingMovement player in players)
+
+            for (int p = 0; p < players.Length; p++)
             {
-                foreach (Transform block in objectToMove)
+                int objIndex = playeronobject[p];
+                if (objIndex >= 0 && objIndex < objectToMove.Count)
                 {
-                    if (player.gameObject.transform.position == ExpectedPos)
-                    {
-                        player.transform.position = block.position + new Vector3(0, PlayerHeight, 0);
-                    }
+                    players[p].transform.position = objectToMove[objIndex].position + new Vector3(0, PlayerHeight, 0);
                 }
             }
-            yield return new WaitForFixedUpdate(); ;
+
+            yield return new WaitForFixedUpdate();
         }
 
         if (needs_active)
@@ -310,5 +323,4 @@ public class ExtraTileTrigger : MonoBehaviour
             }
         }
     }
-
 }
