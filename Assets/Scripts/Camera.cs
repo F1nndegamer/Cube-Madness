@@ -9,7 +9,15 @@ public class CameraFollow : MonoBehaviour
     public float smoothSpeed = 5f;
     void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     private void LateUpdate()
     {
