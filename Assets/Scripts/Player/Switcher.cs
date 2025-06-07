@@ -27,32 +27,35 @@ public class Switcher : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount == 1)
+        if (CameraFollow.Instance.didstart)
         {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began)
+            if (Input.touchCount == 1)
             {
-                touchStartPos = touch.position;
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                float distance = Vector2.Distance(touchStartPos, touch.position);
+                Touch touch = Input.GetTouch(0);
 
-                // If the finger moved less than 10 pixels, consider it a tap
-                if (distance < 10f)
+                if (touch.phase == TouchPhase.Began)
                 {
-                    if (playerlist.Count == 0 || !playerlist[currentIndex].isActive || playerlist[currentIndex].isRolling == false)
+                    touchStartPos = touch.position;
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    float distance = Vector2.Distance(touchStartPos, touch.position);
+
+                    if (distance < 10f)
                     {
-                        SwitchToNextPlayer();
+                        if (playerlist.Count == 0 || !playerlist[currentIndex].isActive || playerlist[currentIndex].isRolling == false)
+                        {
+                            SwitchToNextPlayer();
+                        }
                     }
                 }
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            SwitchToNextPlayer();
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                SwitchToNextPlayer();
+            }
+
         }
     }
 
