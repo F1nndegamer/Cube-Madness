@@ -1,0 +1,1 @@
+C:\Users\finnn\Documents\GitHub\Cube-madnes\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\w2g1em45\obj\arm64-v8a

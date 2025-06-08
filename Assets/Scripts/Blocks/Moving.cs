@@ -85,6 +85,15 @@ public class ExtraTileTrigger : MonoBehaviour
             }
 
             isMoving = false;
+            for (int p = 0; p < players.Length; p++)
+            {
+                int objIndex = playeronobject[p];
+                if (objIndex >= 0 && objIndex < objectToMove.Count)
+                {
+                    players[p].isMovingObject = false;
+                }
+            }
+
             for (int i = 0; i < objectToMove.Count; i++)
             {
                 if (i >= targetPosition.Count) continue;
@@ -168,6 +177,7 @@ public class ExtraTileTrigger : MonoBehaviour
                 int objIndex = playeronobject[p];
                 if (objIndex >= 0 && objIndex < objectToMove.Count)
                 {
+                    players[p].isMovingObject = true;
                     players[p].transform.position = objectToMove[objIndex].position + new Vector3(0, PlayerHeight, 0);
                 }
             }
@@ -199,6 +209,14 @@ public class ExtraTileTrigger : MonoBehaviour
             }
 
             isMoving = false;
+            for (int p = 0; p < players.Length; p++)
+            {
+                int objIndex = playeronobject[p];
+                if (objIndex >= 0 && objIndex < objectToMove.Count)
+                {
+                    players[p].isMovingObject = false;
+                }
+            }
             for (int i = 0; i < objectToMove.Count; i++)
             {
                 Transform obj = objectToMove[i];
@@ -308,6 +326,7 @@ public class ExtraTileTrigger : MonoBehaviour
                 int objIndex = playeronobject[p];
                 if (objIndex >= 0 && objIndex < objectToMove.Count)
                 {
+                    players[p].isMovingObject = true;
                     players[p].transform.position = objectToMove[objIndex].position + new Vector3(0, PlayerHeight, 0);
                 }
             }

@@ -21,7 +21,7 @@ public class FallManager : MonoBehaviour
             bool onGround = Physics.Raycast(player.transform.position + Vector3.up * 0.5f, Vector3.down, 1f, player.groundLayer);
             bool onEnd = Physics.Raycast(player.transform.position + Vector3.up * 0.5f, Vector3.down, 1f, player.EndLayer);
 
-            if (!onGround && !onEnd)
+            if (!onGround && !onEnd && !player.isMovingObject)
             {
                 StartCoroutine(player.Fall());
             }

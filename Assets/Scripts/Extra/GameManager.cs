@@ -17,6 +17,11 @@ public class GameManager : MonoBehaviour
         if (CameraFollow.Instance.didstart)
         {
             tap.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        else
+        {
+            Time.timeScale = 0f;
         }
     }
 }

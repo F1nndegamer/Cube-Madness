@@ -28,6 +28,11 @@ public class PlayerRollingMovement : MonoBehaviour
     private float maxTapTime = 0.2f;
     private float touchStartTime;
 
+    private Vector3? bufferedDirection = null;
+    private float bufferDuration = 0.1f;
+    private float bufferTimer = 0f;
+    private Vector3 SavedDir;
+    public bool isMovingObject;
 
     void Start()
     {
@@ -52,9 +57,16 @@ public class PlayerRollingMovement : MonoBehaviour
 
     void Update()
     {
-        if (isRolling) return;
+        if (Time.timeScale == 0f) return;
+        if (bufferTimer > 0f)
+            bufferTimer -= Time.deltaTime;
+        else
+            bufferedDirection = null;
+
 
         Vector3 direction = Vector3.zero;
+        if (SavedDir != Vector3.zero) { direction = SavedDir; Debug.Log("completed"); }
+        SavedDir = Vector3.zero;
         if (Input.GetKeyDown(KeyCode.W)) direction = Vector3.forward;
         if (Input.GetKeyDown(KeyCode.S)) direction = Vector3.back;
         if (Input.GetKeyDown(KeyCode.A)) direction = Vector3.left;
@@ -98,6 +110,17 @@ public class PlayerRollingMovement : MonoBehaviour
                     }
                     break;
             }
+        }
+
+        if (isRolling)
+        {
+            if (direction != Vector3.zero)
+            {
+                bufferedDirection = direction;
+                bufferTimer = bufferDuration;
+                Debug.Log("saved");
+            }
+            return;
         }
 
         if (direction == Vector3.zero) return;
@@ -183,6 +206,19 @@ public class PlayerRollingMovement : MonoBehaviour
         );
 
         isRolling = false;
+
+        if (bufferedDirection.HasValue && bufferTimer > 0f)
+        {
+            Vector3 bufferedDir = bufferedDirection.Value;
+            bufferedDirection = null;
+            bufferTimer = 0f;
+
+            yield return null;
+
+            SavedDir = bufferedDir;
+            Update();
+        }
+
     }
 
     private IEnumerator RollAndFall(Vector3 direction)
@@ -197,7 +233,7 @@ public class PlayerRollingMovement : MonoBehaviour
         StartCoroutine(End());
     }
 
-    public IEnumerator Fall()
+    public IEnumerator Fall()   
     {
         isRolling = true;
 
