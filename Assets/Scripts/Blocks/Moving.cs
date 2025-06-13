@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using System;
 public class ExtraTileTrigger : MonoBehaviour
 {
     public List<Transform> objectToMove;
@@ -29,6 +29,7 @@ public class ExtraTileTrigger : MonoBehaviour
         {
             Location.Add(objectToMove[i].position);
         }
+
         playeronobject = new List<int>(new int[players.Length]);
         for (int i = 0; i < playeronobject.Count; i++)
         {
@@ -74,8 +75,7 @@ public class ExtraTileTrigger : MonoBehaviour
                 playeronobject[p] = -1;
                 for (int i = 0; i < objectToMove.Count; i++)
                 {
-                    Transform block = objectToMove[i];
-                    Vector3 expectedPos = block.position + new Vector3(0, PlayerHeight, 0);
+                    Vector3 expectedPos = objectToMove[i].position + new Vector3(0, PlayerHeight, 0);
                     if (player.transform.position == expectedPos)
                     {
                         playeronobject[p] = i;
@@ -85,14 +85,6 @@ public class ExtraTileTrigger : MonoBehaviour
             }
 
             isMoving = false;
-            for (int p = 0; p < players.Length; p++)
-            {
-                int objIndex = playeronobject[p];
-                if (objIndex >= 0 && objIndex < objectToMove.Count)
-                {
-                    players[p].isMovingObject = false;
-                }
-            }
 
             for (int i = 0; i < objectToMove.Count; i++)
             {
@@ -100,6 +92,7 @@ public class ExtraTileTrigger : MonoBehaviour
 
                 Transform obj = objectToMove[i];
                 Vector3 targetPos = targetPosition[i];
+
                 switch (Order)
                 {
                     case MovementOrder.At_Once:
@@ -109,6 +102,7 @@ public class ExtraTileTrigger : MonoBehaviour
                             isMoving = true;
                         }
                         break;
+
                     case MovementOrder.X_First:
                         if (Mathf.Abs(obj.position.x - targetPos.x) > 0f)
                         {
@@ -129,6 +123,7 @@ public class ExtraTileTrigger : MonoBehaviour
                             isMoving = true;
                         }
                         break;
+
                     case MovementOrder.Y_First:
                         if (Mathf.Abs(obj.position.y - targetPos.y) > 0f)
                         {
@@ -149,6 +144,7 @@ public class ExtraTileTrigger : MonoBehaviour
                             isMoving = true;
                         }
                         break;
+
                     case MovementOrder.Z_First:
                         if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
                         {
@@ -177,12 +173,17 @@ public class ExtraTileTrigger : MonoBehaviour
                 int objIndex = playeronobject[p];
                 if (objIndex >= 0 && objIndex < objectToMove.Count)
                 {
-                    players[p].isMovingObject = true;
+                    players[p].isMovingObject = isMoving;
                     players[p].transform.position = objectToMove[objIndex].position + new Vector3(0, PlayerHeight, 0);
                 }
             }
 
             yield return new WaitForFixedUpdate();
+        }
+
+        for (int p = 0; p < players.Length; p++)
+        {
+            players[p].isMovingObject = false;
         }
     }
 
@@ -198,8 +199,7 @@ public class ExtraTileTrigger : MonoBehaviour
                 playeronobject[p] = -1;
                 for (int i = 0; i < objectToMove.Count; i++)
                 {
-                    Transform block = objectToMove[i];
-                    Vector3 expectedPos = block.position + new Vector3(0, PlayerHeight, 0);
+                    Vector3 expectedPos = objectToMove[i].position + new Vector3(0, PlayerHeight, 0);
                     if (player.transform.position == expectedPos)
                     {
                         playeronobject[p] = i;
@@ -209,18 +209,11 @@ public class ExtraTileTrigger : MonoBehaviour
             }
 
             isMoving = false;
-            for (int p = 0; p < players.Length; p++)
-            {
-                int objIndex = playeronobject[p];
-                if (objIndex >= 0 && objIndex < objectToMove.Count)
-                {
-                    players[p].isMovingObject = false;
-                }
-            }
+
             for (int i = 0; i < objectToMove.Count; i++)
             {
-                Transform obj = objectToMove[i];
                 Vector3 targetPos = Location[i];
+                Transform obj = objectToMove[i];
 
                 switch (Order)
                 {
@@ -231,6 +224,7 @@ public class ExtraTileTrigger : MonoBehaviour
                             isMoving = true;
                         }
                         break;
+
                     case MovementOrder.X_First:
                         if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
                         {
@@ -260,6 +254,7 @@ public class ExtraTileTrigger : MonoBehaviour
                             isMoving = true;
                         }
                         break;
+
                     case MovementOrder.Y_First:
                         if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
                         {
@@ -289,6 +284,7 @@ public class ExtraTileTrigger : MonoBehaviour
                             isMoving = true;
                         }
                         break;
+
                     case MovementOrder.Z_First:
                         if (Mathf.Abs(obj.position.x - targetPos.x) > 0f)
                         {
@@ -326,12 +322,17 @@ public class ExtraTileTrigger : MonoBehaviour
                 int objIndex = playeronobject[p];
                 if (objIndex >= 0 && objIndex < objectToMove.Count)
                 {
-                    players[p].isMovingObject = true;
+                    players[p].isMovingObject = isMoving;
                     players[p].transform.position = objectToMove[objIndex].position + new Vector3(0, PlayerHeight, 0);
                 }
             }
 
             yield return new WaitForFixedUpdate();
+        }
+
+        for (int p = 0; p < players.Length; p++)
+        {
+            players[p].isMovingObject = false;
         }
 
         if (needs_active)

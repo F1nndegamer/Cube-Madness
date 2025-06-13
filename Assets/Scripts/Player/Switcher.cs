@@ -7,10 +7,8 @@ public class Switcher : MonoBehaviour
     public int currentIndex = 0;
     public static Switcher Instance;
 
-    // Touch detection for switching players
     private Vector2 touchStartPos;
     private Vector2 touchEndPos;
-    private float minSwipeDist = 50f;
     void Start()
     {
         Instance = this;

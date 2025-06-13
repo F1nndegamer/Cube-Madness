@@ -198,10 +198,10 @@ public class PlayerRollingMovement : MonoBehaviour
             Mathf.Round(transform.rotation.eulerAngles.y / 90) * 90,
             Mathf.Round(transform.rotation.eulerAngles.z / 90) * 90
         );
-
+        float position = Mathf.Round(transform.position.y) - 0.05f;
         transform.position = new Vector3(
             Mathf.Round(transform.position.x),
-            0.95f,
+            position,
             Mathf.Round(transform.position.z)
         );
 
@@ -233,7 +233,7 @@ public class PlayerRollingMovement : MonoBehaviour
         StartCoroutine(End());
     }
 
-    public IEnumerator Fall()   
+    public IEnumerator Fall()
     {
         isRolling = true;
 
