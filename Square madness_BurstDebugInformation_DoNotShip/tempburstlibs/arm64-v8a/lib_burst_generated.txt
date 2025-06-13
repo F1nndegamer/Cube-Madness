@@ -9,6 +9,7 @@ Library: C:\Users\finnn\Documents\GitHub\Cube-madnes\Temp\BurstOutput\tempburstl
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\finnn\Documents\GitHub\Cube-madnes\Temp\Burst
+--debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.2.0b4/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Users\finnn\Documents\GitHub\Cube-madnes\Library\Burst
 --output=C:\Users\finnn\Documents\GitHub\Cube-madnes\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
@@ -109,6 +110,7 @@ Library: C:\Users\finnn\Documents\GitHub\Cube-madnes\Temp\BurstOutput\tempburstl
 --float-mode=Fast
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\finnn\Documents\GitHub\Cube-madnes\Temp\Burst
+--debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.2.0b4/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Users\finnn\Documents\GitHub\Cube-madnes\Library\Burst
 --output=C:\Users\finnn\Documents\GitHub\Cube-madnes\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated

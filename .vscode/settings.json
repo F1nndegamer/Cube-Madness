@@ -56,5 +56,8 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Cube-madnes.sln"
+    "dotnet.defaultSolution": "Cube-madnes.sln",
+    "cSpell.words": [
+        "activemat"
+    ]
 }
