@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
@@ -36,3 +37,4 @@ public class ExtraTileTriggerEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif
