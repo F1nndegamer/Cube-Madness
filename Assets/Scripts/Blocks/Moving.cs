@@ -35,6 +35,10 @@ public class ExtraTileTrigger : MonoBehaviour
         {
             playeronobject[i] = -1;
         }
+        foreach (Transform obj in objectToMove)
+        {
+            obj.gameObject.isStatic = false;
+        }
     }
 
     private void OnTriggerStay(Collider other)

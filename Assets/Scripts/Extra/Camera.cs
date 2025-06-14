@@ -31,7 +31,7 @@ public class CameraFollow : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             didstart = true;
         }

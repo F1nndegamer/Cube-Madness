@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Instance = this;
+#if UNITY_ANDROID
+        tap.GetComponent<TextMeshProUGUI>().text = "Tap to Start";
+#else
+        tap.GetComponent<TextMeshProUGUI>().text = "Press Space to Start";
+#endif
+
     }
 
     void Update()
