@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
 
-[CustomEditor(typeof(AxisStringOrder))]
+
 public class AxisStringOrderEditor : Editor
 {
     private ReorderableList reorderableList;

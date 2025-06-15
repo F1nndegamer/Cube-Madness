@@ -16,7 +16,13 @@ public class ExtraTileTrigger : MonoBehaviour
     public bool isMoving;
     public bool playermoves;
     public float PlayerHeight = 0.95f;
-
+    void Awake()
+    {
+        foreach (Transform obj in objectToMove)
+        {
+            obj.gameObject.isStatic = false;
+        }
+    }
     private void Start()
     {
         players = FindObjectsByType<PlayerRollingMovement>(FindObjectsSortMode.None);
