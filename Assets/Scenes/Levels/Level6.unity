@@ -824,6 +824,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tile (5, 0, 2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8488307345234968148, guid: 87cf0dfe50d5b264cbe1d49f5983efb2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 344efd0b9a5121843a744258ad4e2c4f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1034,17 +1038,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!108 &465097263
 Light:
   m_ObjectHideFlags: 0
@@ -1734,6 +1744,14 @@ PrefabInstance:
       propertyPath: 'blocks.Array.data[0]'
       value: 
       objectReference: {fileID: 1108880551}
+    - target: {fileID: 5977800714605539358, guid: 099725040ac3ee246b90235545b14024, type: 3}
+      propertyPath: 'blocks.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1108880551}
+    - target: {fileID: 5977800714605539358, guid: 099725040ac3ee246b90235545b14024, type: 3}
+      propertyPath: m_EditorClassIdentifier
+      value: Assembly-CSharp::BreakableBlock
+      objectReference: {fileID: 0}
     - target: {fileID: 6647524679638447447, guid: 099725040ac3ee246b90235545b14024, type: 3}
       propertyPath: m_Name
       value: Breaker Extra Tile (1, 0, 1)
@@ -1921,6 +1939,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tile (2, 0, 1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8488307345234968148, guid: 87cf0dfe50d5b264cbe1d49f5983efb2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488307345234968148, guid: 87cf0dfe50d5b264cbe1d49f5983efb2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 75d69c3e0e7a5474290a19cbbbc00540, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3073,6 +3099,10 @@ PrefabInstance:
       propertyPath: 'blocks.Array.data[0]'
       value: 
       objectReference: {fileID: 1118079758}
+    - target: {fileID: 5977800714605539358, guid: 099725040ac3ee246b90235545b14024, type: 3}
+      propertyPath: 'blocks.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1118079758}
     - target: {fileID: 6647524679638447447, guid: 099725040ac3ee246b90235545b14024, type: 3}
       propertyPath: m_Name
       value: Breaker Extra Tile (5, 0, 1)
@@ -3806,6 +3836,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tile (1, 0, 2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8488307345234968148, guid: 87cf0dfe50d5b264cbe1d49f5983efb2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 344efd0b9a5121843a744258ad4e2c4f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4077,9 +4111,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
+  m_Priority: 0
+  m_BlendDistance: 0
+  m_Weight: 1
   sharedProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
 --- !u!4 &1883204274
 Transform:

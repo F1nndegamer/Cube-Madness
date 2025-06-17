@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blocks: []
+  brokenMaterial: {fileID: 2100000, guid: 344efd0b9a5121843a744258ad4e2c4f, type: 2}
 --- !u!1 &6647524679638447447
 GameObject:
   m_ObjectHideFlags: 0
