@@ -33,7 +33,7 @@ public class PlayerRollingMovement : MonoBehaviour
     private float bufferTimer = 0f;
     private Vector3 SavedDir;
     public bool isMovingObject;
-
+    [SerializeField]public bool died;
     void Start()
     {
         FallManager.Instance.RegisterPlayer(this);
@@ -286,5 +286,18 @@ public class PlayerRollingMovement : MonoBehaviour
         }
 
         isFound = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bullet"))
+        {
+
+        }
+    }
+    public void Die()
+    {
+        Debug.Log("Player died");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

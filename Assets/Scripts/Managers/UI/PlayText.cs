@@ -2,14 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class PlayText : MonoBehaviour
 {
-    public GameObject wintext;
     public GameObject tap;
-    public static GameManager Instance;
     void Start()
     {
-        Instance = this;
 #if UNITY_ANDROID
         tap.GetComponent<TextMeshProUGUI>().text = "Tap to Start";
 #else

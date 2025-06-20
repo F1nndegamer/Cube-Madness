@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Win : MonoBehaviour
 {
-    
+
     private GameObject Wintext;
     public PlayerRollingMovement[] players;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -15,14 +15,14 @@ public class Win : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach(PlayerRollingMovement player in players)
+        foreach (PlayerRollingMovement player in players)
         {
-            if(!player.GameEnd)
+            if (!player.GameEnd)
             {
                 return;
             }
         }
-        if(Wintext != null)
+        if (Wintext != null)
         {
             Wintext.SetActive(true);
         }
@@ -33,9 +33,11 @@ public class Win : MonoBehaviour
         }
     }
     private IEnumerator Winning()
-    {     
-         Wintext.SetActive(true);
+    {
+        Wintext.SetActive(true);
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        GameManager.Instance.highestLevel = Mathf.Max(GameManager.Instance.highestLevel, SceneManager.GetActiveScene().buildIndex + 1);
+        PlayerPrefs.SetInt("highestLevel", GameManager.Instance.highestLevel);
     }
 }
