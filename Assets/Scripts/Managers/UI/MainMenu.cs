@@ -88,6 +88,14 @@ public class MainMenu : MonoBehaviour
     //TODO: add functionality to the mode selection, by having level selection based on this and player preferences, also add settings to player preferences
     #endregion
     #region SaveLoad
+    public TMP_InputField usernameText;
+    private void Awake()
+    {
+        LoadGame();
+        usernameText.text = username;
+        SetFPS(targetFPS);
+        SelectMode(modes);
+    }
     public void SaveGame()
     {
         PlayerPrefs.SetString("GameMode", modes);
