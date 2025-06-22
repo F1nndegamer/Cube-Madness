@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditorInternal;
 
 
-public class AxisStringOrderEditor : Editor
+public class AxisStringOrderEditor : UnityEditor.Editor
 {
     private ReorderableList reorderableList;
 
