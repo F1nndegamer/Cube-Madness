@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Collections;
 public class PlayText : MonoBehaviour
 {
     public GameObject tap;
@@ -12,19 +12,14 @@ public class PlayText : MonoBehaviour
 #else
         tap.GetComponent<TextMeshProUGUI>().text = "Press Space to Start";
 #endif
-
+        StartCoroutine(gamestart());
     }
-
-    void Update()
+    IEnumerator gamestart()
     {
-        if (CameraFollow.Instance.didstart)
-        {
-            tap.SetActive(false);
-            Time.timeScale = 1f;
-        }
-        else
-        {
-            Time.timeScale = 0f;
-        }
+        tap.SetActive(true);
+        Time.timeScale = 0f;
+        yield return new WaitUntil(() => CameraFollow.Instance.didstart);
+        tap.SetActive(false);
+        Time.timeScale = 1f;
     }
 }
