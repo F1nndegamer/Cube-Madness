@@ -4,7 +4,7 @@ using UnityEditor;
 using System.Text.RegularExpressions;
 
 [CustomEditor(typeof(Transform))]
-public class TransformSnapEditor : Editor
+public class TransformSnapEditor : UnityEditor.Editor
 {
     private void OnSceneGUI()
     {

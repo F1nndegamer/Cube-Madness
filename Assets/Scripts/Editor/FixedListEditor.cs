@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditorInternal;
 
 [CustomEditor(typeof(ExtraTileTrigger))]
-public class ExtraTileTriggerEditor : Editor
+public class ExtraTileTriggerEditor : UnityEditor.Editor
 {
     private ReorderableList axisList;
 

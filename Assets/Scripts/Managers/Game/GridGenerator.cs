@@ -211,7 +211,7 @@ public class GridGenerator : MonoBehaviour
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(GridGenerator))]
-public class GridGeneratorEditor : Editor
+public class GridGeneratorEditor : UnityEditor.Editor
 {
     public override void OnInspectorGUI()
     {
