@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 2725697311798427838}
   - component: {fileID: 2446835317381153890}
   m_Layer: 5
-  m_Name: Pausae
+  m_Name: Pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -384,7 +384,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -63.708, y: -63.01999}
+  m_AnchoredPosition: {x: -123, y: -121}
   m_SizeDelta: {x: 127.116, y: 125.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4301786448715662417
@@ -727,7 +727,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -63.708, y: -189.7}
+  m_AnchoredPosition: {x: -123.00012, y: -247.68002}
   m_SizeDelta: {x: 127.116, y: 125.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &114849979548888120
