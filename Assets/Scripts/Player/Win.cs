@@ -32,7 +32,7 @@ public class Win : MonoBehaviour
     {
         if (hasWon) return;
 
-        for (int i = 0; i<players.Length; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             if (players[i].GameEnd)
             {
@@ -78,6 +78,10 @@ public class Win : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIndex = 0;
+        }
         SceneManager.LoadScene(nextSceneIndex);
 
         if (GameManager.Instance != null)
