@@ -1,43 +1,123 @@
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class Win : MonoBehaviour
 {
+    [Header("UI References")]
+    public GameObject winPanel;
 
-    private GameObject Wintext;
-    public PlayerRollingMovement[] players;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private GameObject winTextObject;
+    private TextMeshProUGUI winText;
+    private bool hasWon = false;
+
+    private PlayerRollingMovement[] players;
+    private List<bool> winstatus = new List<bool>();
+
     void Start()
     {
         players = FindObjectsByType<PlayerRollingMovement>(FindObjectsSortMode.None);
+        winstatus = new List<bool>(new bool[players.Length]);
+        if (GameManager.Instance != null)
+        {
+            winTextObject = GameManager.Instance.wintext;
+            winText = winTextObject?.GetComponent<TextMeshProUGUI>();
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        foreach (PlayerRollingMovement player in players)
+        if (hasWon) return;
+
+        for (int i = 0; i<players.Length; i++)
         {
-            if (!player.GameEnd)
+            if (players[i].GameEnd)
             {
-                return;
+                winstatus[i] = true;
             }
         }
-        if (Wintext != null)
+        if (!winstatus.Contains(false))
         {
-            Wintext.SetActive(true);
-        }
-        else
-        {
-            Wintext = GameManager.Instance.wintext;
-            StartCoroutine(Winning());
+            Debug.Log(string.Join(",", winstatus) + " " + players.Length);
+            hasWon = true;
+            winstatus.Clear();
+            ShowWinScreen();
+            StartCoroutine(HandleWin());
+
         }
     }
-    private IEnumerator Winning()
+
+    private void ShowWinScreen()
     {
-        Wintext.SetActive(true);
+        if (winText == null && GameManager.Instance != null)
+        {
+            winTextObject = GameManager.Instance.wintext;
+            winText = winTextObject?.GetComponent<TextMeshProUGUI>();
+        }
+
+        if (winText != null)
+        {
+            StartCoroutine(FadeTextAlpha(winText, winText.color.a, 1f, 1f));
+        }
+
+        if (winPanel != null)
+        {
+            var winImage = winPanel.GetComponent<Image>();
+            if (winImage != null)
+            {
+                StartCoroutine(FadeImageAlpha(winImage, winImage.color.a, 1f, 1f));
+            }
+        }
+    }
+
+    private IEnumerator HandleWin()
+    {
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        GameManager.Instance.highestLevel = Mathf.Max(GameManager.Instance.highestLevel, SceneManager.GetActiveScene().buildIndex + 1);
-        PlayerPrefs.SetInt("highestLevel", GameManager.Instance.highestLevel);
+
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        SceneManager.LoadScene(nextSceneIndex);
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.highestLevel = Mathf.Max(GameManager.Instance.highestLevel, nextSceneIndex);
+            PlayerPrefs.SetInt("highestLevel", GameManager.Instance.highestLevel);
+        }
+    }
+
+    private IEnumerator FadeTextAlpha(TextMeshProUGUI text, float from, float to, float duration)
+    {
+        float elapsed = 0f;
+        Color color = text.color;
+
+        while (elapsed < duration)
+        {
+            color.a = Mathf.Lerp(from, to, elapsed / duration);
+            text.color = color;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        color.a = to;
+        text.color = color;
+    }
+
+    private IEnumerator FadeImageAlpha(Image image, float from, float to, float duration)
+    {
+        float elapsed = 0f;
+        Color color = image.color;
+
+        while (elapsed < duration)
+        {
+            color.a = Mathf.Lerp(from, to, elapsed / duration);
+            image.color = color;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        color.a = to;
+        image.color = color;
     }
 }
