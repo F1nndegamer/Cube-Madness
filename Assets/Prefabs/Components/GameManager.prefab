@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Level Beaten
+  m_text: 'Level Completed
 
 '
   m_isRightToLeft: 0
@@ -1014,7 +1014,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winPanel: {fileID: 2841152202263349223}
-  players: []
 --- !u!114 &5472081760662101079
 MonoBehaviour:
   m_ObjectHideFlags: 0
