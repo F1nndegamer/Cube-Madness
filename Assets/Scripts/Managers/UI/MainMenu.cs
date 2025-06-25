@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     #region Buttons
@@ -22,12 +23,10 @@ public class MainMenu : MonoBehaviour
     #endregion
     #region FPS
     public TextMeshProUGUI fpsText;
+    public Slider fpsSlider;
+    public Toggle unlimitedFPSToggle;
     bool unlimitedFPS = false;
     int targetFPS = 60;
-    void Start()
-    {
-        Application.targetFrameRate = 120;
-    }
     public void SetFPS(Single fps)
     {
         targetFPS = (int)fps;
@@ -42,7 +41,7 @@ public class MainMenu : MonoBehaviour
     }
     public void ToggleUnlimitedFPS(bool enable)
     {
-        unlimitedFPS = !enable;
+        unlimitedFPS = enable;
         if (unlimitedFPS)
         {
             Application.targetFrameRate = -1; // Set to unlimited
@@ -92,7 +91,12 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         LoadGame();
-        usernameText.text = username;
+        Debug.Log("Game loaded with mode: " + modes + ", FPS: " + targetFPS + ", Username: " + username);
+        if (usernameText != null) usernameText.text = username;
+        if (fpsText != null)
+        { fpsText.text = unlimitedFPS ? "FPS: Unlimited" : "FPS: " + targetFPS.ToString("F0"); }
+        if (fpsSlider != null) fpsSlider.value = targetFPS;
+        if (unlimitedFPSToggle != null) unlimitedFPSToggle.isOn = unlimitedFPS;
         SetFPS(targetFPS);
         SelectMode(modes);
     }
@@ -101,6 +105,7 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetString("GameMode", modes);
         PlayerPrefs.SetInt("TargetFPS", targetFPS);
         PlayerPrefs.SetString("Username", username);
+        PlayerPrefs.SetInt("UnlimitedFPS", unlimitedFPS ? 1 : 0);
         PlayerPrefs.Save();
         Debug.Log("Game saved");
     }
@@ -109,6 +114,7 @@ public class MainMenu : MonoBehaviour
         modes = PlayerPrefs.GetString("GameMode", "Normal");
         targetFPS = PlayerPrefs.GetInt("TargetFPS", 60);
         username = PlayerPrefs.GetString("Username", "Player");
+        unlimitedFPS = PlayerPrefs.GetInt("UnlimitedFPS", 0) == 1;
         Debug.Log("Game loaded");
     }
     #endregion
