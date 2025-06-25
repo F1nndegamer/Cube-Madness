@@ -11,8 +11,10 @@ public class CameraFollow : MonoBehaviour
 
     private Quaternion targetRotation;
     [HideInInspector] public bool didstart;
+    private Buttons buttons;
     void Awake()
     {
+        buttons = FindAnyObjectByType<Buttons>();
         if (Instance == null)
         {
             Instance = this;
@@ -31,6 +33,7 @@ public class CameraFollow : MonoBehaviour
     }
     void Update()
     {
+        if (buttons.pause) return;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             didstart = true;
