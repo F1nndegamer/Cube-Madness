@@ -1,8 +1,4 @@
-using System.Collections.Generic;
-using TMPro;
-using Unity.InferenceEngine;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class LevelsPanel : MonoBehaviour
 {
