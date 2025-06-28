@@ -26,6 +26,8 @@ public class Tutorial : MonoBehaviour
             "Welcome to the game!" + MoveKey + "to move to the end.",
             keybind + "to switch active players.",
             "Press" + ResetButton + "to reset the level if you get stuck.",
+            " ",
+            "You can move the new block by using the player",
         };
 
         for (int i = 0; i < Tutorials.Length; i++)
