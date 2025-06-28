@@ -59,6 +59,9 @@ public class MainMenu : MonoBehaviour
     #region ModeSelect
     public string modes = "Normal";
     public string username;
+    public Image modenormal;
+    public Image modetime;
+    public Image modefewestmoves;
     public void SetUsername(string name)
     {
         username = name;
@@ -71,14 +74,26 @@ public class MainMenu : MonoBehaviour
             case "Normal":
                 Debug.Log("Normal mode selected");
                 modes = "Normal";
+                if (modenormal == null || modetime == null || modefewestmoves == null) break;
+                modenormal.enabled = true;
+                modetime.enabled = false;
+                modefewestmoves.enabled = false;
                 break;
             case "Fewest Moves":
                 Debug.Log("Fewest Moves mode selected");
-                modes = "Fewest Moves";
+                modes = "Moves";
+                if (modenormal == null || modetime == null || modefewestmoves == null) break;
+                modenormal.enabled = false;
+                modetime.enabled = false;
+                modefewestmoves.enabled = true;
                 break;
             case "Time Trial":
                 Debug.Log("Time Trial mode selected");
-                modes = "Time Trial";
+                modes = "Time";
+                if (modenormal == null || modetime == null || modefewestmoves == null) break;
+                modenormal.enabled = false;
+                modetime.enabled = true;
+                modefewestmoves.enabled = false;
                 break;
         }
 
@@ -97,6 +112,10 @@ public class MainMenu : MonoBehaviour
         { fpsText.text = unlimitedFPS ? "FPS: Unlimited" : "FPS: " + targetFPS.ToString("F0"); }
         if (fpsSlider != null) fpsSlider.value = targetFPS;
         if (unlimitedFPSToggle != null) unlimitedFPSToggle.isOn = unlimitedFPS;
+        if (modes == "Normal") SelectMode("Normal");
+        else if (modes == "Moves") SelectMode("Fewest Moves");
+        else if (modes == "Time") SelectMode("Time Trial");
+        else SelectMode("Normal");
         SetFPS(targetFPS);
         SelectMode(modes);
     }

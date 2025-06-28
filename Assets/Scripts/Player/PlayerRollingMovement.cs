@@ -33,7 +33,7 @@ public class PlayerRollingMovement : MonoBehaviour
     private float bufferTimer = 0f;
     private Vector3 SavedDir;
     public bool isMovingObject;
-    [SerializeField]public bool died;
+    [SerializeField] public bool died;
     void Start()
     {
         FallManager.Instance.RegisterPlayer(this);
@@ -58,6 +58,15 @@ public class PlayerRollingMovement : MonoBehaviour
     void Update()
     {
         if (Time.timeScale == 0f) return;
+        if (Mode.Instance.MovesLeft < 0 && Mode.Instance.currentMode == "Moves")
+        {
+            if (!died)
+            {
+                died = true;
+                Die();
+            }
+            return;
+        }
         if (bufferTimer > 0f)
             bufferTimer -= Time.deltaTime;
         else
@@ -179,6 +188,7 @@ public class PlayerRollingMovement : MonoBehaviour
 
     private IEnumerator Roll(Vector3 direction)
     {
+        Mode.Instance.Moves++;
         isRolling = true;
         float cubeSize = GetComponent<Collider>().bounds.size.y;
         Vector3 pivot = transform.position + (direction * tileSize / 2f) + Vector3.down * (0.9f / 2f);

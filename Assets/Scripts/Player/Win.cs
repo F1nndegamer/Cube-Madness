@@ -86,8 +86,23 @@ public class Win : MonoBehaviour
 
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.highestLevel = Mathf.Max(GameManager.Instance.highestLevel, nextSceneIndex);
-            PlayerPrefs.SetInt("highestLevel", GameManager.Instance.highestLevel);
+            string currentMode = PlayerPrefs.GetString("GameMode", "Normal");
+            if (currentMode == "Normal")
+            {
+                GameManager.Instance.highestLevelNormal = Mathf.Max(GameManager.Instance.highestLevelNormal, nextSceneIndex);
+                PlayerPrefs.SetInt("highestLevelNormal", GameManager.Instance.highestLevelNormal);
+            }
+            else if (currentMode == "Time")
+            {
+                GameManager.Instance.highestLevelTime = Mathf.Max(GameManager.Instance.highestLevelTime, nextSceneIndex);
+                PlayerPrefs.SetInt("highestLevelTime", GameManager.Instance.highestLevelTime);
+            }
+            else if (currentMode == "Moves")
+            {
+                GameManager.Instance.highestLevelMoves = Mathf.Max(GameManager.Instance.highestLevelMoves, nextSceneIndex);
+                PlayerPrefs.SetInt("highestLevelMoves", GameManager.Instance.highestLevelMoves);
+            }
+
         }
     }
 

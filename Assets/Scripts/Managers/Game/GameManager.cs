@@ -6,15 +6,19 @@ public class GameManager : MonoBehaviour
 {
     public GameObject wintext;
     public static GameManager Instance;
-    public int Levels = 7;
-    public int highestLevel = 0;
+    public int Levels = 8;
+    public int highestLevelNormal = 0;
+    public int highestLevelTime = 0;
+    public int highestLevelMoves = 0;
     void Awake()
     {
         Instance = this;
-        highestLevel = PlayerPrefs.GetInt("highestLevel", highestLevel);
+        highestLevelNormal = PlayerPrefs.GetInt("highestLevelNormal", highestLevelNormal);
+        highestLevelTime = PlayerPrefs.GetInt("highestLevelTime", highestLevelTime);
+        highestLevelMoves = PlayerPrefs.GetInt("highestLevelMoves", highestLevelMoves);
     }
     void Update()
     {
-
+                
     }
 }
