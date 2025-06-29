@@ -334,6 +334,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b2723cc414aee49905f3327d57cf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blueprint:
+    width: 0
+    height: 0
+    length: 0
+    tileSize: 1
+    airTiles:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    extraTiles:
+    - position: {x: 0, y: 0, z: 0}
+      type: 0
   tilePrefab: {fileID: 7065798130339715373, guid: 87cf0dfe50d5b264cbe1d49f5983efb2, type: 3}
   airPrefab: {fileID: 0}
   gridWidth: 9
@@ -1117,23 +1128,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Version: 4
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
-  m_RenderingLayersMask:
-    serializedVersion: 0
-    m_Bits: 1
-  m_ShadowRenderingLayersMask:
-    serializedVersion: 0
-    m_Bits: 1
-  m_Version: 4
-  m_LightLayerMask: 1
-  m_ShadowLayerMask: 1
-  m_RenderingLayers: 1
-  m_ShadowRenderingLayers: 1
 --- !u!108 &465097263
 Light:
   m_ObjectHideFlags: 0
@@ -4151,9 +4156,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsGlobal: 1
-  m_Priority: 0
-  m_BlendDistance: 0
-  m_Weight: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
   sharedProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
 --- !u!4 &1883204274
 Transform:

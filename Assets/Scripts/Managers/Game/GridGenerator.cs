@@ -15,6 +15,8 @@ public class ExtraTileSelection
 
 public class GridGenerator : MonoBehaviour
 {
+    public Blueprint blueprint;
+
     public GameObject tilePrefab;
     public GameObject airPrefab;
 
