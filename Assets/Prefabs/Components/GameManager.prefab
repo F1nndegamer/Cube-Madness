@@ -1300,10 +1300,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33
+  m_fontSize: 34.9
   m_fontSizeBase: 33
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 2
@@ -1338,7 +1338,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -28.517212, y: -7.281372, z: 976.15674, w: -4.092739}
+  m_margin: {x: -9.652649, y: -0.7197571, z: 990.92035, w: 2.468872}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3378,10 +3378,10 @@ RectTransform:
   - {fileID: 363654821496069609}
   m_Father: {fileID: 7034142837733901237}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 51.80713, y: -493.60083}
-  m_SizeDelta: {x: -1695.3215, y: -1019.6093}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 51.80713, y: 46.39917}
+  m_SizeDelta: {x: 224.67847, y: 60.390686}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6204606081325461534
 CanvasRenderer:
@@ -4163,20 +4163,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Mode
   currentMode: Normal
   modeText: {fileID: 4963371943828612060}
-  MaxTime:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  TimeLeft: 0
   Moves: 0
   MovesLeft: 0
-  MaxMoves: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
 --- !u!114 &8835245178987744554
 MonoBehaviour:
   m_ObjectHideFlags: 0
