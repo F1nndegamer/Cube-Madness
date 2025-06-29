@@ -12,9 +12,9 @@ public class PlayText : MonoBehaviour
 #else
         tap.GetComponent<TextMeshProUGUI>().text = "Press Space to Start";
 #endif
-        StartCoroutine(gamestart());
+        StartCoroutine(Gamestart());
     }
-    IEnumerator gamestart()
+    IEnumerator Gamestart()
     {
         tap.SetActive(true);
         Time.timeScale = 0f;
