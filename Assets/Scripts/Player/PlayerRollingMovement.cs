@@ -67,6 +67,15 @@ public class PlayerRollingMovement : MonoBehaviour
             }
             return;
         }
+        if (Mode.Instance.TimeLeft == 0 && Mode.Instance.currentMode == "Time")
+        {
+            if (!died)
+            {
+                died = true;
+                Die();
+            }
+            return;
+        }
         if (bufferTimer > 0f)
             bufferTimer -= Time.deltaTime;
         else

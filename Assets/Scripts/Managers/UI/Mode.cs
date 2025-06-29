@@ -9,15 +9,15 @@ public class Mode : MonoBehaviour
 
     [Header("Time")]
 
-    float TimeLeft = 0f;
+    [SerializeField] public float TimeLeft = 0f;
     float TimeElapsed = 0f;
-    public float[] MaxTime = { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
+    float[] MaxTime = { 5f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
 
     [Header("Moves")]
 
     public int Moves;
     public int MovesLeft = 0;
-    public int[] MaxMoves = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    int[] MaxMoves = { 5, 17, 23, 36, 16, 37, 0, 0, 0, 0 };
 
     void Start()
     {
@@ -32,16 +32,22 @@ public class Mode : MonoBehaviour
             modeText.enabled = false;
             return;
         }
-        else
+        else if (currentMode == "Time")
         {
+            int currentlevel = SceneManager.GetActiveScene().buildIndex - 1;
+            if (!CameraFollow.Instance.didstart) { modeText.text = "Time Left: " + MaxTime[currentlevel]; return; }
+            TimeElapsed += Time.deltaTime;
+            TimeLeft = MaxTime[currentlevel] - TimeElapsed;
+            if (TimeLeft <= 0f)
+            {
+                TimeLeft = 0f;
+            }
             modeText.enabled = true;
-        }
-        if (currentMode == "TimeAttack")
-        {
             modeText.text = "Time Left: " + TimeLeft.ToString("F2") + "s";
         }
         else if (currentMode == "Moves")
         {
+            modeText.enabled = true;
             int currentlevel = SceneManager.GetActiveScene().buildIndex - 1;
             MovesLeft = MaxMoves[currentlevel] - Moves;
             modeText.text = "Moves Left: " + MovesLeft.ToString();
