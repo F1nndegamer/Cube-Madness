@@ -66,7 +66,6 @@ public class GridGenerator : MonoBehaviour
         foreach (var air in airTiles)
             extraPositions.Add(air.Pos);
 
-        // Generate main grid
         for (int x = 0; x < gridWidth; x++)
         {
             for (int z = 0; z < gridHeight; z++)
@@ -89,7 +88,6 @@ public class GridGenerator : MonoBehaviour
             }
         }
 
-        // Generate extra tiles
         foreach (var extra in extratiles)
         {
             GameObject prefab = null;
@@ -136,7 +134,6 @@ public class GridGenerator : MonoBehaviour
             go.name = $"{firstWord} Extra Tile ({extra.Pos.x}, {extra.Pos.y}, {extra.Pos.z})";
         }
 
-        // Generate air tiles
         foreach (var air in airTiles)
         {
             if (air.tilePrefab == null) continue;
@@ -176,10 +173,11 @@ public class GridGenerator : MonoBehaviour
 #if UNITY_EDITOR
             GameObject prefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(tile.gameObject);
 #else
-            GameObject prefab = tilePrefab;
+        GameObject prefab = tilePrefab;
 #endif
-            Vector3 pos = tile.position;
+            if (prefab == null) continue;
 
+            Vector3 pos = tile.position;
             int x = Mathf.RoundToInt(pos.x / tileSize);
             int y = Mathf.RoundToInt(pos.y);
             int z = Mathf.RoundToInt(pos.z / tileSize);
@@ -192,48 +190,47 @@ public class GridGenerator : MonoBehaviour
             if (isMainTile)
             {
                 gridAligned.Add(gridPos);
-                maxX = Mathf.Max(maxX, x + 1);
-                maxY = Mathf.Max(maxY, y + 1);
-                maxZ = Mathf.Max(maxZ, z + 1);
             }
             else
             {
-                extratiles.Add(new ExtraTileSelection { tilePrefab = prefab, Pos = gridPos });
-                maxX = Mathf.Max(maxX, x + 1);
-                maxY = Mathf.Max(maxY, y + 1);
-                maxZ = Mathf.Max(maxZ, z + 1);
+                int index = GetPrefabIndex(prefab);
+                if (index > 0)
+                {
+                    extratiles.Add(new ExtraTileSelection { tilePrefab = index, Pos = new Vector3(x, y, z) });
+                }
+                else
+                {
+                    airTiles.Add(new AirTileSelection { tilePrefab = prefab, Pos = new Vector3(x, y, z) });
+                }
             }
+
+            maxX = Mathf.Max(maxX, x + 1);
+            maxY = Mathf.Max(maxY, y + 1);
+            maxZ = Mathf.Max(maxZ, z + 1);
         }
 
         gridWidth = maxX;
         gridLength = maxY;
         gridHeight = maxZ;
 
-        // Detect air blocks
-        for (int x = 0; x < gridWidth; x++)
-        {
-            for (int y = 0; y < gridLength; y++)
-            {
-                for (int z = 0; z < gridHeight; z++)
-                {
-                    Vector3Int pos = new Vector3Int(x, y, z);
-                    bool exists = gridAligned.Contains(pos) || extratiles.Exists(t => t.Pos == (Vector3)pos);
-
-                    if (!exists)
-                    {
-                        airTiles.Add(new ExtraTileSelection
-                        {
-                            tilePrefab = airPrefab,
-                            Pos = new Vector3(x, y, z)
-                        });
-                    }
-                }
-            }
-        }
-
         Debug.Log($"Extracted {extratiles.Count} extra tiles.");
         Debug.Log($"Extracted {airTiles.Count} air tiles.");
     }
+
+    private int GetPrefabIndex(GameObject prefab)
+    {
+        if (prefab == pressureplatePrefab) return 1;
+        if (prefab == breakPrefab) return 2;
+        if (prefab == endPrefab) return 3;
+        if (prefab == playerPrefab) return 4;
+        if (prefab == deactplayerPrefab) return 5;
+        if (prefab == wallXPrefab) return 6;
+        if (prefab == wallZPrefab) return 7;
+        if (prefab == TimerPrefab) return 8;
+        if (prefab == MoveablePrefab) return 9;
+        return -1;
+    }
+
 
     public void ClearGrid()
     {
