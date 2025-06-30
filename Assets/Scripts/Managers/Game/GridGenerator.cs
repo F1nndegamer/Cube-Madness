@@ -9,10 +9,14 @@ using UnityEditor;
 [System.Serializable]
 public class ExtraTileSelection
 {
+    public int tilePrefab = 0;
+    public Vector3 Pos = Vector3.zero;
+}
+public class AirTileSelection
+{
     public GameObject tilePrefab = null;
     public Vector3 Pos = Vector3.zero;
 }
-
 public class GridGenerator : MonoBehaviour
 {
     public Blueprint blueprint;
@@ -27,11 +31,20 @@ public class GridGenerator : MonoBehaviour
     public float tileSize = 1f;
 
     public List<ExtraTileSelection> extratiles = new List<ExtraTileSelection>();
-    public List<ExtraTileSelection> airTiles = new List<ExtraTileSelection>();
+    public List<AirTileSelection> airTiles = new List<AirTileSelection>();
 
     public GameObject ExtraObjects;
     public GameObject Objects;
-
+    [Header("Block Prefabs")]
+    public GameObject pressureplatePrefab;
+    public GameObject breakPrefab;
+    public GameObject endPrefab;
+    public GameObject playerPrefab;
+    public GameObject deactplayerPrefab;
+    public GameObject wallXPrefab;
+    public GameObject wallZPrefab;
+    public GameObject TimerPrefab;
+    public GameObject MoveablePrefab;
     public void GenerateGrid()
     {
         if (ExtraObjects == null) ExtraObjects = new GameObject("ExtraObjects");
@@ -79,17 +92,47 @@ public class GridGenerator : MonoBehaviour
         // Generate extra tiles
         foreach (var extra in extratiles)
         {
-            if (extra.tilePrefab == null) continue;
-
+            GameObject prefab = null;
+            if (extra.tilePrefab == 0) continue;
+            switch (extra.tilePrefab)
+            {
+                case 1:
+                    prefab = pressureplatePrefab;
+                    break;
+                case 2:
+                    prefab = breakPrefab;
+                    break;
+                case 3:
+                    prefab = endPrefab;
+                    break;
+                case 4:
+                    prefab = playerPrefab;
+                    break;
+                case 5:
+                    prefab = deactplayerPrefab;
+                    break;
+                case 6:
+                    prefab = wallXPrefab;
+                    break;
+                case 7:
+                    prefab = wallZPrefab;
+                    break;
+                case 8:
+                    prefab = TimerPrefab;
+                    break;
+                case 9:
+                    prefab = MoveablePrefab;
+                    break;
+            }
             Vector3 worldPos = new Vector3(extra.Pos.x * tileSize, extra.Pos.y, extra.Pos.z * tileSize);
 #if UNITY_EDITOR
-            GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(extra.tilePrefab, ExtraObjects.transform);
+            GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(prefab, ExtraObjects.transform);
 #else
-            GameObject go = Instantiate(extra.tilePrefab, worldPos, Quaternion.identity, ExtraObjects.transform);
+            GameObject go = Instantiate(prefab, worldPos, Quaternion.identity, ExtraObjects.transform);
 #endif
             go.transform.position = worldPos;
             go.transform.rotation = Quaternion.identity;
-            string firstWord = extra.tilePrefab.name.Split(' ')[0];
+            string firstWord = prefab.name.Split(' ')[0];
             go.name = $"{firstWord} Extra Tile ({extra.Pos.x}, {extra.Pos.y}, {extra.Pos.z})";
         }
 
