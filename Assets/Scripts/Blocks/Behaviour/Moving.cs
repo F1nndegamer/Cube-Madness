@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+
 public class ExtraTileTrigger : MonoBehaviour
 {
     public List<Transform> objectToMove;
@@ -16,13 +17,15 @@ public class ExtraTileTrigger : MonoBehaviour
     public bool isMoving;
     public bool playermoves;
     public float PlayerHeight = 0.95f;
-    void Awake()
+
+    private void Awake()
     {
         foreach (Transform obj in objectToMove)
         {
             obj.gameObject.isStatic = false;
         }
     }
+
     private void Start()
     {
         players = FindObjectsByType<PlayerRollingMovement>(FindObjectsSortMode.None);
@@ -31,19 +34,17 @@ public class ExtraTileTrigger : MonoBehaviour
             Debug.LogWarning("targetPosition count does not match objectToMove count.");
         }
 
-        for (int i = 0; i < objectToMove.Count; i++)
+        foreach (Transform obj in objectToMove)
         {
-            Location.Add(objectToMove[i].position);
+            Location.Add(obj.position);
+            if (!obj.TryGetComponent(out ObjectMoving _))
+                obj.gameObject.AddComponent<ObjectMoving>();
         }
 
         playeronobject = new List<int>(new int[players.Length]);
         for (int i = 0; i < playeronobject.Count; i++)
         {
             playeronobject[i] = -1;
-        }
-        foreach (Transform obj in objectToMove)
-        {
-            obj.gameObject.isStatic = false;
         }
     }
 
@@ -62,6 +63,51 @@ public class ExtraTileTrigger : MonoBehaviour
         {
             StopAllCoroutines();
             StartCoroutine(MoveObjectBack());
+        }
+    }
+
+    private bool TryClaimOwnership(Transform obj, bool moveToTarget)
+    {
+        var state = obj.GetComponent<ObjectMoving>();
+        if (state == null) return true;
+
+        if (state.currentOwner == null)
+        {
+            state.currentOwner = this;
+            state.isMovingToTarget = moveToTarget;
+            return true;
+        }
+
+        if (state.currentOwner == this)
+        {
+            state.isMovingToTarget = moveToTarget;
+            return true;
+        }
+
+        if (!state.isMovingToTarget && moveToTarget)
+        {
+            state.currentOwner = this;
+            state.isMovingToTarget = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    private void ReleaseOwnership(Transform obj)
+    {
+        var state = obj.GetComponent<ObjectMoving>();
+        if (state != null && state.currentOwner == this)
+        {
+            state.currentOwner = null;
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (Transform obj in objectToMove)
+        {
+            ReleaseOwnership(obj);
         }
     }
 
@@ -103,18 +149,24 @@ public class ExtraTileTrigger : MonoBehaviour
                 Transform obj = objectToMove[i];
                 Vector3 targetPos = targetPosition[i];
 
+                if (!TryClaimOwnership(obj, true)) continue;
+
                 switch (Order)
                 {
                     case MovementOrder.At_Once:
-                        if (Vector3.Distance(obj.position, targetPos) > 0f)
+                        if (Vector3.Distance(obj.position, targetPos) > 0.01f)
                         {
                             obj.position = Vector3.MoveTowards(obj.position, targetPos, moveSpeed * Time.deltaTime);
                             isMoving = true;
                         }
+                        else
+                        {
+                            ReleaseOwnership(obj);
+                        }
                         break;
 
                     case MovementOrder.X_First:
-                        if (Mathf.Abs(obj.position.x - targetPos.x) > 0f)
+                        if (Mathf.Abs(obj.position.x - targetPos.x) > 0.01f)
                         {
                             obj.position = new Vector3(
                                 Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
@@ -123,7 +175,7 @@ public class ExtraTileTrigger : MonoBehaviour
                             );
                             isMoving = true;
                         }
-                        else if (Mathf.Abs(obj.position.y - targetPos.y) > 0f || Mathf.Abs(obj.position.z - targetPos.z) > 0f)
+                        else if (Mathf.Abs(obj.position.y - targetPos.y) > 0.01f || Mathf.Abs(obj.position.z - targetPos.z) > 0.01f)
                         {
                             obj.position = new Vector3(
                                 obj.position.x,
@@ -131,11 +183,15 @@ public class ExtraTileTrigger : MonoBehaviour
                                 Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime)
                             );
                             isMoving = true;
+                        }
+                        else
+                        {
+                            ReleaseOwnership(obj);
                         }
                         break;
 
                     case MovementOrder.Y_First:
-                        if (Mathf.Abs(obj.position.y - targetPos.y) > 0f)
+                        if (Mathf.Abs(obj.position.y - targetPos.y) > 0.01f)
                         {
                             obj.position = new Vector3(
                                 obj.position.x,
@@ -144,7 +200,7 @@ public class ExtraTileTrigger : MonoBehaviour
                             );
                             isMoving = true;
                         }
-                        else if (Mathf.Abs(obj.position.x - targetPos.x) > 0f || Mathf.Abs(obj.position.z - targetPos.z) > 0f)
+                        else if (Mathf.Abs(obj.position.x - targetPos.x) > 0.01f || Mathf.Abs(obj.position.z - targetPos.z) > 0.01f)
                         {
                             obj.position = new Vector3(
                                 Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
@@ -152,11 +208,15 @@ public class ExtraTileTrigger : MonoBehaviour
                                 Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime)
                             );
                             isMoving = true;
+                        }
+                        else
+                        {
+                            ReleaseOwnership(obj);
                         }
                         break;
 
                     case MovementOrder.Z_First:
-                        if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
+                        if (Mathf.Abs(obj.position.z - targetPos.z) > 0.01f)
                         {
                             obj.position = new Vector3(
                                 obj.position.x,
@@ -165,7 +225,7 @@ public class ExtraTileTrigger : MonoBehaviour
                             );
                             isMoving = true;
                         }
-                        else if (Mathf.Abs(obj.position.x - targetPos.x) > 0f || Mathf.Abs(obj.position.y - targetPos.y) > 0f)
+                        else if (Mathf.Abs(obj.position.x - targetPos.x) > 0.01f || Mathf.Abs(obj.position.y - targetPos.y) > 0.01f)
                         {
                             obj.position = new Vector3(
                                 Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
@@ -173,6 +233,10 @@ public class ExtraTileTrigger : MonoBehaviour
                                 obj.position.z
                             );
                             isMoving = true;
+                        }
+                        else
+                        {
+                            ReleaseOwnership(obj);
                         }
                         break;
                 }
@@ -225,103 +289,85 @@ public class ExtraTileTrigger : MonoBehaviour
                 Vector3 targetPos = Location[i];
                 Transform obj = objectToMove[i];
 
+                if (!TryClaimOwnership(obj, false)) continue;
+
                 switch (Order)
                 {
                     case MovementOrder.At_Once:
-                        if (Vector3.Distance(obj.position, targetPos) > 0f)
+                        if (Vector3.Distance(obj.position, targetPos) > 0.01f)
                         {
                             obj.position = Vector3.MoveTowards(obj.position, targetPos, moveSpeed * Time.deltaTime);
                             isMoving = true;
                         }
+                        else
+                        {
+                            ReleaseOwnership(obj);
+                        }
                         break;
 
                     case MovementOrder.X_First:
-                        if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
+                        if (Mathf.Abs(obj.position.z - targetPos.z) > 0.01f)
                         {
-                            obj.position = new Vector3(
-                                obj.position.x,
-                                obj.position.y,
-                                Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime)
-                            );
+                            obj.position = new Vector3(obj.position.x, obj.position.y, Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime));
                             isMoving = true;
                         }
-                        else if (Mathf.Abs(obj.position.y - targetPos.y) > 0f)
+                        else if (Mathf.Abs(obj.position.y - targetPos.y) > 0.01f)
                         {
-                            obj.position = new Vector3(
-                                obj.position.x,
-                                Mathf.MoveTowards(obj.position.y, targetPos.y, moveSpeed * Time.deltaTime),
-                                obj.position.z
-                            );
+                            obj.position = new Vector3(obj.position.x, Mathf.MoveTowards(obj.position.y, targetPos.y, moveSpeed * Time.deltaTime), obj.position.z);
                             isMoving = true;
                         }
-                        else if (Mathf.Abs(obj.position.x - targetPos.x) > 0f)
+                        else if (Mathf.Abs(obj.position.x - targetPos.x) > 0.01f)
                         {
-                            obj.position = new Vector3(
-                                Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
-                                obj.position.y,
-                                obj.position.z
-                            );
+                            obj.position = new Vector3(Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime), obj.position.y, obj.position.z);
                             isMoving = true;
+                        }
+                        else
+                        {
+                            ReleaseOwnership(obj);
                         }
                         break;
 
                     case MovementOrder.Y_First:
-                        if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
+                        if (Mathf.Abs(obj.position.z - targetPos.z) > 0.01f)
                         {
-                            obj.position = new Vector3(
-                                obj.position.x,
-                                obj.position.y,
-                                Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime)
-                            );
+                            obj.position = new Vector3(obj.position.x, obj.position.y, Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime));
                             isMoving = true;
                         }
-                        else if (Mathf.Abs(obj.position.x - targetPos.x) > 0f)
+                        else if (Mathf.Abs(obj.position.x - targetPos.x) > 0.01f)
                         {
-                            obj.position = new Vector3(
-                                Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
-                                obj.position.y,
-                                obj.position.z
-                            );
+                            obj.position = new Vector3(Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime), obj.position.y, obj.position.z);
                             isMoving = true;
                         }
-                        else if (Mathf.Abs(obj.position.y - targetPos.y) > 0f)
+                        else if (Mathf.Abs(obj.position.y - targetPos.y) > 0.01f)
                         {
-                            obj.position = new Vector3(
-                                obj.position.x,
-                                Mathf.MoveTowards(obj.position.y, targetPos.y, moveSpeed * Time.deltaTime),
-                                obj.position.z
-                            );
+                            obj.position = new Vector3(obj.position.x, Mathf.MoveTowards(obj.position.y, targetPos.y, moveSpeed * Time.deltaTime), obj.position.z);
                             isMoving = true;
+                        }
+                        else
+                        {
+                            ReleaseOwnership(obj);
                         }
                         break;
 
                     case MovementOrder.Z_First:
-                        if (Mathf.Abs(obj.position.x - targetPos.x) > 0f)
+                        if (Mathf.Abs(obj.position.x - targetPos.x) > 0.01f)
                         {
-                            obj.position = new Vector3(
-                                Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime),
-                                obj.position.y,
-                                obj.position.z
-                            );
+                            obj.position = new Vector3(Mathf.MoveTowards(obj.position.x, targetPos.x, moveSpeed * Time.deltaTime), obj.position.y, obj.position.z);
                             isMoving = true;
                         }
-                        else if (Mathf.Abs(obj.position.y - targetPos.y) > 0f)
+                        else if (Mathf.Abs(obj.position.y - targetPos.y) > 0.01f)
                         {
-                            obj.position = new Vector3(
-                                obj.position.x,
-                                Mathf.MoveTowards(obj.position.y, targetPos.y, moveSpeed * Time.deltaTime),
-                                obj.position.z
-                            );
+                            obj.position = new Vector3(obj.position.x, Mathf.MoveTowards(obj.position.y, targetPos.y, moveSpeed * Time.deltaTime), obj.position.z);
                             isMoving = true;
                         }
-                        else if (Mathf.Abs(obj.position.z - targetPos.z) > 0f)
+                        else if (Mathf.Abs(obj.position.z - targetPos.z) > 0.01f)
                         {
-                            obj.position = new Vector3(
-                                obj.position.x,
-                                obj.position.y,
-                                Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime)
-                            );
+                            obj.position = new Vector3(obj.position.x, obj.position.y, Mathf.MoveTowards(obj.position.z, targetPos.z, moveSpeed * Time.deltaTime));
                             isMoving = true;
+                        }
+                        else
+                        {
+                            ReleaseOwnership(obj);
                         }
                         break;
                 }
