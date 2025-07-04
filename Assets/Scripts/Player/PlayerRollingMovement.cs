@@ -58,6 +58,7 @@ public class PlayerRollingMovement : MonoBehaviour
     void Update()
     {
         if (Time.timeScale == 0f) return;
+        if (isMovingObject) return;
         if (Mode.Instance.MovesLeft < 0 && Mode.Instance.currentMode == "Moves")
         {
             if (!died)
