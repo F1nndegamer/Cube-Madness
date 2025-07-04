@@ -17,7 +17,7 @@ public class Mode : MonoBehaviour
 
     public int Moves;
     public int MovesLeft = 0;
-    int[] MaxMoves = { 5, 17, 23, 36, 16, 37, 0, 0, 0, 0 };
+    int[] MaxMoves = { 5, 17, 23, 36, 16, 37, 25, 37, 0, 0 };
 
     void Start()
     {
@@ -43,7 +43,8 @@ public class Mode : MonoBehaviour
                 TimeLeft = 0f;
             }
             modeText.enabled = true;
-            modeText.text = "Time Left: " + TimeLeft.ToString("F2") + "s";
+            if (MaxTime[currentlevel] > 0) modeText.text = "Time Left: " + TimeLeft.ToString("F2") + "s";
+            else modeText.text = "Time Left: " + TimeElapsed.ToString("F2") + "s";
         }
         else if (currentMode == "Moves")
         {
