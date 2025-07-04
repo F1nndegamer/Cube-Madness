@@ -11,12 +11,11 @@ public class ExtraTileSelection
 {
     public int tilePrefab = 0;
     public Vector3 Pos = Vector3.zero;
+
+    public Vector3 BlockPos = Vector3.zero;
+    public Vector3 MovePosition = Vector3.zero;
 }
-public class AirTileSelection
-{
-    public GameObject tilePrefab = null;
-    public Vector3 Pos = Vector3.zero;
-}
+
 public class GridGenerator : MonoBehaviour
 {
     public Blueprint blueprint;
@@ -31,7 +30,7 @@ public class GridGenerator : MonoBehaviour
     public float tileSize = 1f;
 
     public List<ExtraTileSelection> extratiles = new List<ExtraTileSelection>();
-    public List<AirTileSelection> airTiles = new List<AirTileSelection>();
+    public List<ExtraTileSelection> airTiles = new List<ExtraTileSelection>();
 
     public GameObject ExtraObjects;
     public GameObject Objects;
@@ -79,7 +78,7 @@ public class GridGenerator : MonoBehaviour
 #if UNITY_EDITOR
                     GameObject tile = (GameObject)PrefabUtility.InstantiatePrefab(tilePrefab, Objects.transform);
 #else
-                    GameObject tile = Instantiate(tilePrefab, worldPos, Quaternion.identity, Objects.transform);
+                GameObject tile = Instantiate(tilePrefab, worldPos, Quaternion.identity, Objects.transform);
 #endif
                     tile.transform.position = worldPos;
                     tile.transform.rotation = Quaternion.identity;
@@ -92,63 +91,48 @@ public class GridGenerator : MonoBehaviour
         {
             GameObject prefab = null;
             if (extra.tilePrefab == 0) continue;
+
             switch (extra.tilePrefab)
             {
-                case 1:
-                    prefab = pressureplatePrefab;
-                    break;
-                case 2:
-                    prefab = breakPrefab;
-                    break;
-                case 3:
-                    prefab = endPrefab;
-                    break;
-                case 4:
-                    prefab = playerPrefab;
-                    break;
-                case 5:
-                    prefab = deactplayerPrefab;
-                    break;
-                case 6:
-                    prefab = wallXPrefab;
-                    break;
-                case 7:
-                    prefab = wallZPrefab;
-                    break;
-                case 8:
-                    prefab = TimerPrefab;
-                    break;
-                case 9:
-                    prefab = MoveablePrefab;
-                    break;
+                case 1: prefab = pressureplatePrefab; break;
+                case 2: prefab = breakPrefab; break;
+                case 3: prefab = endPrefab; break;
+                case 4: prefab = playerPrefab; break;
+                case 5: prefab = deactplayerPrefab; break;
+                case 6: prefab = wallXPrefab; break;
+                case 7: prefab = wallZPrefab; break;
+                case 8: prefab = TimerPrefab; break;
+                case 9: prefab = MoveablePrefab; break;
             }
+
             Vector3 worldPos = new Vector3(extra.Pos.x * tileSize, extra.Pos.y, extra.Pos.z * tileSize);
+            Vector3 offset = GetPlacementOffset(extra.tilePrefab);
+
 #if UNITY_EDITOR
             GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(prefab, ExtraObjects.transform);
 #else
-            GameObject go = Instantiate(prefab, worldPos, Quaternion.identity, ExtraObjects.transform);
+        GameObject go = Instantiate(prefab, worldPos + offset, Quaternion.identity, ExtraObjects.transform);
 #endif
-            go.transform.position = worldPos;
-            go.transform.rotation = Quaternion.identity;
+
+            go.transform.position = worldPos + offset;
+
+            if (extra.tilePrefab == 6)
+                go.transform.rotation = Quaternion.Euler(0, 90, 0);
+            else
+                go.transform.rotation = Quaternion.identity;
+
             string firstWord = prefab.name.Split(' ')[0];
             go.name = $"{firstWord} Extra Tile ({extra.Pos.x}, {extra.Pos.y}, {extra.Pos.z})";
         }
 
         foreach (var air in airTiles)
         {
-            if (air.tilePrefab == null) continue;
-
+            if (air.tilePrefab == 0) continue;
             Vector3 worldPos = new Vector3(air.Pos.x * tileSize, air.Pos.y, air.Pos.z * tileSize);
-#if UNITY_EDITOR
-            GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(air.tilePrefab, ExtraObjects.transform);
-#else
-            GameObject go = Instantiate(air.tilePrefab, worldPos, Quaternion.identity, ExtraObjects.transform);
-#endif
-            go.transform.position = worldPos;
-            go.transform.rotation = Quaternion.identity;
-            go.name = $"Air Tile ({air.Pos.x}, {air.Pos.y}, {air.Pos.z})";
         }
+        SetExtraTileMoveData();
     }
+
 
     public void ExtractTilesFromScene()
     {
@@ -161,12 +145,13 @@ public class GridGenerator : MonoBehaviour
             return;
         }
 
-        HashSet<Vector3Int> gridAligned = new HashSet<Vector3Int>();
-        int maxX = 0, maxY = 0, maxZ = 0;
+        HashSet<Vector3Int> occupiedPositions = new HashSet<Vector3Int>();
 
         List<Transform> allTiles = new List<Transform>();
         allTiles.AddRange(Objects.transform.Cast<Transform>());
         allTiles.AddRange(ExtraObjects.transform.Cast<Transform>());
+
+        int maxX = 0, maxY = 0, maxZ = 0;
 
         foreach (Transform tile in allTiles)
         {
@@ -178,35 +163,45 @@ public class GridGenerator : MonoBehaviour
             if (prefab == null) continue;
 
             Vector3 pos = tile.position;
-            int x = Mathf.RoundToInt(pos.x / tileSize);
-            int y = Mathf.RoundToInt(pos.y);
-            int z = Mathf.RoundToInt(pos.z / tileSize);
+            int index = GetPrefabIndex(prefab);
+            Vector3 placementOffset = GetPlacementOffset(index);
+            Vector3 adjustedPos = pos - placementOffset;
 
-            Vector3 aligned = new Vector3(x * tileSize, y, z * tileSize);
+            int x = Mathf.RoundToInt(adjustedPos.x / tileSize);
+            int y = Mathf.RoundToInt(adjustedPos.y);
+            int z = Mathf.RoundToInt(adjustedPos.z / tileSize);
             Vector3Int gridPos = new Vector3Int(x, y, z);
-            bool isAligned = Vector3.Distance(pos, aligned) < 0.01f;
-            bool isMainTile = prefab == tilePrefab && isAligned && tile.rotation == Quaternion.identity;
+            occupiedPositions.Add(gridPos);
 
-            if (isMainTile)
+            bool isMainTile = prefab == tilePrefab && tile.rotation == Quaternion.identity;
+
+            if (!isMainTile)
             {
-                gridAligned.Add(gridPos);
-            }
-            else
-            {
-                int index = GetPrefabIndex(prefab);
+                index = GetPrefabIndex(prefab);
                 if (index > 0)
                 {
                     extratiles.Add(new ExtraTileSelection { tilePrefab = index, Pos = new Vector3(x, y, z) });
-                }
-                else
-                {
-                    airTiles.Add(new AirTileSelection { tilePrefab = prefab, Pos = new Vector3(x, y, z) });
                 }
             }
 
             maxX = Mathf.Max(maxX, x + 1);
             maxY = Mathf.Max(maxY, y + 1);
             maxZ = Mathf.Max(maxZ, z + 1);
+        }
+
+        for (int x = 0; x < maxX; x++)
+        {
+            for (int y = 0; y < maxY; y++)
+            {
+                for (int z = 0; z < maxZ; z++)
+                {
+                    Vector3Int pos = new Vector3Int(x, y, z);
+                    if (!occupiedPositions.Contains(pos))
+                    {
+                        airTiles.Add(new ExtraTileSelection { tilePrefab = 0, Pos = new Vector3(x, y, z) });
+                    }
+                }
+            }
         }
 
         gridWidth = maxX;
@@ -216,6 +211,7 @@ public class GridGenerator : MonoBehaviour
         Debug.Log($"Extracted {extratiles.Count} extra tiles.");
         Debug.Log($"Extracted {airTiles.Count} air tiles.");
     }
+
 
     private int GetPrefabIndex(GameObject prefab)
     {
@@ -231,6 +227,15 @@ public class GridGenerator : MonoBehaviour
         return -1;
     }
 
+    private Vector3 GetPlacementOffset(int tilePrefab)
+    {
+        switch (tilePrefab)
+        {
+            case 6: return new Vector3(0, -0.2f, -tileSize / 2f);
+            case 7: return new Vector3(-tileSize / 2f, -0.2f, 0);
+            default: return Vector3.zero;
+        }
+    }
 
     public void ClearGrid()
     {
@@ -249,6 +254,121 @@ public class GridGenerator : MonoBehaviour
         if (Objects != null) ClearChildren(Objects.transform);
         if (ExtraObjects != null) ClearChildren(ExtraObjects.transform);
     }
+    public void Reset()
+    {
+        GameObject extratiles = GameObject.Find("ExtraObjects");
+        if (extratiles != null)
+        {
+            ExtraObjects = extratiles;
+        }
+
+        GameObject objects = GameObject.Find("Objects");
+        if (objects != null)
+        {
+            Objects = objects;
+        }
+    }
+    private void SetExtraTileMoveData()
+    {
+        ExtraTileTrigger[] triggers = FindObjectsByType<ExtraTileTrigger>(FindObjectsSortMode.None);
+
+        foreach (var trigger in triggers)
+        {
+            Vector3 triggerGridPos = new Vector3(
+                Mathf.RoundToInt(trigger.transform.position.x / tileSize),
+                Mathf.RoundToInt(trigger.transform.position.y),
+                Mathf.RoundToInt(trigger.transform.position.z / tileSize)
+            );
+            Debug.Log($"Processing trigger at {triggerGridPos}");
+            foreach (var tile in extratiles)
+            {
+                if (tile.Pos == triggerGridPos &&
+                    (tile.tilePrefab == 1 || tile.tilePrefab == 2))
+                {
+                    Vector3 worldBlockPos = new Vector3(
+                        tile.BlockPos.x * tileSize,
+                        tile.BlockPos.y,
+                        tile.BlockPos.z * tileSize
+                    );
+
+                    GameObject found = FindObjectAtPosition(worldBlockPos, Objects.transform);
+                    if (found != null)
+                    {
+                        if (trigger.objectToMove.Count == 0)
+                            trigger.objectToMove.Add(found.transform);
+                        else
+                            trigger.objectToMove[0] = found.transform;
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"No object found at {worldBlockPos} for tile at {tile.Pos}");
+                    }
+
+                    if (trigger.targetPosition.Count == 0)
+                        trigger.targetPosition.Add(tile.MovePosition);
+                    else
+                        trigger.targetPosition[0] = tile.MovePosition;
+
+#if UNITY_EDITOR
+                    Debug.Log($"Linked tile at {tile.Pos} to object at {tile.BlockPos} -> {found?.name}");
+#endif
+                }
+                else if (tile.tilePrefab != 1 && tile.tilePrefab != 2)
+                {
+                    Debug.Log($"Tile at {tile.Pos} is not a valid type.");
+                }
+                else
+                {
+                    Debug.Log($"Tile at {tile.Pos} does not match trigger at {triggerGridPos}.");
+                }
+            }
+        }
+    }
+
+    private GameObject FindObjectAtPosition(Vector3 position, Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            if (Vector3.Distance(child.position, position) < 0.01f)
+            {
+                return child.gameObject;
+            }
+        }
+        return null;
+    }
+
+    public void GetExtraTileMoveData(GridGenerator grid)
+    {
+        ExtraTileTrigger[] triggers = GameObject.FindObjectsByType<ExtraTileTrigger>(FindObjectsSortMode.None);
+
+        foreach (var trigger in triggers)
+        {
+            Vector3 triggerGridPos = new Vector3(
+                Mathf.RoundToInt(trigger.transform.position.x / grid.tileSize),
+                Mathf.RoundToInt(trigger.transform.position.y),
+                Mathf.RoundToInt(trigger.transform.position.z / grid.tileSize)
+            );
+
+            foreach (var tile in grid.extratiles)
+            {
+                if (tile.Pos == triggerGridPos && (tile.tilePrefab == 1 || tile.tilePrefab == 2))
+                {
+                    if (trigger.objectToMove.Count > 0 && trigger.targetPosition.Count > 0)
+                    {
+                        tile.BlockPos = trigger.objectToMove[0].position;
+                        tile.MovePosition = trigger.targetPosition[0];
+
+                        Debug.Log($"Set BlockPos and MovePosition for tile at {tile.Pos} using trigger at {triggerGridPos}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Trigger at {triggerGridPos} has no move targets.");
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 #if UNITY_EDITOR
@@ -276,6 +396,7 @@ public class GridGeneratorEditor : UnityEditor.Editor
         if (GUILayout.Button("Extract From Scene"))
         {
             g.ExtractTilesFromScene();
+            g.GetExtraTileMoveData(g);
             EditorUtility.SetDirty(g);
         }
     }

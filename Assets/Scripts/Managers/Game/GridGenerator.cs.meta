@@ -5,6 +5,18 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - tilePrefab: {fileID: 7065798130339715373, guid: 87cf0dfe50d5b264cbe1d49f5983efb2, type: 3}
+  - airPrefab: {instanceID: 0}
+  - ExtraObjects: {instanceID: 0}
+  - Objects: {instanceID: 0}
+  - pressureplatePrefab: {fileID: 8099275340108776602, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+  - breakPrefab: {fileID: 6647524679638447447, guid: 099725040ac3ee246b90235545b14024, type: 3}
+  - endPrefab: {fileID: 8704440127935323369, guid: 723a3d881ead2a148a6929c77ee2fc0a, type: 3}
+  - playerPrefab: {fileID: 1710717632397923981, guid: 5c6db0dce46b1fe4cb7d602868f39c09, type: 3}
+  - deactplayerPrefab: {fileID: 7387850430350066642, guid: a738545e6351eaa4d9d32205111f1478, type: 3}
+  - wallXPrefab: {fileID: 4869836814425980005, guid: 202d937e2121089469ddb8b09e4216ab, type: 3}
+  - wallZPrefab: {fileID: 4869836814425980005, guid: 078e298cf3dce904fb459770bf26bc76, type: 3}
+  - TimerPrefab: {fileID: 1999560582060221497, guid: 57969e7db1073774a9e16a7afe707290, type: 3}
+  - MoveablePrefab: {fileID: 7065798130339715373, guid: fbed3b46ab8db5946858ea5eb091c6fc, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
