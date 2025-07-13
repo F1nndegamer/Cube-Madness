@@ -5,7 +5,7 @@ public class CubeController : MonoBehaviour
     public GameObject projectilePrefab;
     public Vector3 shootDirection = Vector3.forward;
     public float projectileVelocity = 10f;
-    public int shootCooldown = 1;
+    public int shootCooldown = 5;
     private float lastShootTime = -Mathf.Infinity;
 
     void Update()
