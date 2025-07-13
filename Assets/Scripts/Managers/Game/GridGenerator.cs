@@ -271,7 +271,7 @@ public class GridGenerator : MonoBehaviour
     private void SetExtraTileMoveData()
     {
         ExtraTileTrigger[] triggers = FindObjectsByType<ExtraTileTrigger>(FindObjectsSortMode.None);
-
+        BreakableBlock[] breakers = FindObjectsByType<BreakableBlock>(FindObjectsSortMode.None);
         foreach (var trigger in triggers)
         {
             Vector3 triggerGridPos = new Vector3(
@@ -282,49 +282,99 @@ public class GridGenerator : MonoBehaviour
             Debug.Log($"Processing trigger at {triggerGridPos}");
             foreach (var tile in extratiles)
             {
-                if (tile.Pos == triggerGridPos &&
-                    (tile.tilePrefab == 1 || tile.tilePrefab == 2))
+                if (tile.Pos == triggerGridPos)
                 {
-                    Vector3 worldBlockPos = new Vector3(
-                        tile.BlockPos.x * tileSize,
-                        tile.BlockPos.y,
-                        tile.BlockPos.z * tileSize
-                    );
-
-                    GameObject found = FindObjectAtPosition(worldBlockPos, Objects.transform);
-                    if (found != null)
+                    if (tile.tilePrefab == 1)
                     {
-                        if (trigger.objectToMove.Count == 0)
-                            trigger.objectToMove.Add(found.transform);
+                        Vector3 worldBlockPos = new Vector3(
+                            tile.BlockPos.x * tileSize,
+                            tile.BlockPos.y,
+                            tile.BlockPos.z * tileSize
+                        );
+
+                        GameObject found = FindObjectAtPosition(worldBlockPos, Objects.transform);
+                        if (found != null)
+                        {
+                            if (trigger.objectToMove.Count == 0)
+                                trigger.objectToMove.Add(found.transform);
+                            else
+                                trigger.objectToMove[0] = found.transform;
+                        }
                         else
-                            trigger.objectToMove[0] = found.transform;
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"No object found at {worldBlockPos} for tile at {tile.Pos}");
-                    }
+                        {
+                            Debug.LogWarning($"No object found at {worldBlockPos} for tile at {tile.Pos}");
+                        }
 
-                    if (trigger.targetPosition.Count == 0)
-                        trigger.targetPosition.Add(tile.MovePosition);
-                    else
-                        trigger.targetPosition[0] = tile.MovePosition;
+                        if (trigger.targetPosition.Count == 0)
+                            trigger.targetPosition.Add(tile.MovePosition);
+                        else
+                            trigger.targetPosition[0] = tile.MovePosition;
 
 #if UNITY_EDITOR
-                    Debug.Log($"Linked tile at {tile.Pos} to object at {tile.BlockPos} -> {found?.name}");
+                        Debug.Log($"Linked tile at {tile.Pos} to object at {tile.BlockPos} -> {found?.name}");
 #endif
-                }
-                else if (tile.tilePrefab != 1 && tile.tilePrefab != 2)
-                {
-                    Debug.Log($"Tile at {tile.Pos} is not a valid type.");
-                }
-                else
-                {
-                    Debug.Log($"Tile at {tile.Pos} does not match trigger at {triggerGridPos}.");
+                    }
+                    else if (tile.tilePrefab != 1)
+                    {
+                        Debug.Log($"Tile at {tile.Pos} is not a valid type.");
+                    }
+                    else
+                    {
+                        Debug.Log($"Tile at {tile.Pos} does not match trigger at {triggerGridPos}.");
+                    }
                 }
             }
         }
-    }
 
+        foreach (var breaker in breakers)
+        {
+            Vector3 triggerGridPos = new Vector3(
+                Mathf.RoundToInt(breaker.transform.position.x / tileSize),
+                Mathf.RoundToInt(breaker.transform.position.y),
+                Mathf.RoundToInt(breaker.transform.position.z / tileSize)
+            );
+            Debug.Log($"1Processing breaker at {triggerGridPos}");
+            foreach (var tile in extratiles)
+            {
+                if (tile.Pos == triggerGridPos)
+                {
+                    if (tile.tilePrefab == 1)
+                    {
+                        Vector3 worldBlockPos = new Vector3(
+                            tile.BlockPos.x * tileSize,
+                            tile.BlockPos.y,
+                            tile.BlockPos.z * tileSize
+                        );
+
+                        GameObject found = FindObjectAtPosition(worldBlockPos, Objects.transform);
+                        if (found != null)
+                        {
+                            if (breaker.blocks.Count == 0)
+                                breaker.blocks.Add(found.transform);
+                            else
+                                breaker.blocks[0] = found.transform;
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"1No object found at {worldBlockPos} for tile at {tile.Pos}");
+                        }
+#if UNITY_EDITOR
+                        Debug.Log($"1Linked tile at {tile.Pos} to object at {tile.BlockPos} -> {found?.name}");
+#endif
+                    }
+                    else if (tile.tilePrefab != 1)
+                    {
+                        Debug.Log($"1Tile at {tile.Pos} is not a valid type.");
+                    }
+                    else
+                    {
+                        Debug.Log($"11Tile at {tile.Pos} does not match trigger at {triggerGridPos}.");
+                    }
+                }
+            }
+        }
+
+    }
     private GameObject FindObjectAtPosition(Vector3 position, Transform parent)
     {
         foreach (Transform child in parent)
