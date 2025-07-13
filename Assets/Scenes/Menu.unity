@@ -1827,8 +1827,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2409,31 +2409,62 @@ MonoBehaviour:
   gridLength: 1
   tileSize: 1
   extratiles:
-  - tilePrefab: {fileID: 8704440127935323369, guid: 723a3d881ead2a148a6929c77ee2fc0a, type: 3}
+  - tilePrefab: 0
     Pos: {x: 9, y: 0, z: 3}
-  - tilePrefab: {fileID: 8099275340108776602, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 0}
-  - tilePrefab: {fileID: 8099275340108776602, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 7, y: 0, z: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   airTiles:
-  - tilePrefab: {fileID: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 5, y: 0, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 5, y: 0, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 5, y: 0, z: 2}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 5, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 6, y: 0, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 6, y: 0, z: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   ExtraObjects: {fileID: 1466831229}
   Objects: {fileID: 1641840132}
+  pressureplatePrefab: {fileID: 0}
+  breakPrefab: {fileID: 0}
+  endPrefab: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  deactplayerPrefab: {fileID: 0}
+  wallXPrefab: {fileID: 0}
+  wallZPrefab: {fileID: 0}
+  TimerPrefab: {fileID: 0}
+  MoveablePrefab: {fileID: 0}
 --- !u!4 &217938547
 Transform:
   m_ObjectHideFlags: 0
@@ -2949,41 +2980,82 @@ MonoBehaviour:
   gridLength: 1
   tileSize: 1
   extratiles:
-  - tilePrefab: {fileID: 8099275340108776602, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 6}
-  - tilePrefab: {fileID: 8099275340108776602, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 6, y: 0, z: 6}
-  - tilePrefab: {fileID: 8099275340108776602, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 2}
-  - tilePrefab: {fileID: 6647524679638447447, guid: 099725040ac3ee246b90235545b14024, type: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 5, y: 0, z: 1}
-  - tilePrefab: {fileID: 6647524679638447447, guid: 099725040ac3ee246b90235545b14024, type: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   airTiles:
-  - tilePrefab: {fileID: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 2}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 6, y: 0, z: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   ExtraObjects: {fileID: 1338214661}
   Objects: {fileID: 1986437345}
+  pressureplatePrefab: {fileID: 0}
+  breakPrefab: {fileID: 0}
+  endPrefab: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  deactplayerPrefab: {fileID: 0}
+  wallXPrefab: {fileID: 0}
+  wallZPrefab: {fileID: 0}
+  TimerPrefab: {fileID: 0}
+  MoveablePrefab: {fileID: 0}
 --- !u!4 &259052643
 Transform:
   m_ObjectHideFlags: 0
@@ -3339,7 +3411,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3533,39 +3605,78 @@ MonoBehaviour:
   gridLength: 1
   tileSize: 1
   extratiles:
-  - tilePrefab: {fileID: 8704440127935323369, guid: 723a3d881ead2a148a6929c77ee2fc0a, type: 3}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 6}
-  - tilePrefab: {fileID: 8704440127935323369, guid: 723a3d881ead2a148a6929c77ee2fc0a, type: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 6}
-  - tilePrefab: {fileID: 6647524679638447447, guid: 099725040ac3ee246b90235545b14024, type: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   airTiles:
-  - tilePrefab: {fileID: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 2}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   ExtraObjects: {fileID: 965751144}
   Objects: {fileID: 1251867565}
+  pressureplatePrefab: {fileID: 0}
+  breakPrefab: {fileID: 0}
+  endPrefab: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  deactplayerPrefab: {fileID: 0}
+  wallXPrefab: {fileID: 0}
+  wallZPrefab: {fileID: 0}
+  TimerPrefab: {fileID: 0}
+  MoveablePrefab: {fileID: 0}
 --- !u!4 &327868533
 Transform:
   m_ObjectHideFlags: 0
@@ -4311,8 +4422,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4367,7 +4478,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 483.89526, w: 91.36484}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4940,7 +5051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &457005147
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5165,7 +5276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &473051494
 Transform:
   m_ObjectHideFlags: 0
@@ -5215,9 +5326,9 @@ RectTransform:
   - {fileID: 1116454647}
   m_Father: {fileID: 1692858513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 860.9333, y: -10}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &473077650
@@ -5896,7 +6007,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -2.0257835, w: 0.029338837}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5997,7 +6108,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -8599,7 +8710,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -9233,7 +9344,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -126.95705, y: 0, z: -129.65816, w: -173.38483}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -9384,8 +9495,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -10027,7 +10138,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963205810}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -29.89138}
+  m_LocalPosition: {x: 0, y: 0, z: -37}
   m_LocalScale: {x: 2.9795916, y: 2.9795916, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10035,7 +10146,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000051498413, y: 51.3}
+  m_AnchoredPosition: {x: -0.000051498413, y: 107}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &963205812
@@ -10123,7 +10234,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -126.95705, y: 0, z: -129.65816, w: -173.38483}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -10415,7 +10526,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -126.95705, y: 0, z: -129.65816, w: -173.38483}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -10556,8 +10667,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -10877,125 +10988,250 @@ MonoBehaviour:
   gridLength: 2
   tileSize: 1
   extratiles:
-  - tilePrefab: {fileID: 8704440127935323369, guid: 723a3d881ead2a148a6929c77ee2fc0a, type: 3}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 1}
-  - tilePrefab: {fileID: 7065798130339715373, guid: fbed3b46ab8db5946858ea5eb091c6fc, type: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 1, z: 3}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   airTiles:
-  - tilePrefab: {fileID: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 2}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 1, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 1, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 1, z: 2}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 1, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 1, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 1, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 1, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 2}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 1, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 1, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 1, z: 2}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 1, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 1, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 1, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 1, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 2}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 1, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 1, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 1, z: 2}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 1, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 1, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 1, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 1, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 1, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 1, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 1, z: 2}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 1, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 1, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 1, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 2}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 1, z: 0}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 1, z: 1}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 1, z: 2}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 1, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 1, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 1, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 1, z: 6}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   ExtraObjects: {fileID: 1128648995}
   Objects: {fileID: 1972314479}
+  pressureplatePrefab: {fileID: 0}
+  breakPrefab: {fileID: 0}
+  endPrefab: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  deactplayerPrefab: {fileID: 0}
+  wallXPrefab: {fileID: 0}
+  wallZPrefab: {fileID: 0}
+  TimerPrefab: {fileID: 0}
+  MoveablePrefab: {fileID: 0}
 --- !u!4 &1011639096
 Transform:
   m_ObjectHideFlags: 0
@@ -13953,7 +14189,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -31.862888, w: 28.11739}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -14132,9 +14368,9 @@ RectTransform:
   - {fileID: 55703279}
   m_Father: {fileID: 1692858513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 615.35, y: -10}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1250064546
@@ -16221,7 +16457,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -146.04489, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -16607,7 +16843,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -71.95864, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -17512,8 +17748,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -17568,7 +17804,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 483.89526, w: 91.36484}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -18261,7 +18497,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -18429,85 +18665,170 @@ MonoBehaviour:
   gridLength: 1
   tileSize: 1
   extratiles:
-  - tilePrefab: {fileID: 8704440127935323369, guid: 723a3d881ead2a148a6929c77ee2fc0a, type: 3}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 10}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   airTiles:
-  - tilePrefab: {fileID: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 7}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 10}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 7}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 10}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 10}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 10}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 4, y: 0, z: 9}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 5, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 5, y: 0, z: 10}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 6, y: 0, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 6, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 6, y: 0, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 6, y: 0, z: 10}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 7, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 7, y: 0, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 7, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 7, y: 0, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 7, y: 0, z: 7}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 7, y: 0, z: 10}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 8, y: 0, z: 3}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 8, y: 0, z: 4}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 8, y: 0, z: 5}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 8, y: 0, z: 6}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 8, y: 0, z: 7}
-  - tilePrefab: {fileID: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
+  - tilePrefab: 0
     Pos: {x: 8, y: 0, z: 10}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   ExtraObjects: {fileID: 494748593}
   Objects: {fileID: 92995339}
+  pressureplatePrefab: {fileID: 0}
+  breakPrefab: {fileID: 0}
+  endPrefab: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  deactplayerPrefab: {fileID: 0}
+  wallXPrefab: {fileID: 0}
+  wallZPrefab: {fileID: 0}
+  TimerPrefab: {fileID: 0}
+  MoveablePrefab: {fileID: 0}
 --- !u!4 &1604520362
 Transform:
   m_ObjectHideFlags: 0
@@ -19052,9 +19373,9 @@ RectTransform:
   - {fileID: 1181221273}
   m_Father: {fileID: 1692858513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 369.76666, y: -10}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1644450187
@@ -21080,6 +21401,15 @@ MonoBehaviour:
   airTiles: []
   ExtraObjects: {fileID: 1775793581}
   Objects: {fileID: 745058488}
+  pressureplatePrefab: {fileID: 0}
+  breakPrefab: {fileID: 0}
+  endPrefab: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  deactplayerPrefab: {fileID: 0}
+  wallXPrefab: {fileID: 0}
+  wallZPrefab: {fileID: 0}
+  TimerPrefab: {fileID: 0}
+  MoveablePrefab: {fileID: 0}
 --- !u!4 &1759363072
 Transform:
   m_ObjectHideFlags: 0
@@ -22578,11 +22908,22 @@ MonoBehaviour:
   gridLength: 1
   tileSize: 1
   extratiles:
-  - tilePrefab: {fileID: 8704440127935323369, guid: 723a3d881ead2a148a6929c77ee2fc0a, type: 3}
+  - tilePrefab: 0
     Pos: {x: 5, y: 0, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   airTiles: []
   ExtraObjects: {fileID: 2092349343}
   Objects: {fileID: 1011684494}
+  pressureplatePrefab: {fileID: 0}
+  breakPrefab: {fileID: 0}
+  endPrefab: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  deactplayerPrefab: {fileID: 0}
+  wallXPrefab: {fileID: 0}
+  wallZPrefab: {fileID: 0}
+  TimerPrefab: {fileID: 0}
+  MoveablePrefab: {fileID: 0}
 --- !u!4 &1916328825
 Transform:
   m_ObjectHideFlags: 0
@@ -22677,8 +23018,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
