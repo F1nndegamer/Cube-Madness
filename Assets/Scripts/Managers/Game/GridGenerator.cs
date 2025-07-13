@@ -338,39 +338,37 @@ public class GridGenerator : MonoBehaviour
             {
                 if (tile.Pos == triggerGridPos)
                 {
-                    if (tile.tilePrefab == 1)
-                    {
-                        Vector3 worldBlockPos = new Vector3(
-                            tile.BlockPos.x * tileSize,
-                            tile.BlockPos.y,
-                            tile.BlockPos.z * tileSize
-                        );
+                    Vector3 worldBlockPos = new Vector3(
+                        tile.BlockPos.x * tileSize,
+                        tile.BlockPos.y,
+                        tile.BlockPos.z * tileSize
+                    );
 
-                        GameObject found = FindObjectAtPosition(worldBlockPos, Objects.transform);
-                        if (found != null)
-                        {
-                            if (breaker.blocks.Count == 0)
-                                breaker.blocks.Add(found.transform);
-                            else
-                                breaker.blocks[0] = found.transform;
-                        }
-                        else
-                        {
-                            Debug.LogWarning($"1No object found at {worldBlockPos} for tile at {tile.Pos}");
-                        }
-#if UNITY_EDITOR
-                        Debug.Log($"1Linked tile at {tile.Pos} to object at {tile.BlockPos} -> {found?.name}");
-#endif
-                    }
-                    else if (tile.tilePrefab != 1)
+                    GameObject found = FindObjectAtPosition(worldBlockPos, Objects.transform);
+                    if (found != null)
                     {
-                        Debug.Log($"1Tile at {tile.Pos} is not a valid type.");
+                        if (breaker.blocks.Count == 0)
+                            breaker.blocks.Add(found.transform);
+                        else
+                            breaker.blocks[0] = found.transform;
                     }
                     else
                     {
-                        Debug.Log($"11Tile at {tile.Pos} does not match trigger at {triggerGridPos}.");
+                        Debug.LogWarning($"1No object found at {worldBlockPos} for tile at {tile.Pos}");
                     }
+#if UNITY_EDITOR
+                    Debug.Log($"1Linked tile at {tile.Pos} to object at {tile.BlockPos} -> {found?.name}");
+#endif
                 }
+                else if (tile.tilePrefab != 1)
+                {
+                    Debug.Log($"1Tile at {tile.Pos} is not a valid type.");
+                }
+                else
+                {
+                    Debug.Log($"11Tile at {tile.Pos} does not match trigger at {triggerGridPos}.");
+                }
+
             }
         }
 
@@ -401,12 +399,40 @@ public class GridGenerator : MonoBehaviour
 
             foreach (var tile in grid.extratiles)
             {
-                if (tile.Pos == triggerGridPos && (tile.tilePrefab == 1 || tile.tilePrefab == 2))
+                if (tile.Pos == triggerGridPos && tile.tilePrefab == 1)
                 {
                     if (trigger.objectToMove.Count > 0 && trigger.targetPosition.Count > 0)
                     {
                         tile.BlockPos = trigger.objectToMove[0].position;
                         tile.MovePosition = trigger.targetPosition[0];
+
+                        Debug.Log($"Set BlockPos and MovePosition for tile at {tile.Pos} using trigger at {triggerGridPos}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Trigger at {triggerGridPos} has no move targets.");
+                    }
+                }
+            }
+        }
+
+        BreakableBlock[] breakers = GameObject.FindObjectsByType<BreakableBlock>(FindObjectsSortMode.None);
+
+        foreach (var breaker in breakers)
+        {
+            Vector3 triggerGridPos = new Vector3(
+                Mathf.RoundToInt(breaker.transform.position.x / grid.tileSize),
+                Mathf.RoundToInt(breaker.transform.position.y / grid.tileSize),
+                Mathf.RoundToInt(breaker.transform.position.z / grid.tileSize)
+            );
+
+            foreach (var tile in grid.extratiles)
+            {
+                if (tile.Pos == triggerGridPos && tile.tilePrefab == 2)
+                {
+                    if (breaker.blocks.Count > 0)
+                    {
+                        tile.BlockPos = breaker.blocks[0].position;
 
                         Debug.Log($"Set BlockPos and MovePosition for tile at {tile.Pos} using trigger at {triggerGridPos}");
                     }
