@@ -164,173 +164,341 @@ MonoBehaviour:
   extratiles:
   - tilePrefab: 8
     Pos: {x: -2, y: 6, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 8
     Pos: {x: -2, y: 1, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 1
     Pos: {x: 6, y: 0, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 1
     Pos: {x: 6, y: 5, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 3
     Pos: {x: 0, y: 5, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   airTiles:
   - tilePrefab: 0
     Pos: {x: 0, y: 0, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 0, y: 1, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 0, y: 1, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 0, y: 2, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 0, y: 2, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 0, y: 3, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 0, y: 3, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 0, y: 4, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 0, y: 4, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 0, y: 5, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 0, y: 6, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 0, y: 6, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 1, y: 0, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 1, y: 1, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 1, y: 1, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 1, y: 2, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 1, y: 2, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 1, y: 3, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 1, y: 3, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 1, y: 4, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 1, y: 4, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 1, y: 5, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 1, y: 6, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 1, y: 6, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 2, y: 0, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 2, y: 1, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 2, y: 1, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 2, y: 2, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 2, y: 2, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 2, y: 3, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 2, y: 3, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 2, y: 4, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 2, y: 4, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 2, y: 5, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 2, y: 6, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 2, y: 6, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 3, y: 0, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 3, y: 1, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 3, y: 1, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 3, y: 2, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 3, y: 2, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 3, y: 3, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 3, y: 3, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 3, y: 4, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 3, y: 4, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 3, y: 5, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 3, y: 6, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 3, y: 6, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 4, y: 1, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 4, y: 1, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 4, y: 2, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 4, y: 2, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 4, y: 3, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 4, y: 3, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 4, y: 4, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 4, y: 4, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 4, y: 6, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 4, y: 6, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 5, y: 1, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 5, y: 1, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 5, y: 2, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 5, y: 2, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 5, y: 3, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 5, y: 3, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 5, y: 4, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 5, y: 4, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 5, y: 6, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 5, y: 6, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 6, y: 1, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 6, y: 1, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 6, y: 2, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 6, y: 2, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 6, y: 3, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 6, y: 3, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 6, y: 4, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 6, y: 4, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 6, y: 5, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 6, y: 6, z: 0}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   - tilePrefab: 0
     Pos: {x: 6, y: 6, z: 1}
+    BlockPos: {x: 0, y: 0, z: 0}
+    MovePosition: {x: 0, y: 0, z: 0}
   ExtraObjects: {fileID: 952932619}
   Objects: {fileID: 1722645527}
   pressureplatePrefab: {fileID: 8099275340108776602, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
@@ -938,6 +1106,34 @@ PrefabInstance:
     - target: {fileID: 109063140548976638, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: moveSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: objectToMove.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: targetPosition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: 'objectToMove.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1400752530}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: targetPosition.Array.data[0].x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: targetPosition.Array.data[0].y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: targetPosition.Array.data[0].z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8099275340108776602, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
       propertyPath: m_Name
@@ -1599,6 +1795,34 @@ PrefabInstance:
     - target: {fileID: 109063140548976638, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: moveSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: objectToMove.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: targetPosition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: 'objectToMove.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1400752530}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: targetPosition.Array.data[0].x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: targetPosition.Array.data[0].y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
+      propertyPath: targetPosition.Array.data[0].z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8099275340108776602, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
       propertyPath: m_Name
