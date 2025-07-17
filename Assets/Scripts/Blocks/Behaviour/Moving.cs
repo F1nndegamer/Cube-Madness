@@ -31,7 +31,7 @@ public class ExtraTileTrigger : MonoBehaviour
         players = FindObjectsByType<PlayerRollingMovement>(FindObjectsSortMode.None);
         if (targetPosition.Count != objectToMove.Count)
         {
-            Debug.LogWarning("targetPosition count does not match objectToMove count.");
+            Debug.LogWarning("targetPosition count does not match objectToMove count." + gameObject.name);
         }
 
         foreach (Transform obj in objectToMove)
