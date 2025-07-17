@@ -1223,6 +1223,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Timer Extra Tile (-2, 1, 0)
       objectReference: {fileID: 0}
+    - target: {fileID: 4317465932925738410, guid: 57969e7db1073774a9e16a7afe707290, type: 3}
+      propertyPath: shootCooldown
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5417843463831669653, guid: 57969e7db1073774a9e16a7afe707290, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2
@@ -2305,6 +2309,10 @@ PrefabInstance:
     - target: {fileID: 1999560582060221497, guid: 57969e7db1073774a9e16a7afe707290, type: 3}
       propertyPath: m_Name
       value: Timer Extra Tile (-2, 6, 0)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4317465932925738410, guid: 57969e7db1073774a9e16a7afe707290, type: 3}
+      propertyPath: shootCooldown
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5417843463831669653, guid: 57969e7db1073774a9e16a7afe707290, type: 3}
       propertyPath: m_LocalPosition.x
