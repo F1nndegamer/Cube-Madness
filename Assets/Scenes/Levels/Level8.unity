@@ -821,7 +821,7 @@ PrefabInstance:
     - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
       propertyPath: 'objectToMove.Array.data[1]'
       value: 
-      objectReference: {fileID: 109579026}
+      objectReference: {fileID: 503084913}
     - target: {fileID: 3926408989976408048, guid: 38915e9f4e3924e4699139d0e741c118, type: 3}
       propertyPath: targetPosition.Array.data[0].x
       value: 3
