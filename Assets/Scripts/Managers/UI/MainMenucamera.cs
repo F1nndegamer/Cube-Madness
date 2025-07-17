@@ -23,6 +23,7 @@ public class CameraOrbit : MonoBehaviour
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
+        Switch(true);
     }
 
     void Update()

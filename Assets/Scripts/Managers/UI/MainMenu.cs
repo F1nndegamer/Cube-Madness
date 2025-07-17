@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 public class MainMenu : MonoBehaviour
 {
     #region Buttons
@@ -11,10 +12,9 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    public void Options()
-    {
 
-    }
+    public void Options() { }
+
     public void Quit()
     {
         Application.Quit();
@@ -27,6 +27,7 @@ public class MainMenu : MonoBehaviour
     public Toggle unlimitedFPSToggle;
     bool unlimitedFPS = false;
     int targetFPS = 60;
+
     public void SetFPS(Single fps)
     {
         targetFPS = (int)fps;
@@ -39,6 +40,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log("FPS set to: " + fps);
         fpsText.text = "FPS: " + fps.ToString("F0");
     }
+
     public void ToggleUnlimitedFPS(bool enable)
     {
         unlimitedFPS = enable;
@@ -62,11 +64,13 @@ public class MainMenu : MonoBehaviour
     public Image modenormal;
     public Image modetime;
     public Image modefewestmoves;
+
     public void SetUsername(string name)
     {
         username = name;
         Debug.Log("Username set to: " + name);
     }
+
     public void SelectMode(string mode)
     {
         switch (mode)
@@ -74,7 +78,8 @@ public class MainMenu : MonoBehaviour
             case "Normal":
                 Debug.Log("Normal mode selected");
                 modes = "Normal";
-                if (modenormal == null || modetime == null || modefewestmoves == null) break;
+                if (modenormal == null || modetime == null || modefewestmoves == null)
+                    break;
                 modenormal.enabled = true;
                 modetime.enabled = false;
                 modefewestmoves.enabled = false;
@@ -82,7 +87,8 @@ public class MainMenu : MonoBehaviour
             case "Fewest Moves":
                 Debug.Log("Fewest Moves mode selected");
                 modes = "Moves";
-                if (modenormal == null || modetime == null || modefewestmoves == null) break;
+                if (modenormal == null || modetime == null || modefewestmoves == null)
+                    break;
                 modenormal.enabled = false;
                 modetime.enabled = false;
                 modefewestmoves.enabled = true;
@@ -90,34 +96,59 @@ public class MainMenu : MonoBehaviour
             case "Time Trial":
                 Debug.Log("Time Trial mode selected");
                 modes = "Time";
-                if (modenormal == null || modetime == null || modefewestmoves == null) break;
+                if (modenormal == null || modetime == null || modefewestmoves == null)
+                    break;
                 modenormal.enabled = false;
                 modetime.enabled = true;
                 modefewestmoves.enabled = false;
                 break;
         }
-
-
     }
-   #endregion
+    #endregion
+    #region ThemeSwitcher
+    public GameObject BG;
+
+    public void SetTheme(bool dark)
+    {
+        Global.darkMode = dark;
+        MaterialSwitch[] switches = BG.GetComponentsInChildren<MaterialSwitch>();
+        for (int i = 0; i < switches.Length; i++)
+        {
+            switches[i].Switch();
+        }
+    }
+    #endregion
     #region SaveLoad
     public TMP_InputField usernameText;
+
     private void Awake()
     {
         LoadGame();
-        Debug.Log("Game loaded with mode: " + modes + ", FPS: " + targetFPS + ", Username: " + username);
-        if (usernameText != null) usernameText.text = username;
+        Debug.Log(
+            "Game loaded with mode: " + modes + ", FPS: " + targetFPS + ", Username: " + username
+        );
+        if (usernameText != null)
+            usernameText.text = username;
         if (fpsText != null)
-        { fpsText.text = unlimitedFPS ? "FPS: Unlimited" : "FPS: " + targetFPS.ToString("F0"); }
-        if (fpsSlider != null) fpsSlider.value = targetFPS;
-        if (unlimitedFPSToggle != null) unlimitedFPSToggle.isOn = unlimitedFPS;
-        if (modes == "Normal") SelectMode("Normal");
-        else if (modes == "Moves") SelectMode("Fewest Moves");
-        else if (modes == "Time") SelectMode("Time Trial");
-        else SelectMode("Normal");
+        {
+            fpsText.text = unlimitedFPS ? "FPS: Unlimited" : "FPS: " + targetFPS.ToString("F0");
+        }
+        if (fpsSlider != null)
+            fpsSlider.value = targetFPS;
+        if (unlimitedFPSToggle != null)
+            unlimitedFPSToggle.isOn = unlimitedFPS;
+        if (modes == "Normal")
+            SelectMode("Normal");
+        else if (modes == "Moves")
+            SelectMode("Fewest Moves");
+        else if (modes == "Time")
+            SelectMode("Time Trial");
+        else
+            SelectMode("Normal");
         SetFPS(targetFPS);
         SelectMode(modes);
     }
+
     public void SaveGame()
     {
         PlayerPrefs.SetString("GameMode", modes);
@@ -127,6 +158,7 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log("Game saved");
     }
+
     public void LoadGame()
     {
         modes = PlayerPrefs.GetString("GameMode", "Normal");
@@ -137,4 +169,3 @@ public class MainMenu : MonoBehaviour
     }
     #endregion
 }
-

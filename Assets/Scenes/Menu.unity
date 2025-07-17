@@ -312,9 +312,9 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1600157100}
-        m_TargetAssemblyTypeName: CameraOrbit, Assembly-CSharp
-        m_MethodName: Switch
+      - m_Target: {fileID: 1571867185}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: SetTheme
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3422,7 +3422,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -14152,7 +14152,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Animate Main Menu screen
+  m_text: Dark Mode
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -18180,6 +18180,7 @@ MonoBehaviour:
   modenormal: {fileID: 1588624468}
   modetime: {fileID: 1374237988}
   modefewestmoves: {fileID: 1692844449}
+  BG: {fileID: 0}
   usernameText: {fileID: 2039713342}
 --- !u!4 &1572418334 stripped
 Transform:
