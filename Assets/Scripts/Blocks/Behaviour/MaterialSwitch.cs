@@ -3,8 +3,7 @@ using UnityEngine;
 public class MaterialSwitch : MonoBehaviour
 {
     private Material runtime;
-    public Material dark,
-        light;
+    public Material dark, light;
 
     public void Start()
     {
@@ -13,6 +12,7 @@ public class MaterialSwitch : MonoBehaviour
 
     public void Switch()
     {
-        GetComponent<Renderer>().materials[0] = Global.darkMode ? dark : light;
+        GetComponent<Renderer>().material = Global.darkMode ? dark : light;
+        Debug.Log(Global.darkMode ? "Switched to dark mode" : "Switched to light mode");
     }
 }
