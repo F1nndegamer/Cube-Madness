@@ -18180,7 +18180,7 @@ MonoBehaviour:
   modenormal: {fileID: 1588624468}
   modetime: {fileID: 1374237988}
   modefewestmoves: {fileID: 1692844449}
-  BG: {fileID: 0}
+  BG: {fileID: 1851573853}
   usernameText: {fileID: 2039713342}
 --- !u!4 &1572418334 stripped
 Transform:
