@@ -18649,7 +18649,7 @@ MonoBehaviour:
   distance: 50
   speed: 20
   isAnimated: 0
-  targetMoveSpeed: 0.1
+  targetMoveSpeed: -0.03
   minY: -20
   maxY: 20
 --- !u!4 &1604515266 stripped
