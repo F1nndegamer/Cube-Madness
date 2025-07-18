@@ -107,14 +107,20 @@ public class MainMenu : MonoBehaviour
     #endregion
     #region ThemeSwitcher
     public GameObject BG;
-
+    public GameObject textParent;
     public void SetTheme(bool dark)
     {
+        Camera.main.backgroundColor = dark ? Color.black : Color.white;
         Global.darkMode = dark;
         MaterialSwitch[] switches = BG.GetComponentsInChildren<MaterialSwitch>();
         for (int i = 0; i < switches.Length; i++)
         {
             switches[i].Switch();
+        }
+        TextMeshProUGUI[] texts = textParent.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (TextMeshProUGUI text in texts)
+        {
+            text.color = !dark ? Color.black : Color.white;
         }
     }
     #endregion
