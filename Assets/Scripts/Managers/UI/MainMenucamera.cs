@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraOrbit : MonoBehaviour
 {
@@ -43,6 +44,11 @@ public class CameraOrbit : MonoBehaviour
 
     void HandleDrag()
     {
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            isDragging = false;
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             lastMousePosition = Input.mousePosition;
