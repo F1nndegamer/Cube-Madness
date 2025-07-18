@@ -18182,6 +18182,7 @@ MonoBehaviour:
   modefewestmoves: {fileID: 1692844449}
   BG: {fileID: 1851573853}
   usernameText: {fileID: 2039713342}
+  isdarkMode: {fileID: 24811687}
 --- !u!4 &1572418334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4285987138734856148, guid: 87cf0dfe50d5b264cbe1d49f5983efb2, type: 3}

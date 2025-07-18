@@ -120,10 +120,20 @@ public class MainMenu : MonoBehaviour
     #endregion
     #region SaveLoad
     public TMP_InputField usernameText;
-
+    public Toggle isdarkMode;
     private void Awake()
     {
         LoadGame();
+        if (Global.darkMode)
+        {
+            SetTheme(true);
+            isdarkMode.isOn = true;
+        }
+        else
+        {
+            SetTheme(false);
+            isdarkMode.isOn = false;
+        }
         Debug.Log(
             "Game loaded with mode: " + modes + ", FPS: " + targetFPS + ", Username: " + username
         );
@@ -155,6 +165,7 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetInt("TargetFPS", targetFPS);
         PlayerPrefs.SetString("Username", username);
         PlayerPrefs.SetInt("UnlimitedFPS", unlimitedFPS ? 1 : 0);
+        PlayerPrefs.SetInt("DarkMode", Global.darkMode ? 1 : 0);
         PlayerPrefs.Save();
         Debug.Log("Game saved");
     }
@@ -165,6 +176,7 @@ public class MainMenu : MonoBehaviour
         targetFPS = PlayerPrefs.GetInt("TargetFPS", 60);
         username = PlayerPrefs.GetString("Username", "Player");
         unlimitedFPS = PlayerPrefs.GetInt("UnlimitedFPS", 0) == 1;
+        Global.darkMode = PlayerPrefs.GetInt("DarkMode", 0) == 1;
         Debug.Log("Game loaded");
     }
     #endregion
