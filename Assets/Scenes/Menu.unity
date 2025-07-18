@@ -18181,6 +18181,7 @@ MonoBehaviour:
   modetime: {fileID: 1374237988}
   modefewestmoves: {fileID: 1692844449}
   BG: {fileID: 1851573853}
+  textParent: {fileID: 457005146}
   usernameText: {fileID: 2039713342}
   isdarkMode: {fileID: 24811687}
 --- !u!4 &1572418334 stripped

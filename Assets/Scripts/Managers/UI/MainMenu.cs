@@ -110,6 +110,10 @@ public class MainMenu : MonoBehaviour
     public GameObject textParent;
     public void SetTheme(bool dark)
     {
+        if (SceneManager.GetActiveScene().name != "Menu")
+        {
+            BG = GameObject.Find("Environment");
+        }
         Camera.main.backgroundColor = dark ? Color.black : Color.white;
         Global.darkMode = dark;
         MaterialSwitch[] switches = BG.GetComponentsInChildren<MaterialSwitch>();
