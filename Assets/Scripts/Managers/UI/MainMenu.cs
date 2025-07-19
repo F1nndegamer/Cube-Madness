@@ -121,7 +121,7 @@ public class MainMenu : MonoBehaviour
         else if (SceneManager.GetActiveScene().name != "Menu")
         {
             Color bgColor;
-            if (ColorUtility.TryParseHtmlString("#505050", out bgColor))
+            if (ColorUtility.TryParseHtmlString("#C6C6C6", out bgColor))
             {
                 Camera.main.backgroundColor = bgColor;
             }
