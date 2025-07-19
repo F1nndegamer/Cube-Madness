@@ -16,6 +16,10 @@ public class SFXManager : MonoBehaviour
     private Dictionary<string, AudioClip> sfxDictionary;
     public AudioSource audioSource;
 
+    [Header("Music")]
+    public AudioSource musicSource;
+    public AudioClip musicClip;
+
     private void Awake()
     {
         if (instance == null)
@@ -26,9 +30,17 @@ public class SFXManager : MonoBehaviour
         else if (instance != this)
         {
             Destroy(gameObject);
+            return;
         }
 
         InitializeSFXDictionary();
+
+        if (musicSource != null && musicClip != null)
+        {
+            musicSource.clip = musicClip;
+            musicSource.loop = true;
+            musicSource.Play();
+        }
     }
 
     private void InitializeSFXDictionary()
@@ -46,6 +58,7 @@ public class SFXManager : MonoBehaviour
             }
         }
     }
+
     public void PlaySFX(string clipName)
     {
         if (audioSource == null || sfxDictionary == null || !sfxDictionary.ContainsKey(clipName))
