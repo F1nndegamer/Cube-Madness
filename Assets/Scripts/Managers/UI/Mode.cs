@@ -27,9 +27,10 @@ public class Mode : MonoBehaviour
 
     void Update()
     {
+        modeText.transform.parent.gameObject.SetActive(true);
         if (currentMode == "Normal")
         {
-            modeText.enabled = false;
+            modeText.transform.parent.gameObject.SetActive(false);
             return;
         }
         else if (currentMode == "Time")
