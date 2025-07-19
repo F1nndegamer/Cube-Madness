@@ -114,17 +114,40 @@ public class MainMenu : MonoBehaviour
         {
             BG = GameObject.Find("Environment");
         }
-        Camera.main.backgroundColor = dark ? Color.black : Color.white;
+        if (dark)
+        {
+            Camera.main.backgroundColor = Color.black;
+        }
+        else if (SceneManager.GetActiveScene().name != "Menu")
+        {
+            Color bgColor;
+            if (ColorUtility.TryParseHtmlString("#505050", out bgColor))
+            {
+                Camera.main.backgroundColor = bgColor;
+            }
+            else
+            {
+                Camera.main.backgroundColor = Color.gray;
+            }
+        }
+        else
+        {
+            Camera.main.backgroundColor = Color.white;
+        }
         Global.darkMode = dark;
         MaterialSwitch[] switches = BG.GetComponentsInChildren<MaterialSwitch>();
         for (int i = 0; i < switches.Length; i++)
         {
             switches[i].Switch();
         }
-        TextMeshProUGUI[] texts = textParent.GetComponentsInChildren<TextMeshProUGUI>();
-        foreach (TextMeshProUGUI text in texts)
+        if (textParent != null)
         {
-            text.color = !dark ? Color.black : Color.white;
+            TextMeshProUGUI[] texts = textParent.GetComponentsInChildren<TextMeshProUGUI>();
+
+            foreach (TextMeshProUGUI text in texts)
+            {
+                text.color = !dark ? Color.black : Color.white;
+            }
         }
     }
     #endregion
