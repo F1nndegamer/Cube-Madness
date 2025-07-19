@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8488307345234968148}
   - component: {fileID: 5392581654810194583}
   - component: {fileID: 4770798139329535187}
+  - component: {fileID: 6138652232024190073}
   m_Layer: 9
   m_Name: Moveable
   m_TagString: Untagged
@@ -63,12 +64,10 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: abedfcafce2e4b746936c3467d76e99e, type: 2}
+  - {fileID: 2100000, guid: d11426925e4d1794b88d9d516355fd6e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,7 +85,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -139,3 +137,17 @@ MonoBehaviour:
   canMoveDown: 0
   canMoveLeft: 0
   canMoveRight: 0
+--- !u!114 &6138652232024190073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7065798130339715373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe758e5c5b101d4ea17200ea8887127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dark: {fileID: 2100000, guid: 93830ba5ed00c424e9daeeb2ff8edd63, type: 2}
+  light: {fileID: 2100000, guid: d11426925e4d1794b88d9d516355fd6e, type: 2}

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 761596137052474314}
   - component: {fileID: 7723372238561207377}
   - component: {fileID: 8954893346155127956}
+  - component: {fileID: -3725943943825602507}
   m_Layer: 7
   m_Name: Activated
   m_TagString: Player
@@ -66,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8897071dea3933c4ba4849a841dca045, type: 2}
+  - {fileID: 2100000, guid: cabe5d0b9123555438a984446a81e9c0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -143,4 +144,21 @@ MonoBehaviour:
   isActive: 1
   isFound: 1
   GameEnd: 0
-  activemat: {fileID: 2100000, guid: 8897071dea3933c4ba4849a841dca045, type: 2}
+  activemat: {fileID: 2100000, guid: cabe5d0b9123555438a984446a81e9c0, type: 2}
+  activedarkmat: {fileID: 2100000, guid: 7f34097ec82df174b8084a39eb4cdceb, type: 2}
+  isMovingObject: 0
+  died: 0
+--- !u!114 &-3725943943825602507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710717632397923981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe758e5c5b101d4ea17200ea8887127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dark: {fileID: 2100000, guid: 7f34097ec82df174b8084a39eb4cdceb, type: 2}
+  light: {fileID: 2100000, guid: cabe5d0b9123555438a984446a81e9c0, type: 2}

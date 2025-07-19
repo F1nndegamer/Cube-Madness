@@ -21,6 +21,7 @@ public class PlayerRollingMovement : MonoBehaviour
     public bool GameEnd;
 
     public Material activemat;
+    public Material activedarkmat;
 
     private Vector2 touchStartPos;
     private Vector2 touchEndPos;
@@ -297,7 +298,7 @@ public class PlayerRollingMovement : MonoBehaviour
     public void Activate()
     {
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = activemat;
+        meshRenderer.material = Global.darkMode ? activedarkmat : activemat;
         isActive = true;
 
         if (!Switcher.Instance.playerlist.Contains(this))

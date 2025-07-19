@@ -26,7 +26,7 @@ public class LevelButton : MonoBehaviour
     }
     public void buttonUpdate()
     {
-        levelText.text = "Level " + n.ToString();
+        levelText.text = "" + n.ToString();
         GetComponent<Button>().interactable = unlocked;
     }
     public void PlayLevel()

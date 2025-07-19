@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4695137397994405634}
   - component: {fileID: 4448903958016632686}
   - component: {fileID: 1988077687775845824}
+  - component: {fileID: 1534522536453329048}
   m_Layer: 8
   m_Name: WallZ
   m_TagString: Untagged
@@ -65,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 937552bdf982a62458590cdfd4280332, type: 2}
+  - {fileID: 2100000, guid: 6050becb22f17f74ebc6e8d20e323d24, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,3 +109,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1534522536453329048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4869836814425980005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe758e5c5b101d4ea17200ea8887127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dark: {fileID: 2100000, guid: 06f244356b251d24cb7376e07964949b, type: 2}
+  light: {fileID: 2100000, guid: 6050becb22f17f74ebc6e8d20e323d24, type: 2}

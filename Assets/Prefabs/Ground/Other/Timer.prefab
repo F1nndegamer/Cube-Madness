@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 283536882305961058}
   - component: {fileID: 411394609563493751}
   - component: {fileID: 4317465932925738410}
+  - component: {fileID: 3239232197494232099}
   m_Layer: 3
   m_Name: Timer
   m_TagString: Untagged
@@ -65,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 531e0a3e9373f2445818b05f5604ab8a, type: 2}
+  - {fileID: 2100000, guid: 5b81b6f7862d5ce4587aabcb10ea28fe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,3 +104,17 @@ MonoBehaviour:
   shootDirection: {x: 1, y: 0, z: 0}
   projectileVelocity: 10
   shootCooldown: 1
+--- !u!114 &3239232197494232099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999560582060221497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe758e5c5b101d4ea17200ea8887127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dark: {fileID: 2100000, guid: 8cb4c7a43109a904ab734b71fdcd7fda, type: 2}
+  light: {fileID: 2100000, guid: 5b81b6f7862d5ce4587aabcb10ea28fe, type: 2}
