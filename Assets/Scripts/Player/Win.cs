@@ -53,7 +53,10 @@ public class Win : MonoBehaviour
     private void ShowWinScreen()
     {
         Image winimage = winPanel.GetComponent<Image>();
-        winimage.color = Camera.main.backgroundColor;
+        Color c = Camera.main.backgroundColor;
+        c.a = 0f;
+        winimage.color = c;
+
         if (winText == null && GameManager.Instance != null)
         {
             winTextObject = GameManager.Instance.wintext;
