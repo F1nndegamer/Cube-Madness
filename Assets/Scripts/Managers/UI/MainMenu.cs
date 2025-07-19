@@ -118,7 +118,7 @@ public class MainMenu : MonoBehaviour
         {
             Camera.main.backgroundColor = Color.black;
         }
-        else
+        else if (SceneManager.GetActiveScene().name != "Menu")
         {
             Color bgColor;
             if (ColorUtility.TryParseHtmlString("#505050", out bgColor))
@@ -129,6 +129,10 @@ public class MainMenu : MonoBehaviour
             {
                 Camera.main.backgroundColor = Color.gray;
             }
+        }
+        else
+        {
+            Camera.main.backgroundColor = Color.white;
         }
         Global.darkMode = dark;
         MaterialSwitch[] switches = BG.GetComponentsInChildren<MaterialSwitch>();
