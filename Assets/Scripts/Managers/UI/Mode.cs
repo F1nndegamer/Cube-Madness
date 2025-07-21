@@ -11,7 +11,7 @@ public class Mode : MonoBehaviour
 
     [SerializeField] public float TimeLeft = 0f;
     float TimeElapsed = 0f;
-    float[] MaxTime = { 3f, 8f, 11f, 15f, 8f, 20f, 0f, 0f, 0f, 0f };
+    float[] MaxTime = { 3f, 8f, 11f, 15f, 8f, 20f, 20f, 17f, 0f, 0f };
 
     [Header("Moves")]
 
