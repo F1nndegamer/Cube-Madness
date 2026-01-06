@@ -19,7 +19,6 @@ public class PlayerRollingMovement : MonoBehaviour
     public bool isActive;
     public bool isFound;
     public bool GameEnd;
-
     public Material activemat;
     public Material activedarkmat;
 
