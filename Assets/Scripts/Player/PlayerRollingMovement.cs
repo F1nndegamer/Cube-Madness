@@ -9,7 +9,7 @@ public class PlayerRollingMovement : MonoBehaviour
     public float fallSpeed = 5f;
     public float tileSize = 1f;
 
-    public LayerMask groundLayer;
+    public LayerMask GroundLayer;
     public LayerMask EndLayer;
     public LayerMask PlayerLayer;
     public LayerMask WallLayer;
@@ -38,8 +38,8 @@ public class PlayerRollingMovement : MonoBehaviour
     {
         FallManager.Instance.RegisterPlayer(this);
 
-        if (groundLayer == 0)
-            groundLayer = LayerMask.GetMask("Ground");
+        if (GroundLayer == 0)
+            GroundLayer = LayerMask.GetMask("Ground");
         if (EndLayer == 0)
             EndLayer = LayerMask.GetMask("End");
         if (PlayerLayer == 0)
@@ -182,7 +182,7 @@ public class PlayerRollingMovement : MonoBehaviour
             }
         }
 
-        if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, groundLayer))
+        if (Physics.Raycast(targetPos + Vector3.up * 0.5f, Vector3.down, 1f, GroundLayer))
         {
             StartCoroutine(Roll(direction));
         }
